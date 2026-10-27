@@ -3,443 +3,354 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CivicPulse AI | Autonomous Smart City Resolution Agent (Hinglish Supported)</title>
+  <title>CivicPulse AI | Secure Dual-Portal Smart City System</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
 
   <!-- Top Navigation Bar -->
-  <header class="border-b border-orange-500/30 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+  <header class="border-b border-orange-500/30 bg-slate-900/85 backdrop-blur sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
       <div class="flex items-center gap-3">
         <span class="text-2xl">🏙️</span>
         <div>
-          <h1 class="text-xl font-extrabold text-orange-400 tracking-wide">CivicPulse AI <span class="text-xs bg-orange-500/20 text-orange-300 border border-orange-500/40 px-2 py-0.5 rounded-full ml-2">Hinglish & English Enabled • Topic #8</span></h1>
-          <p class="text-xs text-slate-400">Autonomous Citizen Report Triage, Hinglish NLP Mapping & SLA Enforcement</p>
+          <h1 class="text-xl font-extrabold text-orange-400 tracking-wide">CivicPulse AI <span class="text-xs bg-orange-500/20 text-orange-300 border border-orange-500/40 px-2 py-0.5 rounded-full ml-2">Topic #8</span></h1>
+          <p class="text-xs text-slate-400">Secure Citizen & Multi-Department Municipal Portal</p>
         </div>
       </div>
-      <!-- Judge Demo Controls -->
-      <div class="flex flex-wrap gap-2">
-        <button onclick="simulateDuplicateFlood()" class="bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold px-3 py-2 rounded-lg transition shadow">
-          🔗 1. Simulate Duplicate & Related Reports
-        </button>
-        <button onclick="simulateSLABreach()" class="bg-amber-600 hover:bg-amber-500 text-xs font-semibold px-3 py-2 rounded-lg transition shadow">
-          ⏰ 2. Simulate Missed SLA Deadline
-        </button>
-        <button onclick="simulateFakeClosure()" class="bg-rose-600 hover:bg-rose-500 text-xs font-semibold px-3 py-2 rounded-lg transition shadow">
-          🚨 3. Simulate Fake Closure (Contradicting Evidence)
-        </button>
+
+      <!-- Portal Switcher -->
+      <div class="flex items-center gap-2">
+        <div class="bg-slate-950 p-1 rounded-lg border border-slate-700 flex gap-1">
+          <button id="btnCitizenPortal" onclick="switchPortal('citizen')" class="px-3 py-1.5 rounded-md text-xs font-semibold bg-orange-600 text-white transition">
+            👤 Public Portal
+          </button>
+          <button id="btnGovPortal" onclick="tryOpenGovPortal()" class="px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">
+            🛡️ Government Authority Portal (Protected)
+          </button>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- KPI Metrics Row -->
-  <section class="max-w-7xl mx-auto px-4 pt-5 grid grid-cols-2 md:grid-cols-5 gap-3">
-    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl">
-      <p class="text-xs text-slate-400">Active Master Cases</p>
-      <p id="statTotal" class="text-2xl font-bold text-white mt-1">3</p>
-    </div>
-    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl">
-      <p class="text-xs text-slate-400">Duplicates Merged by AI</p>
-      <p id="statMerged" class="text-2xl font-bold text-indigo-400 mt-1">4</p>
-    </div>
-    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl">
-      <p class="text-xs text-slate-400">SLA Breaches Escalated</p>
-      <p id="statBreaches" class="text-2xl font-bold text-amber-400 mt-1">0</p>
-    </div>
-    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl">
-      <p class="text-xs text-slate-400">Fake Closures Rejected</p>
-      <p id="statReopened" class="text-2xl font-bold text-rose-400 mt-1">0</p>
-    </div>
-    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl col-span-2 md:col-span-1">
-      <p class="text-xs text-slate-400">Verified Resolutions</p>
-      <p id="statVerified" class="text-2xl font-bold text-emerald-400 mt-1">1</p>
-    </div>
-  </section>
+  <!-- Main Workspace -->
+  <main class="max-w-7xl mx-auto px-4 py-5">
 
-  <!-- Main Grid -->
-  <main class="max-w-7xl mx-auto px-4 py-5 grid grid-cols-1 lg:grid-cols-12 gap-5">
-
-    <!-- Left Column: Citizen Complaint Form (4 cols) -->
-    <div class="lg:col-span-4 space-y-4">
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-        <div class="flex justify-between items-center mb-3">
-          <h2 class="text-base font-bold text-orange-400">📣 New Citizen Complaint (Hinglish OK)</h2>
-          <button onclick="fillHinglishSample()" class="text-xs text-orange-300 hover:underline">Try Hinglish Sample</button>
-        </div>
-
-        <label class="block text-xs text-slate-400 mb-1">Zone / Ward Location</label>
-        <select id="zoneInput" class="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-700 text-sm mb-3">
-          <option value="Sector 4 - Main Market">Sector 4 - Main Market</option>
-          <option value="Sector 12 - Hospital Road">Sector 12 - Hospital Road</option>
-          <option value="Ward 7 - Industrial Belt">Ward 7 - Industrial Belt</option>
-        </select>
-
-        <label class="block text-xs text-slate-400 mb-1">Issue Category (Optional Override)</label>
-        <select id="categoryInput" class="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-700 text-sm mb-3">
-          <option value="Auto">🤖 Auto-Detect from Hinglish Text</option>
-          <option value="Water Leak">💧 Water Pipeline Leak / Flooding</option>
-          <option value="Pothole">🛣️ Road Pothole / Cave-in</option>
-          <option value="Power Outage">⚡ Streetlight / Transformer Fault</option>
-          <option value="Garbage Overflow">🗑️ Uncollected Garbage Overflow</option>
-        </select>
-
-        <label class="block text-xs text-slate-400 mb-1">Citizen Description (English or Hinglish)</label>
-        <textarea id="descInput" rows="2" placeholder="e.g., gali mein paani bhar gaya hai ya pothole hai..." class="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-700 text-sm mb-3"></textarea>
-
-        <button onclick="submitComplaint()" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-2.5 rounded-lg text-sm transition">
-          Submit to Autonomous Agent
-        </button>
-      </div>
-
-      <!-- Autonomous Agent Live Reasoning Terminal -->
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
-        <div class="flex justify-between items-center mb-2">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">🤖 Hinglish AI Decision Log</h3>
-          <span class="text-[11px] text-slate-400">Live Loop</span>
-        </div>
-        <div id="agentLog" class="bg-slate-950 border border-slate-800 rounded-lg p-3 h-72 overflow-y-auto font-mono text-xs space-y-2 text-slate-300">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-    </div>
-
-    <!-- Right Column: Active Incident Board (8 cols) -->
-    <div class="lg:col-span-8">
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-        <div class="flex justify-between items-center mb-4">
-          <div>
-            <h2 class="text-base font-bold text-white">📋 Autonomous Dispatch & Verification Board</h2>
-            <p class="text-xs text-slate-400">Tracks merged duplicates, cross-department coordination, SLA deadlines & closure verification</p>
+    <!-- ================= CITIZEN PORTAL VIEW ================= -->
+    <div id="citizenPortalView" class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <!-- Left: Complaint Form (5 cols) -->
+      <div class="lg:col-span-5 space-y-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-base font-bold text-orange-400">📣 Raise a Public Complaint (Hinglish Supported)</h2>
+            <button onclick="fillHinglishSample()" class="text-xs text-orange-300 hover:underline">Sample Input</button>
           </div>
+
+          <label class="block text-xs text-slate-400 mb-1">Zone / Ward Location</label>
+          <select id="zoneInput" class="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-700 text-sm mb-3">
+            <option value="Sector 4 - Main Market">Sector 4 - Main Market</option>
+            <option value="Sector 12 - Hospital Road">Sector 12 - Hospital Road</option>
+            <option value="Ward 7 - Industrial Belt">Ward 7 - Industrial Belt</option>
+          </select>
+
+          <label class="block text-xs text-slate-400 mb-1">Citizen Description (English or Hinglish)</label>
+          <textarea id="descInput" rows="3" placeholder="e.g., gali mein paani bhar gaya hai, light kharab hai..." class="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-700 text-sm mb-3"></textarea>
+
+          <button onclick="submitCitizenComplaint()" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-2.5 rounded-lg text-sm transition">
+            Submit Complaint to AI Triage
+          </button>
         </div>
 
-        <div id="incidentList" class="space-y-4">
-          <!-- Populated dynamically by JS -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2">🤖 AI Triage & Live Status Feed</h3>
+          <div id="publicLog" class="bg-slate-950 border border-slate-800 rounded-lg p-3 h-52 overflow-y-auto font-mono text-xs space-y-2 text-slate-300"></div>
         </div>
+      </div>
+
+      <!-- Right: Live Tracking Board for Public (7 cols) -->
+      <div class="lg:col-span-7">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h2 class="text-base font-bold text-white mb-1">🔍 Public Complaint Tracking Status</h2>
+          <p class="text-xs text-slate-400 mb-4">Citizens can check real-time verification and task-specific department assignment.</p>
+          <div id="publicIncidentList" class="space-y-3"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ================= GOVERNMENT AUTHORITY PORTAL VIEW (LOCKED) ================= -->
+    <div id="govPortalView" class="hidden space-y-5">
+      <!-- Admin Action Bar -->
+      <div class="bg-slate-900 border border-amber-500/40 rounded-xl p-4 flex flex-wrap justify-between items-center gap-3">
+        <div>
+          <h2 class="text-base font-bold text-amber-400">🛡️ Municipal Command Center & Specialized Department Dispatch</h2>
+          <p class="text-xs text-slate-400">Secure Access Granted (Password Verified). Route tasks to specific departments and audit resolutions.</p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="adminSimulateSLABreach()" class="bg-amber-600 hover:bg-amber-500 text-xs font-semibold px-3 py-2 rounded-lg transition">
+            ⏰ Simulate SLA Breach
+          </button>
+          <button onclick="adminSimulateFakeClosure()" class="bg-rose-600 hover:bg-rose-500 text-xs font-semibold px-3 py-2 rounded-lg transition">
+            🚨 Catch Fake Closure
+          </button>
+          <button onclick="switchPortal('citizen')" class="bg-slate-800 hover:bg-slate-700 text-xs font-semibold px-3 py-2 rounded-lg transition">
+            🔒 Lock & Logout
+          </button>
+        </div>
+      </div>
+
+      <!-- Government Master Incident Management Board -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <h3 class="text-sm font-bold text-white mb-3">📋 Active Master Cases & Specialized Department Routing</h3>
+        <div id="govIncidentList" class="space-y-4"></div>
       </div>
     </div>
 
   </main>
 
   <script>
-    // ============================================================================
-    // HINGLISH NLP MAPPER & C/C++/PYTHON STYLE LOGIC
-    // ============================================================================
+    let isGovAuthenticated = false;
 
-    let stats = {
-      mergedCount: 4,
-      breachCount: 0,
-      reopenedCount: 0,
-      verifiedCount: 1
-    };
-
+    // Master Database of Incidents
     let incidents = [
       {
         id: "INC-101",
         zone: "Sector 4 - Main Market",
         category: "Water Leak",
-        title: "Major Underground Water Main Burst",
-        departments: ["Municipal Water Board"],
+        title: "Major Underground Water Main Burst & Flooding",
+        department: "Municipal Water Board & Drainage",
         duplicates: 3,
-        relatedNote: "Monitoring road surface erosion nearby",
         slaHoursLeft: 2,
         status: "IN_PROGRESS",
-        escalationLevel: "Tier 1 - Field Crew",
-        evidenceNote: "Awaiting repair completion photo & pressure sensor check."
+        evidenceNote: "Awaiting field crew repair photo & sensor check."
       },
       {
         id: "INC-102",
         zone: "Sector 12 - Hospital Road",
         category: "Pothole",
         title: "Deep Crater Blocking Ambulance Lane",
-        departments: ["Public Works Dept (PWD)", "Traffic Police"],
+        department: "Public Works Dept (Roads & Potholes)",
         duplicates: 2,
-        relatedNote: "Linked with Traffic Congestion Alert #TC-88",
         slaHoursLeft: 1,
         status: "IN_PROGRESS",
-        escalationLevel: "Tier 1 - Rapid Patch Unit",
-        evidenceNote: "Dept claimed 'Work in progress'. SLA deadline approaching."
+        evidenceNote: "SLA deadline approaching. Rapid patch unit notified."
       },
       {
         id: "INC-103",
         zone: "Ward 7 - Industrial Belt",
         category: "Power Outage",
         title: "High-Mast Streetlight Grid Failure",
-        departments: ["City Electrical Grid"],
+        department: "City Electrical Grid & Streetlights",
         duplicates: 1,
-        relatedNote: "No cross-department conflict detected",
         slaHoursLeft: 6,
         status: "VERIFIED_CLOSED",
-        escalationLevel: "Resolved & Audited",
-        evidenceNote: "✅ Smart Meter + 3 Citizen confirmations verified 100% power restoration."
+        evidenceNote: "✅ Verified by smart grid sensor & citizen feedback."
       }
     ];
 
-    // Smart Hinglish NLP Keyword Parser
-    function parseHinglishText(text) {
+    // Password Protection for Government Portal
+    function tryOpenGovPortal() {
+      if (!isGovAuthenticated) {
+        const pwd = prompt("Enter Government Authority Password (Hint: 12345678):");
+        if (pwd === "12345678") {
+          isGovAuthenticated = true;
+          alert("🔒 Access Granted! Welcome, Municipal Administrator.");
+          switchPortal('gov');
+        } else if (pwd !== null) {
+          alert("❌ Incorrect Password! Access Denied.");
+        }
+      } else {
+        switchPortal('gov');
+      }
+    }
+
+    function switchPortal(portal) {
+      const citizenView = document.getElementById("citizenPortalView");
+      const govView = document.getElementById("govPortalView");
+      const btnCitizen = document.getElementById("btnCitizenPortal");
+      const btnGov = document.getElementById("btnGovPortal");
+
+      if (portal === 'citizen') {
+        citizenView.classList.remove("hidden");
+        govView.classList.add("hidden");
+        btnCitizen.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-orange-600 text-white transition";
+        btnGov.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
+      } else {
+        if (!isGovAuthenticated) {
+          tryOpenGovPortal();
+          return;
+        }
+        citizenView.classList.add("hidden");
+        govView.classList.remove("hidden");
+        btnGov.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-amber-600 text-white transition";
+        btnCitizen.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
+      }
+      renderAll();
+    }
+
+    // Hinglish & Task-Specific NLP Keyword Parser
+    function parseHinglish(text) {
       const lower = text.toLowerCase();
-
-      // Water / Flooding keywords in Hinglish & English
-      if (lower.includes("paani") || lower.includes("pani") || lower.includes("leak") || lower.includes("pipe") || lower.includes("flood") || lower.includes("bahar") || lower.includes("tanki")) {
-        return "Water Leak";
+      if (lower.includes("paani") || lower.includes("pani") || lower.includes("leak") || lower.includes("pipe") || lower.includes("flood") || lower.includes("drain")) {
+        return { cat: "Water Leak", dept: "Municipal Water Board & Drainage" };
       }
-      // Pothole / Road keywords
-      if (lower.includes("gaddha") || lower.includes("gadda") || lower.includes("pothole") || lower.includes("road") || lower.includes("rasta") || lower.includes("tut") || lower.includes("cave")) {
-        return "Pothole";
+      if (lower.includes("gaddha") || lower.includes("gadda") || lower.includes("pothole") || lower.includes("road") || lower.includes("rasta") || lower.includes("tut")) {
+        return { cat: "Pothole", dept: "Public Works Dept (Roads & Potholes)" };
       }
-      // Power / Light keywords
-      if (lower.includes("light") || lower.includes("batti") || lower.includes("bati") || lower.includes("bijli") || lower.includes("current") || lower.includes("transformer") || lower.includes("dark")) {
-        return "Power Outage";
+      if (lower.includes("light") || lower.includes("batti") || lower.includes("bijli") || lower.includes("transformer") || lower.includes("spark")) {
+        return { cat: "Power Outage", dept: "City Electrical Grid & Streetlights" };
       }
-      // Garbage / Waste keywords
-      if (lower.includes("kachra") || lower.includes("kachahri") || lower.includes("garbage") || lower.includes("trash") || lower.includes("safai") || lower.includes("smell") || lower.includes("dustbin")) {
-        return "Garbage Overflow";
+      if (lower.includes("ped") || lower.includes("tree") || lower.includes("branch") || lower.includes("park") || lower.includes("poudha")) {
+        return { cat: "Parks & Forestry", dept: "Parks, Horticulture & Urban Forestry" };
       }
-      return "Water Leak"; // Default fallback
+      if (lower.includes("kutte") || lower.includes("dog") || lower.includes("animal") || lower.includes("stray") || lower.includes("cattle")) {
+        return { cat: "Animal Control", dept: "Animal Control & Stray Management" };
+      }
+      return { cat: "Garbage Overflow", dept: "Sanitation & Waste Management" };
     }
 
-    function getDepartment(category) {
-      if (category === "Water Leak") return "Municipal Water Board";
-      if (category === "Pothole") return "Public Works Dept (PWD)";
-      if (category === "Power Outage") return "City Electrical Grid";
-      return "Sanitation & Waste Dept";
-    }
-
-    function logAgent(stepTag, message, colorClass = "text-slate-300") {
-      const logBox = document.getElementById("agentLog");
+    function logPublic(msg) {
+      const log = document.getElementById("publicLog");
       const time = new Date().toLocaleTimeString();
-      const entry = document.createElement("div");
-      entry.className = `border-l-2 border-orange-500 pl-2 py-0.5 ${colorClass}`;
-      entry.innerHTML = `<span class="text-slate-500">[${time}]</span> <strong class="text-orange-400">[${stepTag}]</strong> ${message}`;
-      logBox.prepend(entry);
+      log.innerHTML = `<div class="border-l-2 border-orange-500 pl-2"><span class="text-slate-500">[${time}]</span> ${msg}</div>` + log.innerHTML;
     }
 
-    function submitComplaint() {
+    function submitCitizenComplaint() {
       const zone = document.getElementById("zoneInput").value;
-      const selectedDropdown = document.getElementById("categoryInput").value;
-      const rawDesc = document.getElementById("descInput").value.trim() || "Citizen report submitted";
+      const text = document.getElementById("descInput").value.trim() || "Public grievance reported";
+      const parsed = parseHinglish(text);
 
-      // AI Hinglish Parsing
-      let detectedCategory = selectedDropdown;
-      if (selectedDropdown === "Auto") {
-        detectedCategory = parseHinglishText(rawDesc);
-        logAgent("NLP ENGINE", `Parsed Hinglish text: "${rawDesc}" ➔ Classified as [${detectedCategory}]`, "text-indigo-300");
+      let found = incidents.find(i => i.zone === zone && i.category === parsed.cat && i.status !== "VERIFIED_CLOSED");
+      if (found) {
+        found.duplicates += 1;
+        logPublic(`Matched existing ticket ${found.id} in ${zone}! Merged report (Total: ${found.duplicates}).`);
+      } else {
+        const newId = "INC-" + (101 + incidents.length);
+        incidents.unshift({
+          id: newId,
+          zone: zone,
+          category: parsed.cat,
+          title: text,
+          department: parsed.dept,
+          duplicates: 1,
+          slaHoursLeft: 4,
+          status: "IN_PROGRESS",
+          evidenceNote: "AI routed to specialized department. Awaiting resolution."
+        });
+        logPublic(`Created ${newId} and routed to [${parsed.dept}].`);
       }
 
-      logAgent("INGEST", `New report received from ${zone}.`);
-
-      // Check Exact Duplicate
-      let duplicateFound = null;
-      for (let i = 0; i < incidents.length; i++) {
-        if (incidents[i].zone === zone && incidents[i].category === detectedCategory && incidents[i].status !== "VERIFIED_CLOSED") {
-          duplicateFound = incidents[i];
-          break;
-        }
-      }
-
-      if (duplicateFound !== null) {
-        duplicateFound.duplicates += 1;
-        stats.mergedCount += 1;
-        logAgent(
-          "DEDUPLICATE",
-          `Matched existing ticket ${duplicateFound.id} in ${zone}! Merged Hinglish report (Total cluster: ${duplicateFound.duplicates}).`,
-          "text-indigo-300"
-        );
-        renderBoard();
-        return;
-      }
-
-      // Check Related Root-Cause Incident
-      let relatedFound = null;
-      for (let i = 0; i < incidents.length; i++) {
-        if (incidents[i].zone === zone && incidents[i].status !== "VERIFIED_CLOSED") {
-          relatedFound = incidents[i];
-          break;
-        }
-      }
-
-      const newDept = getDepartment(detectedCategory);
-
-      if (relatedFound !== null) {
-        if (!relatedFound.departments.includes(newDept)) {
-          relatedFound.departments.push(newDept);
-        }
-        relatedFound.duplicates += 1;
-        stats.mergedCount += 1;
-        relatedFound.relatedNote = `🔗 Cross-Dept Link: Hinglish report "${rawDesc}" linked to root cause in ${zone}.`;
-        logAgent(
-          "CROSS-DEPT LINK",
-          `Related incident detected in ${zone}! Linked with ${relatedFound.id}. Added [${newDept}].`,
-          "text-indigo-300"
-        );
-        renderBoard();
-        return;
-      }
-
-      // Brand New Incident
-      const newId = "INC-" + (101 + incidents.length);
-      incidents.unshift({
-        id: newId,
-        zone: zone,
-        category: detectedCategory,
-        title: rawDesc,
-        departments: [newDept],
-        duplicates: 1,
-        relatedNote: "Parsed via Hinglish NLP engine — monitoring zone sensors",
-        slaHoursLeft: 4,
-        status: "IN_PROGRESS",
-        escalationLevel: "Tier 1 - Auto-Assigned",
-        evidenceNote: "SLA clock started. Awaiting field telemetry."
-      });
-
-      logAgent("DISPATCH", `Created ${newId}. Routed to [${newDept}] with 4h SLA.`, "text-emerald-300");
       document.getElementById("descInput").value = "";
-      renderBoard();
+      renderAll();
     }
 
-    function simulateDuplicateFlood() {
-      const target = incidents[0];
-      target.duplicates += 2;
-      stats.mergedCount += 2;
-      if (!target.departments.includes("Public Works Dept (PWD)")) {
-        target.departments.push("Public Works Dept (PWD)");
+    function assignDepartment(id, newDept) {
+      let inc = incidents.find(i => i.id === id);
+      if (inc) {
+        inc.department = newDept;
+        alert(`Successfully reassigned ${id} to ${newDept}!`);
+        renderAll();
       }
-      target.relatedNote = "🔗 AI linked multiple Hinglish complaints ('paani bhar gaya' & 'gaddha ho gaya') into a joint Water + PWD repair ticket!";
-      logAgent(
-        "CLUSTER & LINK",
-        `Analyzed 3 Hinglish citizen notes: 2 duplicates merged into ${target.id} & road damage linked!`,
-        "text-indigo-300"
-      );
-      renderBoard();
     }
 
-    function simulateSLABreach() {
-      const target = incidents[1];
-      target.slaHoursLeft = 0;
-      target.status = "ESCALATED_SLA";
-      target.escalationLevel = "⚠️ Tier 2 - Zonal Commissioner + Emergency Contractor";
-      target.evidenceNote = "❌ SLA Deadline Missed! Agent automatically escalated to Zonal Commissioner.";
-      stats.breachCount += 1;
-
-      logAgent(
-        "SLA BREACH",
-        `Deadline expired on ${target.id}! Automatically escalated to Zonal Commissioner & reallocated backup contractor.`,
-        "text-amber-300"
-      );
-      renderBoard();
-    }
-
-    function simulateFakeClosure() {
-      const target = incidents[0];
-      target.status = "REOPENED_FAKE_CLOSURE";
-      target.slaHoursLeft = 1;
-      target.escalationLevel = "🚨 Tier 3 - Vigilance Audit + Senior Chief Engineer";
-      target.evidenceNote = "🛑 CLOSURE REJECTED BY AI: Dept marked 'Fixed', but IoT sensor & citizen photo show water logging persists!";
-      stats.reopenedCount += 1;
-
-      logAgent(
-        "EVIDENCE CONTRADICTION",
-        `Dept attempted fake closure on ${target.id}, but telemetry contradicts it! Case REOPENED & escalated to Vigilance.`,
-        "text-rose-400"
-      );
-      renderBoard();
-    }
-
-    function verifyAndClose(id) {
-      for (let i = 0; i < incidents.length; i++) {
-        if (incidents[i].id === id) {
-          incidents[i].status = "VERIFIED_CLOSED";
-          incidents[i].slaHoursLeft = 0;
-          incidents[i].escalationLevel = "Verified & Closed";
-          incidents[i].evidenceNote = "✅ Geotagged repair photo + citizen feedback verified 100%.";
-          stats.verifiedCount += 1;
-          logAgent(
-            "VERIFIED RESOLUTION",
-            `${id} passed multi-modal evidence check. Case officially closed!`,
-            "text-emerald-400"
-          );
-          break;
-        }
+    function adminVerifyAndClose(id) {
+      let inc = incidents.find(i => i.id === id);
+      if (inc) {
+        inc.status = "VERIFIED_CLOSED";
+        inc.evidenceNote = "✅ Verified by authority & sensor check. Marked Fulfilled.";
+        renderAll();
       }
-      renderBoard();
+    }
+
+    function adminSimulateSLABreach() {
+      if (incidents.length > 1) {
+        incidents[1].status = "ESCALATED_SLA";
+        incidents[1].slaHoursLeft = 0;
+        incidents[1].evidenceNote = "❌ SLA Deadline Missed! Auto-escalated to Zonal Commissioner.";
+        renderAll();
+        alert("Simulated SLA breach on INC-102.");
+      }
+    }
+
+    function adminSimulateFakeClosure() {
+      if (incidents.length > 0) {
+        incidents[0].status = "REOPENED_FAKE_CLOSURE";
+        incidents[0].evidenceNote = "🛑 FAKE CLOSURE REJECTED: Sensor telemetry contradicts report. Reopened!";
+        renderAll();
+        alert("Caught fake closure on INC-101! Case reopened.");
+      }
     }
 
     function fillHinglishSample() {
       document.getElementById("zoneInput").value = "Sector 4 - Main Market";
-      document.getElementById("categoryInput").value = "Auto";
-      document.getElementById("descInput").value = "bhai yahan sadak pe bada sa gaddha ho gaya hai aur paani bhi leak ho raha hai!";
+      document.getElementById("descInput").value = "sadak pe road light kharab hai aur paani bhi leak ho raha hai!";
     }
 
-    function renderBoard() {
-      document.getElementById("statTotal").innerText = incidents.length;
-      document.getElementById("statMerged").innerText = stats.mergedCount;
-      document.getElementById("statBreaches").innerText = stats.breachCount;
-      document.getElementById("statReopened").innerText = stats.reopenedCount;
-      document.getElementById("statVerified").innerText = stats.verifiedCount;
+    function renderAll() {
+      // 1. Render Public Portal
+      const pubList = document.getElementById("publicIncidentList");
+      pubList.innerHTML = "";
+      incidents.forEach(inc => {
+        let badge = inc.status === "VERIFIED_CLOSED" ? '<span class="text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-2 py-0.5 rounded text-xs">✅ Fulfilled & Closed</span>' :
+                    inc.status === "REOPENED_FAKE_CLOSURE" ? '<span class="text-rose-400 bg-rose-950/40 border border-rose-500/30 px-2 py-0.5 rounded text-xs">🚨 Fake Closure Rejected (Reopened)</span>' :
+                    '<span class="text-sky-400 bg-sky-950/40 border border-sky-500/30 px-2 py-0.5 rounded text-xs">⏳ In Progress (' + inc.department + ')</span>';
 
-      const list = document.getElementById("incidentList");
-      list.innerHTML = "";
-
-      incidents.forEach((inc) => {
-        let badgeHTML = "";
-        let borderClass = "border-slate-800";
-
-        if (inc.status === "IN_PROGRESS") {
-          badgeHTML = `<span class="bg-sky-500/20 text-sky-300 border border-sky-500/40 text-xs px-2.5 py-0.5 rounded-full">⏳ In Progress (SLA: ${inc.slaHoursLeft}h left)</span>`;
-        } else if (inc.status === "ESCALATED_SLA") {
-          badgeHTML = `<span class="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs px-2.5 py-0.5 rounded-full">⏰ SLA Breached • Escalated</span>`;
-          borderClass = "border-amber-500/60";
-        } else if (inc.status === "REOPENED_FAKE_CLOSURE") {
-          badgeHTML = `<span class="bg-rose-500/20 text-rose-300 border border-rose-500/40 text-xs px-2.5 py-0.5 rounded-full animate-pulse">🚨 Fake Closure Rejected • Reopened</span>`;
-          borderClass = "border-rose-500/70";
-        } else {
-          badgeHTML = `<span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs px-2.5 py-0.5 rounded-full">✅ Verified Resolution</span>`;
-          borderClass = "border-emerald-500/40";
-        }
-
-        const deptBadges = inc.departments
-          .map(d => `<span class="bg-slate-800 text-orange-300 border border-slate-700 text-[11px] px-2 py-0.5 rounded">${d}</span>`)
-          .join(" ");
-
-        const card = document.createElement("div");
-        card.className = `bg-slate-950 border ${borderClass} rounded-xl p-4 transition`;
-        card.innerHTML = `
-          <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-mono text-orange-400 font-bold">${inc.id}</span>
-                <span class="text-xs text-slate-400">• ${inc.zone}</span>
-                <span class="bg-indigo-500/20 text-indigo-300 text-[11px] px-2 py-0.5 rounded-full">🔗 ${inc.duplicates} Reports Clustered</span>
-              </div>
-              <h3 class="text-base font-bold text-white mt-1">"${inc.title}"</h3>
+        pubList.innerHTML += `
+          <div class="bg-slate-950 border border-slate-800 p-3 rounded-lg text-xs space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-mono text-orange-400 font-bold">${inc.id} • ${inc.zone}</span>
+              ${badge}
             </div>
-            ${badgeHTML}
-          </div>
-
-          <div class="flex flex-wrap items-center gap-2 my-2">
-            <span class="text-xs text-slate-400">Assigned Depts:</span>
-            ${deptBadges}
-            <span class="text-xs text-slate-400 ml-auto">Authority: <strong class="text-slate-200">${inc.escalationLevel}</strong></span>
-          </div>
-
-          <p class="text-xs text-indigo-300 bg-indigo-950/30 border border-indigo-500/20 rounded px-2.5 py-1.5 mb-2">${inc.relatedNote}</p>
-
-          <div class="flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-slate-800/80 text-xs">
-            <span class="text-slate-300">${inc.evidenceNote}</span>
-            ${inc.status !== "VERIFIED_CLOSED" ? `
-              <button onclick="verifyAndClose('${inc.id}')" class="bg-emerald-600/80 hover:bg-emerald-500 text-white px-3 py-1 rounded text-xs font-semibold transition">
-                ✔ Run Citizen & Sensor Verification
-              </button>
-            ` : ""}
+            <p class="text-white font-medium">"${inc.title}"</p>
+            <p class="text-slate-400">${inc.evidenceNote}</p>
           </div>
         `;
-        list.appendChild(card);
+      });
+
+      // 2. Render Gov Portal
+      const govList = document.getElementById("govIncidentList");
+      govList.innerHTML = "";
+      incidents.forEach(inc => {
+        let borderCol = inc.status === "VERIFIED_CLOSED" ? "border-emerald-500/40" : inc.status === "REOPENED_FAKE_CLOSURE" ? "border-rose-500/60" : "border-slate-800";
+        govList.innerHTML += `
+          <div class="bg-slate-950 border ${borderCol} p-4 rounded-xl space-y-3 text-xs">
+            <div class="flex flex-wrap justify-between items-center gap-2">
+              <div>
+                <span class="font-mono text-orange-400 font-bold">${inc.id}</span>
+                <span class="text-slate-400 ml-2">(${inc.zone}) • Clustered Reports: ${inc.duplicates}</span>
+              </div>
+              <span class="text-amber-300 bg-amber-950/40 border border-amber-500/30 px-2 py-0.5 rounded">SLA Left: ${inc.slaHoursLeft}h</span>
+            </div>
+
+            <p class="text-sm font-bold text-white">"${inc.title}"</p>
+
+            <div class="flex flex-wrap items-center gap-3 pt-2 border-t border-slate-800">
+              <label class="text-slate-400 font-semibold">Assign Specialized Dept:</label>
+              <select onchange="assignDepartment('${inc.id}', this.value)" class="bg-slate-900 border border-slate-700 p-1.5 rounded text-orange-300">
+                <option value="Municipal Water Board & Drainage" ${inc.department === "Municipal Water Board & Drainage" ? "selected" : ""}>💧 Municipal Water Board & Drainage</option>
+                <option value="Public Works Dept (Roads & Potholes)" ${inc.department === "Public Works Dept (Roads & Potholes)" ? "selected" : ""}>🛣️ Public Works Dept (Roads & Potholes)</option>
+                <option value="City Electrical Grid & Streetlights" ${inc.department === "City Electrical Grid & Streetlights" ? "selected" : ""}>⚡ City Electrical Grid & Streetlights</option>
+                <option value="Sanitation & Waste Management" ${inc.department === "Sanitation & Waste Management" ? "selected" : ""}>🗑️ Sanitation & Waste Management</option>
+                <option value="Parks, Horticulture & Urban Forestry" ${inc.department === "Parks, Horticulture & Urban Forestry" ? "selected" : ""}>🌳 Parks, Horticulture & Urban Forestry</option>
+                <option value="Animal Control & Stray Management" ${inc.department === "Animal Control & Stray Management" ? "selected" : ""}>🐕 Animal Control & Stray Management</option>
+              </select>
+
+              <div class="ml-auto flex gap-2">
+                ${inc.status !== "VERIFIED_CLOSED" ? `
+                  <button onclick="adminVerifyAndClose('${inc.id}')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded font-semibold transition">
+                    ✔ Verify & Mark Fulfilled
+                  </button>
+                ` : '<span class="text-emerald-400 font-semibold">Fulfilled ✓</span>'}
+              </div>
+            </div>
+            <p class="text-slate-400 italic">Audit Note: ${inc.evidenceNote}</p>
+          </div>
+        `;
       });
     }
 
-    logAgent("SYSTEM INIT", "CivicPulse Autonomous Agent online. Hinglish NLP keyword mapping active.", "text-emerald-300");
-    renderBoard();
+    logPublic("System online. Public and Protected Gov portals ready.");
+    renderAll();
   </script>
 </body>
 </html>
