@@ -337,20 +337,30 @@ async function syncCloudComplaints() {
 
         let hasNew = false;
         list.forEach(c => {
-            const ticketId = "INC-" + (100 + c.id);
-            // Add complaint if it is not already on this screen
-            if (!incidents.some(i => i.id === ticketId || i.id === c.id)) {
+            const ticketId = "INC-" + (200 + c.id);
+            
+            // Check if this cloud complaint is already displayed
+            if (!incidents.some(i => i.id === ticketId || i.cloud_id === c.id)) {
+                let zoneName = "General Ward";
+                let cleanText = c.description || "Public grievance reported";
+                const match = cleanText.match(/^\[(.*?)\]\s*(.*)$/);
+                if (match) {
+                    zoneName = match[1];
+                    cleanText = match[2];
+                }
+
                 incidents.unshift({
                     id: ticketId,
-                    zone: "Reported Zone",
+                    cloud_id: c.id,
+                    zone: zoneName,
                     category: c.category || "Sanitation",
-                    title: c.description || "Public grievance reported",
+                    title: cleanText,
                     department: c.assigned_dept || "Sanitation & Waste Management",
                     duplicates: 1,
                     slaHoursLeft: 4,
                     status: c.status || "IN_PROGRESS",
                     workingReport: "Awaiting field unit dispatch and inspection.",
-                    evidenceNote: "Cloud synced from central database."
+                    evidenceNote: "Cloud synced from mobile citizen report."
                 });
                 hasNew = true;
             }
