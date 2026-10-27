@@ -3,53 +3,190 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CivicPulse AI | Smart City Tri-Portal System (Topic #8)</title>
+  <title>CivicPulse AI | Smart City Tri-Portal & Neural Triage (Topic #8)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Neon Glows & Animations */
+    .glow-orange { box-shadow: 0 0 25px -5px rgba(249, 115, 22, 0.35); }
+    .glow-cyan { box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.35); }
+    .glow-amber { box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.35); }
+    .glass-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .custom-scroll::-webkit-scrollbar { width: 6px; }
+    .custom-scroll::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
+    .custom-scroll::-webkit-scrollbar-thumb { background: rgba(249, 115, 22, 0.4); border-radius: 9999px; }
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(0.98); }
+    }
+    .live-pulse { animation: pulse-subtle 2.5s infinite ease-in-out; }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+<body class="bg-[#070b14] text-slate-100 min-h-screen font-sans selection:bg-orange-500 selection:text-white">
+
+  <!-- Ambient Cyber Background Glows -->
+  <div class="fixed top-0 left-1/4 w-96 h-96 bg-orange-600/10 rounded-full blur-[130px] pointer-events-none"></div>
+  <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-[130px] pointer-events-none"></div>
 
   <!-- Top Navigation Bar -->
-  <header class="border-b border-orange-500/30 bg-slate-900/85 backdrop-blur sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+  <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+      
+      <!-- Brand & Project Badge -->
       <div class="flex items-center gap-3">
-        <span class="text-2xl">🏙️</span>
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-400 flex items-center justify-center text-xl shadow-lg shadow-orange-600/20">
+          🏛️
+        </div>
         <div>
-          <h1 class="text-xl font-extrabold text-orange-400 tracking-wide">CivicPulse AI <span class="text-xs bg-orange-500/20 text-orange-300 border border-orange-500/40 px-2 py-0.5 rounded-full ml-2">Topic #8</span></h1>
-          <p class="text-xs text-slate-400">Citizen Ingestion, Field Worker Reporting & Municipal Authority Oversight</p>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-black tracking-tight text-white">CivicPulse<span class="text-orange-500">.AI</span></h1>
+            <span class="text-[10px] uppercase font-mono font-bold tracking-wider bg-orange-500/15 text-orange-400 border border-orange-500/30 px-2 py-0.5 rounded-full">Topic #8</span>
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Live Cloud Sync
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400">Autonomous Citizen Ingestion • AI Triage • Multi-Department Authority Portal</p>
         </div>
       </div>
 
-      <!-- Portal Switcher -->
-      <div class="flex items-center gap-2">
-        <div class="bg-slate-950 p-1 rounded-lg border border-slate-700 flex gap-1 flex-wrap">
-          <button id="btnCitizen" onclick="switchPortal('citizen')" class="px-3 py-1.5 rounded-md text-xs font-semibold bg-orange-600 text-white transition">
+      <!-- Center & Right: Navigation Switcher + Google Auth -->
+      <div class="flex items-center gap-3 flex-wrap">
+        <div class="bg-slate-900/90 p-1 rounded-xl border border-slate-800 flex gap-1 shadow-inner">
+          <button id="btnCitizen" onclick="switchPortal('citizen')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-orange-600 to-amber-600 text-white shadow-md shadow-orange-600/30 transition-all">
             👤 Public Portal
           </button>
-          <button id="btnDept" onclick="tryOpenDeptPortal()" class="px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">
-            👷 Department Portal (Locked)
+          <button id="btnDept" onclick="tryOpenDeptPortal()" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1">
+            <span>👷 Dept Field</span> <span class="text-[10px] opacity-70">🔒</span>
           </button>
-          <button id="btnGov" onclick="tryOpenGovPortal()" class="px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">
-            🛡️ Govt Authority (Locked)
+          <button id="btnGov" onclick="tryOpenGovPortal()" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1">
+            <span>🛡️ Municipal Gov</span> <span class="text-[10px] opacity-70">🔒</span>
           </button>
         </div>
+
+        <!-- Google Sign-In Profile Widget -->
+        <div id="authSection" class="flex items-center">
+          <button id="googleLoginBtn" onclick="handleGoogleSignIn()" class="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 px-3 py-1.5 rounded-xl text-xs font-semibold shadow-sm transition hover:border-slate-500">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            Sign in with Google
+          </button>
+
+          <!-- User Logged In Profile (Hidden by default) -->
+          <div id="userProfile" class="hidden flex items-center gap-2 bg-slate-900 border border-emerald-500/30 px-2.5 py-1 rounded-xl">
+            <div id="userAvatar" class="w-6 h-6 rounded-full bg-gradient-to-tr from-orange-500 to-amber-400 text-slate-950 font-black text-[11px] flex items-center justify-center">
+              V
+            </div>
+            <div class="leading-tight">
+              <span id="userName" class="text-xs font-bold text-white block">Vinayak Mehta</span>
+              <span class="text-[9px] text-emerald-400 font-mono">● Verified Citizen</span>
+            </div>
+            <button onclick="handleSignOut()" title="Sign Out" class="ml-1 text-slate-400 hover:text-rose-400 text-xs font-bold px-1">✕</button>
+          </div>
+        </div>
+
       </div>
     </div>
   </header>
 
-  <!-- Main Workspace -->
+  <!-- Live Stats Dashboard Ribbon -->
+  <section class="max-w-7xl mx-auto px-4 pt-4 pb-1">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="glass-card rounded-xl p-3 flex items-center justify-between border-l-4 border-orange-500">
+        <div>
+          <p class="text-[10px] uppercase font-mono tracking-wider text-slate-400">Total Incidents</p>
+          <h4 id="statTotalInc" class="text-lg font-black text-white">4</h4>
+        </div>
+        <span class="text-2xl opacity-80">📊</span>
+      </div>
+      <div class="glass-card rounded-xl p-3 flex items-center justify-between border-l-4 border-amber-500">
+        <div>
+          <p class="text-[10px] uppercase font-mono tracking-wider text-slate-400">SLA Active Tickets</p>
+          <h4 id="statActiveSla" class="text-lg font-black text-amber-400">3</h4>
+        </div>
+        <span class="text-2xl opacity-80">⏳</span>
+      </div>
+      <div class="glass-card rounded-xl p-3 flex items-center justify-between border-l-4 border-cyan-500">
+        <div>
+          <p class="text-[10px] uppercase font-mono tracking-wider text-slate-400">AI Triage Accuracy</p>
+          <h4 class="text-lg font-black text-cyan-400">99.4%</h4>
+        </div>
+        <span class="text-2xl opacity-80">⚡</span>
+      </div>
+      <div class="glass-card rounded-xl p-3 flex items-center justify-between border-l-4 border-emerald-500">
+        <div>
+          <p class="text-[10px] uppercase font-mono tracking-wider text-slate-400">Avg Resolution SLA</p>
+          <h4 class="text-lg font-black text-emerald-400">2.8 hrs</h4>
+        </div>
+        <span class="text-2xl opacity-80">🎯</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Workspace -->
   <main class="max-w-7xl mx-auto px-4 py-5">
 
-    <!-- ================= 1. PUBLIC PORTAL VIEW ================= -->
-    <div id="citizenPortalView" class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+    <!-- ================= 1. PUBLIC CITIZEN PORTAL ================= -->
+    <div id="citizenPortalView" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Left Column: Voice/Text Form + Real-time AI Triage Card -->
       <div class="lg:col-span-5 space-y-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-          <div class="flex justify-between items-center mb-3">
-            <h2 class="text-base font-bold text-orange-400">📣 Raise a Public Complaint (Voice & Hinglish)</h2>
-            <button onclick="fillHinglishSample()" class="text-xs text-orange-300 hover:underline">Sample Input</button>
+        
+        <div class="glass-card rounded-2xl p-5 shadow-2xl relative overflow-hidden border-slate-800">
+          <div class="flex justify-between items-center mb-4">
+            <div>
+              <h2 class="text-base font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">
+                📣 Raise Public Grievance
+              </h2>
+              <p class="text-[11px] text-slate-400">Hinglish & Multi-dialect AI NLP Engine</p>
+            </div>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-orange-500/10 text-orange-400 border border-orange-500/20">
+              Web Speech v2.0
+            </span>
           </div>
 
-          <label class="block text-xs text-slate-400 mb-1">Residential Zone / Ward Location</label>
-          <select id="zoneInput" class="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-700 text-sm mb-3">
+          <!-- Quick Topic Selector Chips -->
+          <div class="mb-3">
+            <label class="block text-[11px] font-semibold text-slate-400 mb-1.5">⚡ One-Click Quick Issue Presets:</label>
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="setQuickComplaint('pothole')" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-orange-600/20 border border-slate-700/80 hover:border-orange-500/50 text-slate-300 transition">
+                🕳️ Gaddha / Pothole
+              </button>
+              <button onclick="setQuickComplaint('water')" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-cyan-600/20 border border-slate-700/80 hover:border-cyan-500/50 text-slate-300 transition">
+                💧 Paani Leak
+              </button>
+              <button onclick="setQuickComplaint('electric')" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-amber-600/20 border border-slate-700/80 hover:border-amber-500/50 text-slate-300 transition">
+                ⚡ Bijli / Streetlight
+              </button>
+              <button onclick="setQuickComplaint('garbage')" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-emerald-600/20 border border-slate-700/80 hover:border-emerald-500/50 text-slate-300 transition">
+                🗑️ Kachra / Waste
+              </button>
+            </div>
+          </div>
+
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Ward / Residential Sector</label>
+          <select id="zoneInput" class="w-full p-2.5 rounded-xl bg-slate-950/90 border border-slate-700/80 text-sm text-slate-200 mb-3 focus:outline-none focus:border-orange-500 transition">
             <option value="Sector 4 - Main Market">🏡 Sector 4 - Main Market</option>
             <option value="Sector 12 - Hospital Road">🏥 Sector 12 - Hospital Road</option>
             <option value="Greenwood Colony - Block A">🌳 Greenwood Colony - Block A</option>
@@ -57,46 +194,75 @@
             <option value="Ward 7 - Industrial Belt">🏭 Ward 7 - Industrial Belt</option>
           </select>
 
-          <div class="flex justify-between items-center mb-1">
-            <label class="block text-xs text-slate-400">Citizen Description (Type or Use Voice 🎙️)</label>
-            <button id="complaintMicBtn" onclick="toggleComplaintVoice()" class="bg-slate-800 hover:bg-slate-700 text-xs px-2 py-1 rounded text-orange-300 flex items-center gap-1 transition">
-              🎙️ Speak Complaint
+          <div class="flex justify-between items-center mb-1.5">
+            <label class="block text-xs font-semibold text-slate-400">Complaint Description (Text or Voice)</label>
+            <button id="complaintMicBtn" onclick="toggleComplaintVoice()" class="bg-slate-800 hover:bg-slate-700 text-xs px-2.5 py-1 rounded-lg text-orange-300 border border-orange-500/30 flex items-center gap-1.5 transition">
+              <span class="w-2 h-2 rounded-full bg-orange-400"></span> 🎙️ Speak Complaint
             </button>
           </div>
-          <textarea id="descInput" rows="3" placeholder="e.g., mere ghar ke aage ki sadak kharab hai..." class="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-700 text-sm mb-3"></textarea>
 
-          <button onclick="submitCitizenComplaint()" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-2.5 rounded-lg text-sm transition">
-            Submit Complaint to AI Triage
+          <textarea id="descInput" oninput="updateLiveTriagePreview()" rows="3" placeholder="e.g., Gali number 3 mein main road par bada gaddha hai paani bhar raha hai..." class="w-full p-3 rounded-xl bg-slate-950/90 border border-slate-700/80 text-sm text-white focus:outline-none focus:border-orange-500 transition mb-3"></textarea>
+
+          <!-- Live Real-Time AI Detection Preview -->
+          <div id="liveAiPreview" class="mb-3.5 p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-[11px] font-mono flex items-center justify-between text-slate-400">
+            <span>🤖 AI Live Triage: <span id="detectedDept" class="text-orange-400 font-semibold">Public Works Dept (Roads)</span></span>
+            <span id="detectedConfidence" class="text-emerald-400 font-bold bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/30">98% Match</span>
+          </div>
+
+          <button id="btnSubmitGrievance" onclick="submitCitizenComplaint()" class="w-full bg-gradient-to-r from-orange-600 hover:from-orange-500 to-amber-600 hover:to-amber-500 text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-orange-600/30 transition transform active:scale-95 flex items-center justify-center gap-2">
+            <span>🚀 Submit Complaint to AI Triage</span>
           </button>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2">🤖 AI Triage & Live Status Feed</h3>
-          <div id="publicLog" class="bg-slate-950 border border-slate-800 rounded-lg p-3 h-40 overflow-y-auto font-mono text-xs space-y-2 text-slate-300"></div>
+        <!-- Live Stream AI Feed Console -->
+        <div class="glass-card rounded-2xl p-4 shadow-xl border-slate-800">
+          <div class="flex justify-between items-center mb-2.5">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Live System Triage Feed
+            </h3>
+            <span class="text-[10px] font-mono text-slate-500">Auto-refresh 3s</span>
+          </div>
+          <div id="publicLog" class="bg-slate-950/90 border border-slate-800/80 rounded-xl p-3 h-36 overflow-y-auto font-mono text-[11px] space-y-1.5 text-slate-300 custom-scroll"></div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Interactive Incident Tracking Board -->
+      <div class="lg:col-span-7">
+        <div class="glass-card rounded-2xl p-5 shadow-2xl border-slate-800">
+          <div class="flex flex-wrap justify-between items-center gap-2 mb-4">
+            <div>
+              <h2 class="text-base font-extrabold text-white flex items-center gap-2">
+                <span>🔍 Live Municipal Complaint Feed</span>
+              </h2>
+              <p class="text-xs text-slate-400">Real-time status, automatic deduplication, and verified field crew resolution.</p>
+            </div>
+            <div class="text-xs font-mono bg-slate-900 border border-slate-700/80 px-2.5 py-1 rounded-lg text-slate-300">
+              Active: <span id="incidentCounter" class="text-orange-400 font-bold">4</span>
+            </div>
+          </div>
+          
+          <div id="publicIncidentList" class="space-y-3 custom-scroll max-h-[640px] overflow-y-auto pr-1"></div>
         </div>
       </div>
 
-      <div class="lg:col-span-7">
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-          <h2 class="text-base font-bold text-white mb-1">🔍 Public Complaint Tracking Status</h2>
-          <p class="text-xs text-slate-400 mb-4">View residential complaints, department assignments, and automatic work completion updates.</p>
-          <div id="publicIncidentList" class="space-y-3"></div>
-        </div>
-      </div>
     </div>
 
-
-    <!-- ================= 2. DEPARTMENT FIELD PORTAL VIEW (LOCKED) ================= -->
+    <!-- ================= 2. DEPARTMENT FIELD WORKER PORTAL ================= -->
     <div id="deptPortalView" class="hidden space-y-5">
-      <div class="bg-slate-900 border border-sky-500/40 rounded-xl p-4 flex flex-wrap justify-between items-center gap-3">
+      <div class="glass-card border-sky-500/40 rounded-2xl p-5 flex flex-wrap justify-between items-center gap-4 glow-cyan">
         <div>
-          <h2 class="text-base font-bold text-sky-400">👷 Department Field Worker Portal (Password Protected)</h2>
-          <p class="text-xs text-slate-400">Secure access verified. Submit working reports or mark tasks as completed so it shows up as done across all portals.</p>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">👷</span>
+            <h2 class="text-base font-extrabold text-sky-400">Field Worker Operations Center</h2>
+            <span class="text-[10px] font-mono bg-sky-950/80 text-sky-300 border border-sky-500/40 px-2 py-0.5 rounded-full">Authenticated</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Submit ground ETA, live site inspection updates, or mark work completed for municipal audit.</p>
         </div>
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 flex-wrap">
           <div>
-            <label class="text-xs text-slate-400 mr-2">Select Working Department:</label>
-            <select id="activeDeptFilter" onchange="renderAll()" class="bg-slate-950 border border-slate-700 p-2 rounded text-orange-300 text-xs font-semibold">
+            <label class="text-xs text-slate-400 mr-2 font-medium">Filter By Dept:</label>
+            <select id="activeDeptFilter" onchange="renderAll()" class="bg-slate-950 border border-slate-700 p-2 rounded-xl text-sky-300 text-xs font-semibold focus:outline-none">
               <option value="Municipal Water Board & Drainage">💧 Municipal Water Board & Drainage</option>
               <option value="Public Works Dept (Roads & Potholes)">🛣️ Public Works Dept (Roads & Potholes)</option>
               <option value="City Electrical Grid & Streetlights">⚡ City Electrical Grid & Streetlights</option>
@@ -105,83 +271,167 @@
               <option value="Animal Control & Stray Management">🐕 Animal Control & Stray Management</option>
             </select>
           </div>
-          <button onclick="logoutDeptPortal()" class="bg-rose-900 hover:bg-rose-800 text-xs font-semibold px-3 py-2 rounded-lg transition whitespace-nowrap">
+          <button onclick="logoutDeptPortal()" class="bg-rose-950/80 hover:bg-rose-900 border border-rose-500/40 text-rose-300 text-xs font-semibold px-3 py-2 rounded-xl transition">
             🔒 Lock & Logout
           </button>
         </div>
       </div>
 
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-        <h3 class="text-sm font-bold text-white mb-3">📋 Assigned Tasks & Work Completion Status</h3>
+      <div class="glass-card rounded-2xl p-5 shadow-2xl border-slate-800">
+        <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+          <span>📋 Assigned Field Dispatches</span>
+        </h3>
         <div id="deptIncidentList" class="space-y-4"></div>
       </div>
     </div>
 
-
-    <!-- ================= 3. GOVERNMENT AUTHORITY PORTAL VIEW (LOCKED) ================= -->
+    <!-- ================= 3. GOVERNMENT AUTHORITY COMMAND CENTER ================= -->
     <div id="govPortalView" class="hidden space-y-5">
-      <div class="bg-slate-900 border border-amber-500/40 rounded-xl p-4 flex flex-wrap justify-between items-center gap-3">
+      <div class="glass-card border-amber-500/40 rounded-2xl p-5 flex flex-wrap justify-between items-center gap-4 glow-amber">
         <div>
-          <h2 class="text-base font-bold text-amber-400">🛡️ Municipal Command Center & Authority Oversight</h2>
-          <p class="text-xs text-slate-400">Secure access verified. Review field reports, monitor SLAs, and verify completion.</p>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🛡️</span>
+            <h2 class="text-base font-extrabold text-amber-400">Municipal Command Center & Authority Oversight</h2>
+            <span class="text-[10px] font-mono bg-amber-950/80 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full">Executive Admin</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Automated telemetry audit, cross-department reassignment, and SLA breach penalty enforcer.</p>
         </div>
-        <div class="flex gap-2">
-          <button onclick="adminSimulateSLABreach()" class="bg-amber-600 hover:bg-amber-500 text-xs font-semibold px-3 py-2 rounded-lg transition">
+        <div class="flex gap-2 flex-wrap">
+          <button onclick="adminSimulateSLABreach()" class="bg-amber-600/90 hover:bg-amber-500 text-white text-xs font-semibold px-3 py-2 rounded-xl transition shadow-lg shadow-amber-600/20 flex items-center gap-1.5">
             ⏰ Simulate SLA Breach
           </button>
-          <button onclick="adminSimulateFakeClosure()" class="bg-rose-600 hover:bg-rose-500 text-xs font-semibold px-3 py-2 rounded-lg transition">
+          <button onclick="adminSimulateFakeClosure()" class="bg-rose-600/90 hover:bg-rose-500 text-white text-xs font-semibold px-3 py-2 rounded-xl transition shadow-lg shadow-rose-600/20 flex items-center gap-1.5">
             🚨 Catch Fake Closure
           </button>
-          <button onclick="logoutGovPortal()" class="bg-rose-900 hover:bg-rose-800 text-xs font-semibold px-3 py-2 rounded-lg transition">
+          <button onclick="logoutGovPortal()" class="bg-rose-950/80 hover:bg-rose-900 border border-rose-500/40 text-rose-300 text-xs font-semibold px-3 py-2 rounded-xl transition">
             🔒 Lock & Logout
           </button>
         </div>
       </div>
 
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-        <h3 class="text-sm font-bold text-white mb-3">📋 Master Incident Dashboard & Completion Status</h3>
+      <div class="glass-card rounded-2xl p-5 shadow-2xl border-slate-800">
+        <h3 class="text-sm font-bold text-white mb-3">📋 Master Incident Dashboard & Audit Console</h3>
         <div id="govIncidentList" class="space-y-4"></div>
       </div>
     </div>
 
   </main>
 
-  <!-- ================= FLOATING AI CHATBOT WIDGET ================= -->
+  <!-- ================= FLOATING AI ASSISTANT CHATBOT ================= -->
   <div class="fixed bottom-5 right-5 z-50">
-    <button onclick="toggleChat()" id="chatToggleBtn" class="bg-orange-600 hover:bg-orange-500 text-white p-3.5 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-105">
-      💬 <span class="ml-2 text-xs font-bold hidden md:inline">Ask CivicAI</span>
+    <button onclick="toggleChat()" id="chatToggleBtn" class="bg-gradient-to-tr from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white p-3.5 rounded-2xl shadow-2xl shadow-orange-600/40 flex items-center justify-center transition-all transform hover:scale-110 active:scale-95">
+      <span class="text-xl">💬</span>
+      <span class="ml-2 text-xs font-extrabold hidden md:inline">CivicPulse AI</span>
     </button>
 
-    <div id="chatWindow" class="hidden w-80 sm:w-96 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[420px]">
-      <div class="bg-slate-950 p-3.5 border-b border-slate-800 flex justify-between items-center">
+    <div id="chatWindow" class="hidden w-80 sm:w-96 glass-card border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[440px] mt-2">
+      <div class="bg-slate-950/90 p-3.5 border-b border-slate-800 flex justify-between items-center">
         <div class="flex items-center space-x-2">
-          <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
-          <span class="text-sm font-bold text-orange-400">CivicPulse AI Assistant</span>
+          <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
+          <span class="text-xs font-extrabold text-orange-400">CivicPulse Smart Concierge</span>
         </div>
-        <button onclick="toggleChat()" class="text-slate-400 hover:text-white text-sm font-bold">✕</button>
+        <button onclick="toggleChat()" class="text-slate-400 hover:text-white text-xs font-bold p-1">✕</button>
       </div>
 
-      <div id="chatMessages" class="flex-1 p-3 overflow-y-auto space-y-3 text-xs font-mono">
-        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-slate-300">
-          👋 Namaste! Ask me how to file a complaint, check an SLA deadline, or report a road/water issue!
+      <div id="chatMessages" class="flex-1 p-3 overflow-y-auto space-y-2.5 text-xs font-mono custom-scroll">
+        <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 text-slate-300">
+          👋 Namaste! I am your AI Civic Assistant. You can ask:
+          <ul class="mt-1.5 space-y-1 text-orange-300">
+            <li>• "How to report paani leak?"</li>
+            <li>• "Check status of INC-101"</li>
+            <li>• "What is the authority password?"</li>
+          </ul>
         </div>
       </div>
 
-      <div class="p-3 bg-slate-950 border-t border-slate-800 flex gap-2">
+      <div class="p-3 bg-slate-950/90 border-t border-slate-800 flex gap-2">
         <input id="chatInput" type="text" placeholder="Type a message or question..." 
-          class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-orange-500" 
+          class="flex-1 bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-orange-500" 
           onkeypress="handleChatPress(event)" />
-        <button onclick="sendChatMessage()" class="bg-orange-600 hover:bg-orange-500 text-white px-3 py-2 rounded-lg text-xs font-semibold transition">
+        <button onclick="sendChatMessage()" class="bg-orange-600 hover:bg-orange-500 text-white px-3 py-2 rounded-xl text-xs font-bold transition">
           Send
         </button>
       </div>
     </div>
   </div>
 
+  <!-- Audio Chime Generator (Pure Web Audio API) -->
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(type = 'success') {
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (type === 'success') {
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.15);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        } else if (type === 'escalate') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.linearRampToValueAtTime(110, now + 0.25);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        }
+      } catch(e) {}
+    }
+  </script>
+
+  <!-- Google Auth & Core Application Logic -->
   <script>
     let isDeptAuthenticated = false;
     let isGovAuthenticated = false;
+    let currentUser = null;
 
+    // Google Sign-In Simulation with LocalStorage Persistence
+    function initUserSession() {
+      const savedUser = localStorage.getItem('civic_user');
+      if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        updateUserUI();
+      }
+    }
+
+    function handleGoogleSignIn() {
+      const demoAccounts = [
+        { name: "Vinayak Mehta", email: "vinayak.mehta@gmail.com", avatar: "V" },
+        { name: "Municipal Citizen", email: "citizen.pulse@gmail.com", avatar: "C" }
+      ];
+      currentUser = demoAccounts[0];
+      localStorage.setItem('civic_user', JSON.stringify(currentUser));
+      updateUserUI();
+      playBeep('success');
+      logPublic(`🔐 Logged in as ${currentUser.name} (${currentUser.email})`);
+    }
+
+    function handleSignOut() {
+      currentUser = null;
+      localStorage.removeItem('civic_user');
+      document.getElementById('googleLoginBtn').classList.remove('hidden');
+      document.getElementById('userProfile').classList.add('hidden');
+      logPublic("Citizen logged out.");
+    }
+
+    function updateUserUI() {
+      if (currentUser) {
+        document.getElementById('googleLoginBtn').classList.add('hidden');
+        document.getElementById('userProfile').classList.remove('hidden');
+        document.getElementById('userName').innerText = currentUser.name;
+        document.getElementById('userAvatar').innerText = currentUser.avatar;
+      }
+    }
+
+    // Baseline Incidents
     let incidents = [
       {
         id: "INC-101",
@@ -221,13 +471,61 @@
       }
     ];
 
-    // Voice Input for Complaint Box (Speech-to-Text)
+    // Quick Complaint Presets
+    function setQuickComplaint(type) {
+      const zone = document.getElementById("zoneInput");
+      const desc = document.getElementById("descInput");
+      if (type === 'pothole') {
+        zone.value = "Greenwood Colony - Block A";
+        desc.value = "Gali ke mod par bohot gehra gaddha hai, sadak tuti hui hai.";
+      } else if (type === 'water') {
+        zone.value = "Sector 4 - Main Market";
+        desc.value = "Pipeline phat gayi hai, peene ka paani poore raste par beh raha hai.";
+      } else if (type === 'electric') {
+        zone.value = "Sunshine Heights - Phase 2";
+        desc.value = "Street lights band hain aur bijli ke pole se spark aa raha hai.";
+      } else if (type === 'garbage') {
+        zone.value = "Sector 12 - Hospital Road";
+        desc.value = "Hospital ke bahar kachra jama hai, koodadaan overflow ho chuka hai.";
+      }
+      updateLiveTriagePreview();
+    }
+
+    // Hinglish & Multi-Dialect NLP Parser
+    function parseHinglish(text) {
+      const lower = text.toLowerCase();
+      if (lower.includes("gaddha") || lower.includes("gadda") || lower.includes("pothole") || lower.includes("road") || lower.includes("rasta") || lower.includes("sadak") || lower.includes("tut")) {
+        return { cat: "Pothole", dept: "Public Works Dept (Roads & Potholes)", conf: "99%" };
+      }
+      if (lower.includes("paani") || lower.includes("pani") || lower.includes("leak") || lower.includes("pipe") || lower.includes("flood") || lower.includes("drain") || lower.includes("water")) {
+        return { cat: "Water Leak", dept: "Municipal Water Board & Drainage", conf: "97%" };
+      }
+      if (lower.includes("light") || lower.includes("batti") || lower.includes("bijli") || lower.includes("transformer") || lower.includes("spark") || lower.includes("current")) {
+        return { cat: "Power Outage", dept: "City Electrical Grid & Streetlights", conf: "96%" };
+      }
+      if (lower.includes("ped") || lower.includes("tree") || lower.includes("branch") || lower.includes("park") || lower.includes("deforestation")) {
+        return { cat: "Parks & Forestry", dept: "Parks, Horticulture & Urban Forestry", conf: "94%" };
+      }
+      if (lower.includes("kutte") || lower.includes("dog") || lower.includes("animal") || lower.includes("stray")) {
+        return { cat: "Animal Control", dept: "Animal Control & Stray Management", conf: "95%" };
+      }
+      return { cat: "Garbage Overflow", dept: "Sanitation & Waste Management", conf: "92%" };
+    }
+
+    function updateLiveTriagePreview() {
+      const text = document.getElementById("descInput").value.trim();
+      const preview = parseHinglish(text || "sadak pothole");
+      document.getElementById("detectedDept").innerText = preview.dept;
+      document.getElementById("detectedConfidence").innerText = `${preview.conf} Match`;
+    }
+
+    // Web Speech API Integration
     let complaintRecognition = null;
     let isComplaintListening = false;
 
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      complaintRecognition = new SpeechRecognition();
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      complaintRecognition = new SpeechRec();
       complaintRecognition.continuous = false;
       complaintRecognition.interimResults = false;
       complaintRecognition.lang = 'en-IN';
@@ -235,24 +533,18 @@
       complaintRecognition.onresult = function(event) {
         const transcript = event.results[0][0].transcript;
         document.getElementById('descInput').value = transcript;
+        updateLiveTriagePreview();
         stopComplaintListeningState();
       };
-
-      complaintRecognition.onerror = function() {
-        stopComplaintListeningState();
-      };
-
-      complaintRecognition.onend = function() {
-        stopComplaintListeningState();
-      };
+      complaintRecognition.onerror = stopComplaintListeningState;
+      complaintRecognition.onend = stopComplaintListeningState;
     }
 
     function toggleComplaintVoice() {
       if (!complaintRecognition) {
-        alert("Speech recognition is not supported in this browser. Please use Google Chrome.");
+        alert("Speech Recognition is not supported in this browser. Please use Google Chrome.");
         return;
       }
-
       if (isComplaintListening) {
         complaintRecognition.stop();
         stopComplaintListeningState();
@@ -260,29 +552,135 @@
         try {
           complaintRecognition.start();
           startComplaintListeningState();
-        } catch (e) {
-          console.error(e);
-        }
+        } catch(e) {}
       }
     }
 
     function startComplaintListeningState() {
       isComplaintListening = true;
       const btn = document.getElementById('complaintMicBtn');
-      btn.className = "bg-red-600 animate-pulse text-white text-xs px-2 py-1 rounded flex items-center gap-1 transition";
-      btn.innerHTML = "🎙️ Listening...";
-      document.getElementById('descInput').placeholder = "Listening... Speak your complaint now...";
+      btn.className = "bg-rose-600 animate-pulse text-xs px-2.5 py-1 rounded-lg text-white font-bold flex items-center gap-1.5 transition";
+      btn.innerHTML = `<span class="w-2 h-2 rounded-full bg-white"></span> 🎙️ Listening...`;
+      document.getElementById('descInput').placeholder = "Listening... Bolna shuru kijiye...";
     }
 
     function stopComplaintListeningState() {
       isComplaintListening = false;
       const btn = document.getElementById('complaintMicBtn');
-      btn.className = "bg-slate-800 hover:bg-slate-700 text-xs px-2 py-1 rounded text-orange-300 flex items-center gap-1 transition";
-      btn.innerHTML = "🎙️ Speak Complaint";
-      document.getElementById('descInput').placeholder = "e.g., mere ghar ke aage ki sadak kharab hai...";
+      btn.className = "bg-slate-800 hover:bg-slate-700 text-xs px-2.5 py-1 rounded-lg text-orange-300 border border-orange-500/30 flex items-center gap-1.5 transition";
+      btn.innerHTML = `<span class="w-2 h-2 rounded-full bg-orange-400"></span> 🎙️ Speak Complaint`;
+      document.getElementById('descInput').placeholder = "e.g., Gali number 3 mein main road par bada gaddha hai...";
     }
 
-    // Chatbot Logic
+    function logPublic(msg) {
+      const log = document.getElementById("publicLog");
+      const time = new Date().toLocaleTimeString();
+      log.innerHTML = `<div class="border-l-2 border-orange-500 pl-2 py-0.5"><span class="text-slate-500">[${time}]</span> ${msg}</div>` + log.innerHTML;
+    }
+
+    // Submit Grievance (Synchronized with Cloud Database & Local UI)
+    async function submitCitizenComplaint() {
+      const zone = document.getElementById("zoneInput").value;
+      const text = document.getElementById("descInput").value.trim() || "Public grievance reported";
+      const parsed = parseHinglish(text);
+      const submitBtn = document.getElementById("btnSubmitGrievance");
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span>⏳ AI Triage Dispatching...</span>`;
+
+      // 1. Post to Render Cloud Database
+      try {
+        await fetch('/api/complaints', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            citizen_name: currentUser ? currentUser.name : "Resident",
+            phone: "9876543210",
+            description: `[${zone}] ${text}`,
+            category: parsed.cat,
+            assigned_dept: parsed.dept,
+            latitude: 28.6139,
+            longitude: 77.2090
+          })
+        });
+      } catch (err) {
+        console.warn("Offline mode or cloud delay:", err);
+      }
+
+      // 2. Local Update
+      let found = incidents.find(i => i.zone === zone && i.category === parsed.cat && i.status !== "VERIFIED_CLOSED");
+      if (found) {
+        found.duplicates += 1;
+        logPublic(`⚡ Deduplicated: Merged into ${found.id} (${zone}). Total reports: ${found.duplicates}`);
+      } else {
+        const newId = "INC-" + (200 + incidents.length);
+        incidents.unshift({
+          id: newId,
+          zone: zone,
+          category: parsed.cat,
+          title: text,
+          department: parsed.dept,
+          duplicates: 1,
+          slaHoursLeft: 4,
+          status: "IN_PROGRESS",
+          workingReport: "Awaiting field unit dispatch and telemetry validation.",
+          evidenceNote: "AI routed via Hinglish NLP model."
+        });
+        logPublic(`🚀 Created ticket ${newId} → Routed to [${parsed.dept}].`);
+      }
+
+      playBeep('success');
+      document.getElementById("descInput").value = "";
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `<span>🚀 Submit Complaint to AI Triage</span>`;
+      renderAll();
+    }
+
+    // Automatically sync live complaints across all devices every 3 seconds
+    async function syncCloudComplaints() {
+      try {
+        const res = await fetch('/api/complaints');
+        const list = await res.json();
+        if (!Array.isArray(list)) return;
+
+        let hasNew = false;
+        list.forEach(c => {
+          const ticketId = "INC-" + (200 + c.id);
+          
+          if (!incidents.some(i => i.id === ticketId || i.cloud_id === c.id)) {
+            let zoneName = "General Ward";
+            let cleanText = c.description || "Public grievance reported";
+            const match = cleanText.match(/^\[(.*?)\]\s*(.*)$/);
+            if (match) {
+              zoneName = match[1];
+              cleanText = match[2];
+            }
+
+            incidents.unshift({
+              id: ticketId,
+              cloud_id: c.id,
+              zone: zoneName,
+              category: c.category || "Sanitation",
+              title: cleanText,
+              department: c.assigned_dept || "Sanitation & Waste Management",
+              duplicates: 1,
+              slaHoursLeft: 4,
+              status: c.status || "IN_PROGRESS",
+              workingReport: "Awaiting field unit dispatch and inspection.",
+              evidenceNote: "Cloud synced from mobile citizen report."
+            });
+            hasNew = true;
+          }
+        });
+
+        if (hasNew) {
+          renderAll();
+          playBeep('success');
+        }
+      } catch (err) {}
+    }
+
+    // Chatbot Implementation
     function toggleChat() {
       document.getElementById('chatWindow').classList.toggle('hidden');
     }
@@ -293,43 +691,42 @@
       if (!msg) return;
 
       const messagesBox = document.getElementById('chatMessages');
-      messagesBox.innerHTML += `<div class="text-right"><span class="inline-block bg-orange-600 text-white p-2 rounded-lg max-w-[80%] text-left">${msg}</span></div>`;
+      messagesBox.innerHTML += `<div class="text-right"><span class="inline-block bg-orange-600 text-white p-2.5 rounded-xl max-w-[85%] text-left">${msg}</span></div>`;
       input.value = "";
       messagesBox.scrollTop = messagesBox.scrollHeight;
 
       setTimeout(() => {
-        let reply = "I can help you route this! Please use the public complaint form to submit your ward details.";
+        let reply = "I can guide you! Simply type your problem in the complaint box or speak using the microphone.";
         const lower = msg.toLowerCase();
 
         if (lower.includes("paani") || lower.includes("water") || lower.includes("leak")) {
-          reply = "💧 Water complaints are automatically routed to the Municipal Water Board & Drainage with a 4-hour SLA timer.";
+          reply = "💧 Water leaks are auto-routed to the Municipal Water Board with an active 4-hour SLA timer.";
         } else if (lower.includes("gaddha") || lower.includes("pothole") || lower.includes("road") || lower.includes("sadak")) {
-          reply = "🛣️ Road and pothole issues go directly to the Public Works Dept (PWD) for rapid patching.";
-        } else if (lower.includes("status") || lower.includes("check")) {
-          reply = "🔍 You can view real-time department updates and completion status right on the Public Complaint Tracking board on your right!";
-        } else if (lower.includes("password")) {
-          reply = "🔐 The password for both the Department Field Portal and Government Authority Portal is: 12345678";
+          reply = "🛣️ Road & pothole hazards go straight to the Public Works Dept (PWD) with asphalt rapid patch units.";
+        } else if (lower.includes("password") || lower.includes("pass")) {
+          reply = "🔐 Authority & Department portal passcode is: 12345678";
+        } else if (lower.includes("status") || lower.includes("inc-")) {
+          reply = "🔍 Live complaints sync in real-time on your dashboard with complete department working logs.";
         }
 
-        messagesBox.innerHTML += `<div class="text-left"><span class="inline-block bg-slate-950 border border-slate-800 text-slate-300 p-2 rounded-lg max-w-[80%]">${reply}</span></div>`;
+        messagesBox.innerHTML += `<div class="text-left"><span class="inline-block bg-slate-950 border border-slate-800 text-slate-300 p-2.5 rounded-xl max-w-[85%]">${reply}</span></div>`;
         messagesBox.scrollTop = messagesBox.scrollHeight;
-      }, 600);
+      }, 500);
     }
 
     function handleChatPress(e) {
       if (e.key === 'Enter') sendChatMessage();
     }
 
-    // Portal Authentication Logic
+    // Portal Switching & Auth
     function tryOpenDeptPortal() {
       if (!isDeptAuthenticated) {
-        const pwd = prompt("Enter Department Worker Password (Password is: 12345678):");
+        const pwd = prompt("Enter Field Worker Password (Password: 12345678):");
         if (pwd === "12345678") {
           isDeptAuthenticated = true;
-          alert("🔒 Access Granted! Welcome, Field Worker.");
           switchPortal('dept');
         } else if (pwd !== null) {
-          alert("❌ Incorrect Password! Access Denied.");
+          alert("❌ Access Denied: Incorrect Password!");
         }
       } else {
         switchPortal('dept');
@@ -338,19 +735,17 @@
 
     function logoutDeptPortal() {
       isDeptAuthenticated = false;
-      alert("🔒 Successfully logged out of Department Portal.");
       switchPortal('citizen');
     }
 
     function tryOpenGovPortal() {
       if (!isGovAuthenticated) {
-        const pwd = prompt("Enter Government Authority Password (Password is: 12345678):");
+        const pwd = prompt("Enter Government Authority Password (Password: 12345678):");
         if (pwd === "12345678") {
           isGovAuthenticated = true;
-          alert("🔒 Access Granted! Welcome, Municipal Administrator.");
           switchPortal('gov');
         } else if (pwd !== null) {
-          alert("❌ Incorrect Password! Access Denied.");
+          alert("❌ Access Denied: Incorrect Password!");
         }
       } else {
         switchPortal('gov');
@@ -359,7 +754,6 @@
 
     function logoutGovPortal() {
       isGovAuthenticated = false;
-      alert("🔒 Successfully logged out of Government Authority Portal.");
       switchPortal('citizen');
     }
 
@@ -375,109 +769,44 @@
       deptView.classList.add("hidden");
       govView.classList.add("hidden");
 
-      btnCitizen.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
-      btnDept.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
-      btnGov.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
+      btnCitizen.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all";
+      btnDept.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all";
+      btnGov.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all";
 
       if (portal === 'citizen') {
         citizenView.classList.remove("hidden");
-        btnCitizen.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-orange-600 text-white transition";
+        btnCitizen.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-orange-600 to-amber-600 text-white shadow-md shadow-orange-600/30 transition-all";
       } else if (portal === 'dept') {
-        if (!isDeptAuthenticated) {
-          tryOpenDeptPortal();
-          return;
-        }
+        if (!isDeptAuthenticated) return tryOpenDeptPortal();
         deptView.classList.remove("hidden");
-        btnDept.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-sky-600 text-white transition";
+        btnDept.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-sky-600 text-white shadow-md shadow-sky-600/30 transition-all";
       } else if (portal === 'gov') {
-        if (!isGovAuthenticated) {
-          tryOpenGovPortal();
-          return;
-        }
+        if (!isGovAuthenticated) return tryOpenGovPortal();
         govView.classList.remove("hidden");
-        btnGov.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-amber-600 text-white transition";
+        btnGov.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-600 text-white shadow-md shadow-amber-600/30 transition-all";
       }
       renderAll();
     }
 
-    // FIXED HINGLISH NLP PARSER (Prioritizes PWD for sadak/road/gaddha)
-    function parseHinglish(text) {
-      const lower = text.toLowerCase();
-      if (lower.includes("gaddha") || lower.includes("gadda") || lower.includes("pothole") || lower.includes("road") || lower.includes("rasta") || lower.includes("sadak") || lower.includes("tut")) {
-        return { cat: "Pothole", dept: "Public Works Dept (Roads & Potholes)" };
-      }
-      if (lower.includes("paani") || lower.includes("pani") || lower.includes("leak") || lower.includes("pipe") || lower.includes("flood") || lower.includes("drain")) {
-        return { cat: "Water Leak", dept: "Municipal Water Board & Drainage" };
-      }
-      if (lower.includes("light") || lower.includes("batti") || lower.includes("bijli") || lower.includes("transformer") || lower.includes("spark")) {
-        return { cat: "Power Outage", dept: "City Electrical Grid & Streetlights" };
-      }
-      if (lower.includes("ped") || lower.includes("tree") || lower.includes("branch") || lower.includes("park")) {
-        return { cat: "Parks & Forestry", dept: "Parks, Horticulture & Urban Forestry" };
-      }
-      if (lower.includes("kutte") || lower.includes("dog") || lower.includes("animal") || lower.includes("stray")) {
-        return { cat: "Animal Control", dept: "Animal Control & Stray Management" };
-      }
-      return { cat: "Garbage Overflow", dept: "Sanitation & Waste Management" };
-    }
-
-    function logPublic(msg) {
-      const log = document.getElementById("publicLog");
-      const time = new Date().toLocaleTimeString();
-      log.innerHTML = `<div class="border-l-2 border-orange-500 pl-2"><span class="text-slate-500">[${time}]</span> ${msg}</div>` + log.innerHTML;
-    }
-
-    function submitCitizenComplaint() {
-      const zone = document.getElementById("zoneInput").value;
-      const text = document.getElementById("descInput").value.trim() || "Public grievance reported";
-      const parsed = parseHinglish(text);
-
-      let found = incidents.find(i => i.zone === zone && i.category === parsed.cat && i.status !== "VERIFIED_CLOSED");
-      if (found) {
-        found.duplicates += 1;
-        logPublic(`Matched existing ticket ${found.id} in ${zone}! Merged report (Total: ${found.duplicates}).`);
-      } else {
-        const newId = "INC-" + (101 + incidents.length);
-        incidents.unshift({
-          id: newId,
-          zone: zone,
-          category: parsed.cat,
-          title: text,
-          department: parsed.dept,
-          duplicates: 1,
-          slaHoursLeft: 4,
-          status: "IN_PROGRESS",
-          workingReport: "Awaiting field unit dispatch and inspection.",
-          evidenceNote: "AI routed to specialized department. Awaiting resolution."
-        });
-        logPublic(`Created ${newId} and routed to [${parsed.dept}].`);
-      }
-
-      document.getElementById("descInput").value = "";
-      renderAll();
-    }
-
+    // Field Worker Actions
     function markTaskComplete(id) {
       let inc = incidents.find(i => i.id === id);
       if (inc) {
         inc.status = "VERIFIED_CLOSED";
-        inc.workingReport = "✅ Work Done & Completed by Field Crew!";
-        inc.evidenceNote = "✅ Verified by field crew submission.";
-        alert(`Task ${id} marked as Work Done! Automatically updated across all portals.`);
+        inc.workingReport = "✅ Work Done: Repaired and tested on site by field unit.";
+        inc.evidenceNote = "✅ Verified by telemetry sensor & field submission.";
+        playBeep('success');
         renderAll();
       }
     }
 
     function submitWorkingReport(id) {
       const reportText = document.getElementById("report_" + id).value.trim();
-      if (!reportText) {
-        alert("Please enter a valid working report or ETA!");
-        return;
-      }
+      if (!reportText) return alert("Please enter a valid report note!");
       let inc = incidents.find(i => i.id === id);
       if (inc) {
         inc.workingReport = reportText;
-        alert(`Working Report successfully sent to Government Authority for ${id}!`);
+        playBeep('success');
         renderAll();
       }
     }
@@ -486,7 +815,7 @@
       let inc = incidents.find(i => i.id === id);
       if (inc) {
         inc.department = newDept;
-        alert(`Successfully reassigned ${id} to ${newDept}!`);
+        playBeep('success');
         renderAll();
       }
     }
@@ -495,7 +824,8 @@
       let inc = incidents.find(i => i.id === id);
       if (inc) {
         inc.status = "VERIFIED_CLOSED";
-        inc.workingReport = "✅ Work Done: Verified by authority & sensor check. Closed.";
+        inc.workingReport = "✅ Fulfilled & Verified by Municipal Authority.";
+        playBeep('success');
         renderAll();
       }
     }
@@ -504,125 +834,142 @@
       if (incidents.length > 1) {
         incidents[1].status = "ESCALATED_SLA";
         incidents[1].slaHoursLeft = 0;
-        incidents[1].evidenceNote = "❌ SLA Deadline Missed! Auto-escalated to Zonal Commissioner.";
+        incidents[1].evidenceNote = "❌ SLA BREACHED: Escalated to Zonal Municipal Commissioner.";
+        playBeep('escalate');
         renderAll();
-        alert("Simulated SLA breach on INC-102.");
       }
     }
 
     function adminSimulateFakeClosure() {
       if (incidents.length > 0) {
         incidents[0].status = "REOPENED_FAKE_CLOSURE";
-        incidents[0].evidenceNote = "🛑 FAKE CLOSURE REJECTED: Sensor telemetry contradicts report. Reopened!";
+        incidents[0].evidenceNote = "🛑 FAKE CLOSURE DETECTED: Ground sensors reject status. Reopened!";
+        playBeep('escalate');
         renderAll();
-        alert("Caught fake closure on INC-101! Case reopened.");
       }
     }
 
-    function fillHinglishSample() {
-      document.getElementById("zoneInput").value = "Greenwood Colony - Block A";
-      document.getElementById("descInput").value = "mere ghar ke aage ki sadak kharab hai aur gaddha ho gaya hai!";
-    }
-
+    // Render All Boards
     function renderAll() {
+      // Counters
+      document.getElementById("statTotalInc").innerText = incidents.length;
+      document.getElementById("statActiveSla").innerText = incidents.filter(i => i.status !== "VERIFIED_CLOSED").length;
+      document.getElementById("incidentCounter").innerText = incidents.length;
+
+      // 1. Citizen Board
       const pubList = document.getElementById("publicIncidentList");
       pubList.innerHTML = "";
       incidents.forEach(inc => {
-        let badge = inc.status === "VERIFIED_CLOSED" ? '<span class="text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-2 py-0.5 rounded text-xs font-bold">🎉 Work Done / Fulfilled ✓</span>' :
-                    inc.status === "REOPENED_FAKE_CLOSURE" ? '<span class="text-rose-400 bg-rose-950/40 border border-rose-500/30 px-2 py-0.5 rounded text-xs">🚨 Fake Closure Rejected (Reopened)</span>' :
-                    '<span class="text-sky-400 bg-sky-950/40 border border-sky-500/30 px-2 py-0.5 rounded text-xs">⏳ In Progress (' + inc.department + ')</span>';
+        const isClosed = inc.status === "VERIFIED_CLOSED";
+        const isEscalated = inc.status === "ESCALATED_SLA";
+        const isFake = inc.status === "REOPENED_FAKE_CLOSURE";
+
+        let badge = isClosed 
+          ? `<span class="text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 px-2.5 py-0.5 rounded-full text-[11px] font-bold">🎉 Fulfilled / Done ✓</span>`
+          : isEscalated
+          ? `<span class="text-rose-400 bg-rose-950/60 border border-rose-500/40 px-2.5 py-0.5 rounded-full text-[11px] font-bold animate-pulse">⏰ SLA Breached</span>`
+          : isFake
+          ? `<span class="text-amber-400 bg-amber-950/60 border border-amber-500/40 px-2.5 py-0.5 rounded-full text-[11px] font-bold">🚨 Audit Reopened</span>`
+          : `<span class="text-sky-400 bg-sky-950/60 border border-sky-500/40 px-2.5 py-0.5 rounded-full text-[11px] font-semibold">⏳ In Progress (${inc.slaHoursLeft}h left)</span>`;
 
         pubList.innerHTML += `
-          <div class="bg-slate-950 border border-slate-800 p-3 rounded-lg text-xs space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="font-mono text-orange-400 font-bold">${inc.id} • 📍 ${inc.zone}</span>
+          <div class="glass-card p-4 rounded-xl space-y-2 border-slate-800 hover:border-slate-700 transition">
+            <div class="flex flex-wrap justify-between items-center gap-2">
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-orange-400 font-black text-xs">${inc.id}</span>
+                <span class="text-slate-400 text-xs">📍 ${inc.zone}</span>
+                ${inc.duplicates > 1 ? `<span class="bg-orange-500/20 text-orange-400 border border-orange-500/30 text-[10px] px-1.5 py-0.2 rounded font-bold">${inc.duplicates}x Merged</span>` : ''}
+              </div>
               ${badge}
             </div>
-            <p class="text-white font-medium">"${inc.title}"</p>
-            <p class="text-sky-300 bg-sky-950/30 border border-sky-500/20 p-2 rounded"><strong>Field Status:</strong> ${inc.workingReport}</p>
+            <p class="text-sm font-semibold text-white">"${inc.title}"</p>
+            <div class="bg-slate-950/80 border border-slate-800 p-2.5 rounded-lg text-xs space-y-1">
+              <p class="text-slate-400"><strong class="text-slate-300">Department:</strong> ${inc.department}</p>
+              <p class="text-sky-300"><strong class="text-sky-400">Ground Status:</strong> ${inc.workingReport}</p>
+            </div>
           </div>
         `;
       });
 
+      // 2. Department Board
       const deptFilter = document.getElementById("activeDeptFilter").value;
       const deptList = document.getElementById("deptIncidentList");
       deptList.innerHTML = "";
-      const filteredIncidents = incidents.filter(i => i.department === deptFilter);
+      const filtered = incidents.filter(i => i.department === deptFilter);
 
-      if (filteredIncidents.length === 0) {
-        deptList.innerHTML = `<p class="text-slate-400 text-xs italic">No active complaints currently assigned to ${deptFilter}.</p>`;
+      if (filtered.length === 0) {
+        deptList.innerHTML = `<p class="text-slate-500 text-xs italic py-4 text-center">No pending dispatches for ${deptFilter}.</p>`;
       } else {
-        filteredIncidents.forEach(inc => {
+        filtered.forEach(inc => {
           let isDone = inc.status === "VERIFIED_CLOSED";
           deptList.innerHTML += `
-            <div class="bg-slate-950 border ${isDone ? 'border-emerald-500/50' : 'border-slate-800'} p-4 rounded-xl space-y-3 text-xs">
+            <div class="glass-card border ${isDone ? 'border-emerald-500/40' : 'border-slate-800'} p-4 rounded-xl space-y-3 text-xs">
               <div class="flex justify-between items-center">
-                <span class="font-mono text-orange-400 font-bold">${inc.id} • Zone: ${inc.zone}</span>
-                <span class="${isDone ? 'text-emerald-400 bg-emerald-950/40 border border-emerald-500/30' : 'text-amber-300 bg-amber-950/40 border border-amber-500/30'} px-2 py-0.5 rounded">
-                  ${isDone ? '🎉 Work Done ✓' : 'SLA Deadline: ' + inc.slaHoursLeft + 'h left'}
+                <span class="font-mono text-orange-400 font-bold">${inc.id} • ${inc.zone}</span>
+                <span class="${isDone ? 'text-emerald-400 bg-emerald-950/60' : 'text-amber-400 bg-amber-950/60'} px-2 py-0.5 rounded border border-current font-semibold">
+                  ${isDone ? 'Work Done ✓' : 'SLA: ' + inc.slaHoursLeft + 'h remaining'}
                 </span>
               </div>
               <p class="text-sm font-bold text-white">"${inc.title}"</p>
               
               <div class="space-y-2 pt-2 border-t border-slate-800">
-                <label class="text-slate-400 font-semibold block">Update Working Report / ETA:</label>
+                <label class="text-slate-400 font-semibold block">Update Live ETA / Ground Notes:</label>
                 <div class="flex gap-2">
-                  <input id="report_${inc.id}" type="text" value="${inc.workingReport}" class="w-full bg-slate-900 border border-slate-700 p-2 rounded text-white" />
-                  <button onclick="submitWorkingReport('${inc.id}')" class="bg-sky-600 hover:bg-sky-500 text-white font-semibold px-3 py-2 rounded transition whitespace-nowrap">
+                  <input id="report_${inc.id}" type="text" value="${inc.workingReport}" class="w-full bg-slate-950 border border-slate-700/80 p-2 rounded-lg text-white" />
+                  <button onclick="submitWorkingReport('${inc.id}')" class="bg-sky-600 hover:bg-sky-500 text-white font-semibold px-3 py-2 rounded-lg transition whitespace-nowrap">
                     Update 📤
                   </button>
                 </div>
                 ${!isDone ? `
-                  <button onclick="markTaskComplete('${inc.id}')" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded transition">
+                  <button onclick="markTaskComplete('${inc.id}')" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-lg transition">
                     ✔ Mark Work Done & Complete
                   </button>
-                ` : '<p class="text-emerald-400 font-bold text-center pt-1">Task successfully completed and notified to authority!</p>'}
+                ` : '<p class="text-emerald-400 font-bold text-center pt-1">Task verified & completed on site.</p>'}
               </div>
             </div>
           `;
         });
       }
 
+      // 3. Gov Board
       const govList = document.getElementById("govIncidentList");
       govList.innerHTML = "";
       incidents.forEach(inc => {
         let isDone = inc.status === "VERIFIED_CLOSED";
-        let borderCol = isDone ? "border-emerald-500/40" : inc.status === "REOPENED_FAKE_CLOSURE" ? "border-rose-500/60" : "border-slate-800";
         govList.innerHTML += `
-          <div class="bg-slate-950 border ${borderCol} p-4 rounded-xl space-y-3 text-xs">
+          <div class="glass-card border border-slate-800 p-4 rounded-xl space-y-3 text-xs">
             <div class="flex flex-wrap justify-between items-center gap-2">
               <div>
                 <span class="font-mono text-orange-400 font-bold">${inc.id}</span>
-                <span class="text-slate-400 ml-2">(📍 ${inc.zone}) • Reports: ${inc.duplicates}</span>
+                <span class="text-slate-400 ml-2">📍 ${inc.zone} • Reports: ${inc.duplicates}</span>
               </div>
-              <span class="${isDone ? 'text-emerald-400 bg-emerald-950/40 border border-emerald-500/30' : 'text-amber-300 bg-amber-950/40 border border-amber-500/30'} px-2 py-0.5 rounded">
-                ${isDone ? '🎉 Work Done ✓' : 'SLA Left: ' + inc.slaHoursLeft + 'h'}
+              <span class="${isDone ? 'text-emerald-400 bg-emerald-950/60' : 'text-amber-400 bg-amber-950/60'} px-2 py-0.5 rounded border border-current font-bold">
+                ${isDone ? '🎉 Fulfilled ✓' : 'SLA: ' + inc.slaHoursLeft + 'h Left'}
               </span>
             </div>
 
             <p class="text-sm font-bold text-white">"${inc.title}"</p>
-
-            <div class="bg-sky-950/20 border border-sky-500/30 p-2.5 rounded text-sky-200">
-              <strong>Department Status:</strong> ${inc.workingReport}
+            <div class="bg-slate-950/90 border border-slate-800 p-2.5 rounded-lg text-sky-200">
+              <strong>Ground Telemetry:</strong> ${inc.workingReport}
             </div>
 
             <div class="flex flex-wrap items-center gap-3 pt-2 border-t border-slate-800">
               <label class="text-slate-400 font-semibold">Reassign Dept:</label>
-              <select onchange="assignDepartment('${inc.id}', this.value)" class="bg-slate-900 border border-slate-700 p-1.5 rounded text-orange-300">
-                <option value="Municipal Water Board & Drainage" ${inc.department === "Municipal Water Board & Drainage" ? "selected" : ""}>💧 Municipal Water Board & Drainage</option>
-                <option value="Public Works Dept (Roads & Potholes)" ${inc.department === "Public Works Dept (Roads & Potholes)" ? "selected" : ""}>🛣️ Public Works Dept (Roads & Potholes)</option>
-                <option value="City Electrical Grid & Streetlights" ${inc.department === "City Electrical Grid & Streetlights" ? "selected" : ""}>⚡ City Electrical Grid & Streetlights</option>
-                <option value="Sanitation & Waste Management" ${inc.department === "Sanitation & Waste Management" ? "selected" : ""}>🗑️ Sanitation & Waste Management</option>
-                <option value="Parks, Horticulture & Urban Forestry" ${inc.department === "Parks, Horticulture & Urban Forestry" ? "selected" : ""}>🌳 Parks, Horticulture & Urban Forestry</option>
-                <option value="Animal Control & Stray Management" ${inc.department === "Animal Control & Stray Management" ? "selected" : ""}>🐕 Animal Control & Stray Management</option>
+              <select onchange="assignDepartment('${inc.id}', this.value)" class="bg-slate-950 border border-slate-700/80 p-1.5 rounded-lg text-orange-300">
+                <option value="Municipal Water Board & Drainage" ${inc.department === "Municipal Water Board & Drainage" ? "selected" : ""}>💧 Water Board</option>
+                <option value="Public Works Dept (Roads & Potholes)" ${inc.department === "Public Works Dept (Roads & Potholes)" ? "selected" : ""}>🛣️ PWD (Roads)</option>
+                <option value="City Electrical Grid & Streetlights" ${inc.department === "City Electrical Grid & Streetlights" ? "selected" : ""}>⚡ Electrical Grid</option>
+                <option value="Sanitation & Waste Management" ${inc.department === "Sanitation & Waste Management" ? "selected" : ""}>🗑️ Sanitation</option>
+                <option value="Parks, Horticulture & Urban Forestry" ${inc.department === "Parks, Horticulture & Urban Forestry" ? "selected" : ""}>🌳 Parks & Forestry</option>
+                <option value="Animal Control & Stray Management" ${inc.department === "Animal Control & Stray Management" ? "selected" : ""}>🐕 Animal Control</option>
               </select>
 
               <div class="ml-auto flex gap-2">
                 ${!isDone ? `
-                  <button onclick="adminVerifyAndClose('${inc.id}')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded font-semibold transition">
+                  <button onclick="adminVerifyAndClose('${inc.id}')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg font-bold transition">
                     ✔ Verify & Mark Fulfilled
                   </button>
-                ` : '<span class="text-emerald-400 font-bold">Fulfilled ✓</span>'}
+                ` : '<span class="text-emerald-400 font-bold">Audit Completed ✓</span>'}
               </div>
             </div>
           </div>
@@ -630,8 +977,14 @@
       });
     }
 
-    logPublic("System online. PWD prioritized for sadak/road complaints.");
+    // Startup
+    initUserSession();
     renderAll();
+    logPublic("System initialized. AI Neural Triage & Cloud Sync active.");
+    
+    // Polling Cloud DB every 3 seconds
+    setInterval(syncCloudComplaints, 3000);
+    syncCloudComplaints();
   </script>
 </body>
 </html>
