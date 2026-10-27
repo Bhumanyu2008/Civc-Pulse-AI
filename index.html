@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CivicPulse AI | Secure Tri-Portal Smart City System</title>
+  <title>CivicPulse AI | Smart City Tri-Portal System (Topic #8)</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
@@ -15,7 +15,7 @@
         <span class="text-2xl">🏙️</span>
         <div>
           <h1 class="text-xl font-extrabold text-orange-400 tracking-wide">CivicPulse AI <span class="text-xs bg-orange-500/20 text-orange-300 border border-orange-500/40 px-2 py-0.5 rounded-full ml-2">Topic #8</span></h1>
-          <p class="text-xs text-slate-400">Secure Citizen, Protected Field Worker & Municipal Authority Tri-Portal</p>
+          <p class="text-xs text-slate-400">Citizen Ingestion, Field Worker Reporting & Municipal Authority Oversight</p>
         </div>
       </div>
 
@@ -50,12 +50,11 @@
 
           <label class="block text-xs text-slate-400 mb-1">Residential Zone / Ward Location</label>
           <select id="zoneInput" class="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-700 text-sm mb-3">
-            <option value="Sector 4 - Main Market">🏡 Sector 4 - Main Market (Residential & Commercial)</option>
-            <option value="Sector 12 - Hospital Road">🏥 Sector 12 - Hospital Road (Residential & Medical)</option>
-            <option value="Greenwood Colony - Block A">🌳 Greenwood Colony - Block A (Pure Residential)</option>
-            <option value="Sunshine Heights - Phase 2">🏢 Sunshine Heights - Phase 2 (Apartment Society)</option>
-            <option value="Ward 7 - Industrial Belt">🏭 Ward 7 - Industrial Belt / Workers Zone</option>
-            <option value="Railway Station Colony">🚂 Railway Station Colony</option>
+            <option value="Sector 4 - Main Market">🏡 Sector 4 - Main Market</option>
+            <option value="Sector 12 - Hospital Road">🏥 Sector 12 - Hospital Road</option>
+            <option value="Greenwood Colony - Block A">🌳 Greenwood Colony - Block A</option>
+            <option value="Sunshine Heights - Phase 2">🏢 Sunshine Heights - Phase 2</option>
+            <option value="Ward 7 - Industrial Belt">🏭 Ward 7 - Industrial Belt</option>
           </select>
 
           <label class="block text-xs text-slate-400 mb-1">Citizen Description (English or Hinglish)</label>
@@ -75,7 +74,7 @@
       <div class="lg:col-span-7">
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
           <h2 class="text-base font-bold text-white mb-1">🔍 Public Complaint Tracking Status</h2>
-          <p class="text-xs text-slate-400 mb-4">View residential complaints, department assignments, and field working reports sent to government authorities.</p>
+          <p class="text-xs text-slate-400 mb-4">View residential complaints, department assignments, and automatic work completion updates.</p>
           <div id="publicIncidentList" class="space-y-3"></div>
         </div>
       </div>
@@ -87,7 +86,7 @@
       <div class="bg-slate-900 border border-sky-500/40 rounded-xl p-4 flex flex-wrap justify-between items-center gap-3">
         <div>
           <h2 class="text-base font-bold text-sky-400">👷 Department Field Worker Portal (Password Protected)</h2>
-          <p class="text-xs text-slate-400">Secure access verified. Select your working department, view assigned complaints, and send Working Reports & ETAs back to the government.</p>
+          <p class="text-xs text-slate-400">Secure access verified. Submit working reports or mark tasks as completed so it shows up as done across all portals.</p>
         </div>
         <div class="flex items-center gap-3">
           <div>
@@ -108,7 +107,7 @@
       </div>
 
       <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-        <h3 class="text-sm font-bold text-white mb-3">📋 Assigned Tasks & Working Report Submission</h3>
+        <h3 class="text-sm font-bold text-white mb-3">📋 Assigned Tasks & Work Completion Status</h3>
         <div id="deptIncidentList" class="space-y-4"></div>
       </div>
     </div>
@@ -119,7 +118,7 @@
       <div class="bg-slate-900 border border-amber-500/40 rounded-xl p-4 flex flex-wrap justify-between items-center gap-3">
         <div>
           <h2 class="text-base font-bold text-amber-400">🛡️ Municipal Command Center & Authority Oversight</h2>
-          <p class="text-xs text-slate-400">Secure access verified. Review field working reports, monitor SLAs, and verify completion.</p>
+          <p class="text-xs text-slate-400">Secure access verified. Review field reports, monitor SLAs, and verify completion.</p>
         </div>
         <div class="flex gap-2">
           <button onclick="adminSimulateSLABreach()" class="bg-amber-600 hover:bg-amber-500 text-xs font-semibold px-3 py-2 rounded-lg transition">
@@ -135,7 +134,7 @@
       </div>
 
       <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-        <h3 class="text-sm font-bold text-white mb-3">📋 Master Incident Dashboard & Field Working Reports</h3>
+        <h3 class="text-sm font-bold text-white mb-3">📋 Master Incident Dashboard & Completion Status</h3>
         <div id="govIncidentList" class="space-y-4"></div>
       </div>
     </div>
@@ -180,12 +179,11 @@
         duplicates: 1,
         slaHoursLeft: 6,
         status: "VERIFIED_CLOSED",
-        workingReport: "Transformer fuse replaced successfully.",
+        workingReport: "✅ Work Done: Transformer fuse replaced successfully.",
         evidenceNote: "✅ Verified by smart grid sensor & citizen feedback."
       }
     ];
 
-    // Password Protection for Department Portal
     function tryOpenDeptPortal() {
       if (!isDeptAuthenticated) {
         const pwd = prompt("Enter Department Worker Password (Password is: 12345678):");
@@ -207,7 +205,6 @@
       switchPortal('citizen');
     }
 
-    // Password Protection for Government Portal
     function tryOpenGovPortal() {
       if (!isGovAuthenticated) {
         const pwd = prompt("Enter Government Authority Password (Password is: 12345678):");
@@ -237,12 +234,10 @@
       const btnDept = document.getElementById("btnDept");
       const btnGov = document.getElementById("btnGov");
 
-      // Hide all first
       citizenView.classList.add("hidden");
       deptView.classList.add("hidden");
       govView.classList.add("hidden");
 
-      // Reset button styles
       btnCitizen.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
       btnDept.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
       btnGov.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
@@ -268,7 +263,6 @@
       renderAll();
     }
 
-    // NLP Parser
     function parseHinglish(text) {
       const lower = text.toLowerCase();
       if (lower.includes("paani") || lower.includes("pani") || lower.includes("leak") || lower.includes("pipe") || lower.includes("flood") || lower.includes("drain")) {
@@ -374,6 +368,18 @@ async function syncCloudComplaints() {
 setInterval(syncCloudComplaints, 3000);
 syncCloudComplaints();
 
+    // Department Worker Submitting Completion Status
+    function markTaskComplete(id) {
+      let inc = incidents.find(i => i.id === id);
+      if (inc) {
+        inc.status = "VERIFIED_CLOSED";
+        inc.workingReport = "✅ Work Done & Completed by Field Crew!";
+        inc.evidenceNote = "✅ Verified by field crew submission.";
+        alert(`Task ${id} marked as Work Done! Automatically updated across all portals.`);
+        renderAll();
+      }
+    }
+
     function submitWorkingReport(id) {
       const reportText = document.getElementById("report_" + id).value.trim();
       if (!reportText) {
@@ -401,7 +407,7 @@ syncCloudComplaints();
       let inc = incidents.find(i => i.id === id);
       if (inc) {
         inc.status = "VERIFIED_CLOSED";
-        inc.evidenceNote = "✅ Verified by authority & sensor check. Marked Fulfilled.";
+        inc.workingReport = "✅ Work Done: Verified by authority & sensor check. Closed.";
         renderAll();
       }
     }
@@ -431,11 +437,11 @@ syncCloudComplaints();
     }
 
     function renderAll() {
-      // 1. Render Public Portal
+      // 1. Public Portal Render
       const pubList = document.getElementById("publicIncidentList");
       pubList.innerHTML = "";
       incidents.forEach(inc => {
-        let badge = inc.status === "VERIFIED_CLOSED" ? '<span class="text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-2 py-0.5 rounded text-xs">✅ Fulfilled & Closed</span>' :
+        let badge = inc.status === "VERIFIED_CLOSED" ? '<span class="text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-2 py-0.5 rounded text-xs font-bold">🎉 Work Done / Fulfilled ✓</span>' :
                     inc.status === "REOPENED_FAKE_CLOSURE" ? '<span class="text-rose-400 bg-rose-950/40 border border-rose-500/30 px-2 py-0.5 rounded text-xs">🚨 Fake Closure Rejected (Reopened)</span>' :
                     '<span class="text-sky-400 bg-sky-950/40 border border-sky-500/30 px-2 py-0.5 rounded text-xs">⏳ In Progress (' + inc.department + ')</span>';
 
@@ -446,12 +452,12 @@ syncCloudComplaints();
               ${badge}
             </div>
             <p class="text-white font-medium">"${inc.title}"</p>
-            <p class="text-sky-300 bg-sky-950/30 border border-sky-500/20 p-2 rounded"><strong>Field Working Report:</strong> ${inc.workingReport}</p>
+            <p class="text-sky-300 bg-sky-950/30 border border-sky-500/20 p-2 rounded"><strong>Field Status:</strong> ${inc.workingReport}</p>
           </div>
         `;
       });
 
-      // 2. Render Department Field Portal
+      // 2. Department Portal Render
       const deptFilter = document.getElementById("activeDeptFilter").value;
       const deptList = document.getElementById("deptIncidentList");
       deptList.innerHTML = "";
@@ -461,47 +467,58 @@ syncCloudComplaints();
         deptList.innerHTML = `<p class="text-slate-400 text-xs italic">No active complaints currently assigned to ${deptFilter}.</p>`;
       } else {
         filteredIncidents.forEach(inc => {
+          let isDone = inc.status === "VERIFIED_CLOSED";
           deptList.innerHTML += `
-            <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-3 text-xs">
+            <div class="bg-slate-950 border ${isDone ? 'border-emerald-500/50' : 'border-slate-800'} p-4 rounded-xl space-y-3 text-xs">
               <div class="flex justify-between items-center">
                 <span class="font-mono text-orange-400 font-bold">${inc.id} • Zone: ${inc.zone}</span>
-                <span class="text-amber-300 bg-amber-950/40 border border-amber-500/30 px-2 py-0.5 rounded">SLA Deadline: ${inc.slaHoursLeft}h left</span>
+                <span class="${isDone ? 'text-emerald-400 bg-emerald-950/40 border border-emerald-500/30' : 'text-amber-300 bg-amber-950/40 border border-amber-500/30'} px-2 py-0.5 rounded">
+                  ${isDone ? '🎉 Work Done ✓' : 'SLA Deadline: ' + inc.slaHoursLeft + 'h left'}
+                </span>
               </div>
               <p class="text-sm font-bold text-white">"${inc.title}"</p>
               
-              <div class="space-y-1 pt-2 border-t border-slate-800">
-                <label class="text-slate-400 font-semibold block">Submit Working Report & ETA to Govt Authority:</label>
+              <div class="space-y-2 pt-2 border-t border-slate-800">
+                <label class="text-slate-400 font-semibold block">Update Working Report / ETA:</label>
                 <div class="flex gap-2">
                   <input id="report_${inc.id}" type="text" value="${inc.workingReport}" class="w-full bg-slate-900 border border-slate-700 p-2 rounded text-white" />
-                  <button onclick="submitWorkingReport('${inc.id}')" class="bg-sky-600 hover:bg-sky-500 text-white font-semibold px-4 py-2 rounded transition whitespace-nowrap">
-                    Send Report 📤
+                  <button onclick="submitWorkingReport('${inc.id}')" class="bg-sky-600 hover:bg-sky-500 text-white font-semibold px-3 py-2 rounded transition whitespace-nowrap">
+                    Update 📤
                   </button>
                 </div>
+                ${!isDone ? `
+                  <button onclick="markTaskComplete('${inc.id}')" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded transition">
+                    ✔ Mark Work Done & Complete
+                  </button>
+                ` : '<p class="text-emerald-400 font-bold text-center pt-1">Task successfully completed and notified to authority!</p>'}
               </div>
             </div>
           `;
         });
       }
 
-      // 3. Render Govt Authority Portal
+      // 3. Government Portal Render
       const govList = document.getElementById("govIncidentList");
       govList.innerHTML = "";
       incidents.forEach(inc => {
-        let borderCol = inc.status === "VERIFIED_CLOSED" ? "border-emerald-500/40" : inc.status === "REOPENED_FAKE_CLOSURE" ? "border-rose-500/60" : "border-slate-800";
+        let isDone = inc.status === "VERIFIED_CLOSED";
+        let borderCol = isDone ? "border-emerald-500/40" : inc.status === "REOPENED_FAKE_CLOSURE" ? "border-rose-500/60" : "border-slate-800";
         govList.innerHTML += `
           <div class="bg-slate-950 border ${borderCol} p-4 rounded-xl space-y-3 text-xs">
             <div class="flex flex-wrap justify-between items-center gap-2">
               <div>
                 <span class="font-mono text-orange-400 font-bold">${inc.id}</span>
-                <span class="text-slate-400 ml-2">(📍 ${inc.zone}) • Clustered Reports: ${inc.duplicates}</span>
+                <span class="text-slate-400 ml-2">(📍 ${inc.zone}) • Reports: ${inc.duplicates}</span>
               </div>
-              <span class="text-amber-300 bg-amber-950/40 border border-amber-500/30 px-2 py-0.5 rounded">SLA Left: ${inc.slaHoursLeft}h</span>
+              <span class="${isDone ? 'text-emerald-400 bg-emerald-950/40 border border-emerald-500/30' : 'text-amber-300 bg-amber-950/40 border border-amber-500/30'} px-2 py-0.5 rounded">
+                ${isDone ? '🎉 Work Done ✓' : 'SLA Left: ' + inc.slaHoursLeft + 'h'}
+              </span>
             </div>
 
             <p class="text-sm font-bold text-white">"${inc.title}"</p>
 
             <div class="bg-sky-950/20 border border-sky-500/30 p-2.5 rounded text-sky-200">
-              <strong>Latest Department Working Report:</strong> ${inc.workingReport}
+              <strong>Department Status:</strong> ${inc.workingReport}
             </div>
 
             <div class="flex flex-wrap items-center gap-3 pt-2 border-t border-slate-800">
@@ -516,11 +533,11 @@ syncCloudComplaints();
               </select>
 
               <div class="ml-auto flex gap-2">
-                ${inc.status !== "VERIFIED_CLOSED" ? `
+                ${!isDone ? `
                   <button onclick="adminVerifyAndClose('${inc.id}')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded font-semibold transition">
                     ✔ Verify & Mark Fulfilled
                   </button>
-                ` : '<span class="text-emerald-400 font-semibold">Fulfilled ✓</span>'}
+                ` : '<span class="text-emerald-400 font-bold">Fulfilled ✓</span>'}
               </div>
             </div>
           </div>
@@ -528,7 +545,7 @@ syncCloudComplaints();
       });
     }
 
-    logPublic("System online. Tri-portal password protection active.");
+    logPublic("System online. Tri-portal auto-completion sync active.");
     renderAll();
   </script>
 </body>
