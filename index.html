@@ -299,6 +299,16 @@
       const zone = document.getElementById("zoneInput").value;
       const text = document.getElementById("descInput").value.trim() || "Public grievance reported";
       const parsed = parseHinglish(text);
+      // Send complaint to cloud server
+    fetch('/api/complaints', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            citizen_name: "Resident",
+            category: parsed.cat || "Sanitation",
+            description: `[${zone}] ${text}`
+        })
+    });
 
       let found = incidents.find(i => i.zone === zone && i.category === parsed.cat && i.status !== "VERIFIED_CLOSED");
       if (found) {
@@ -324,6 +334,45 @@
       document.getElementById("descInput").value = "";
       renderAll();
     }
+    // Automatically sync live complaints across all devices every 3 seconds
+async function syncCloudComplaints() {
+    try {
+        const res = await fetch('/api/complaints');
+        const list = await res.json();
+        if (!Array.isArray(list)) return;
+
+        let hasNew = false;
+        list.forEach(c => {
+            const ticketId = "INC-" + (100 + c.id);
+            // Add complaint if it is not already on this screen
+            if (!incidents.some(i => i.id === ticketId || i.id === c.id)) {
+                incidents.unshift({
+                    id: ticketId,
+                    zone: "Reported Zone",
+                    category: c.category || "Sanitation",
+                    title: c.description || "Public grievance reported",
+                    department: c.assigned_dept || "Sanitation & Waste Management",
+                    duplicates: 1,
+                    slaHoursLeft: 4,
+                    status: c.status || "IN_PROGRESS",
+                    workingReport: "Awaiting field unit dispatch and inspection.",
+                    evidenceNote: "Cloud synced from central database."
+                });
+                hasNew = true;
+            }
+        });
+
+        if (hasNew) {
+            renderAll();
+        }
+    } catch (err) {
+        console.warn("Syncing with cloud server...");
+    }
+}
+
+// Start polling
+setInterval(syncCloudComplaints, 3000);
+syncCloudComplaints();
 
     function submitWorkingReport(id) {
       const reportText = document.getElementById("report_" + id).value.trim();
