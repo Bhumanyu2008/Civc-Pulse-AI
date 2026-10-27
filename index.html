@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CivicPulse AI | Autonomous Smart City Resolution Agent</title>
+  <title>CivicPulse AI | Autonomous Smart City Resolution Agent (Hinglish Supported)</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
@@ -14,8 +14,8 @@
       <div class="flex items-center gap-3">
         <span class="text-2xl">🏙️</span>
         <div>
-          <h1 class="text-xl font-extrabold text-orange-400 tracking-wide">CivicPulse AI <span class="text-xs bg-orange-500/20 text-orange-300 border border-orange-500/40 px-2 py-0.5 rounded-full ml-2">SDG 11 & 16 • Topic #8</span></h1>
-          <p class="text-xs text-slate-400">Autonomous Citizen Report Triage, SLA Enforcement & Verified Resolution Engine</p>
+          <h1 class="text-xl font-extrabold text-orange-400 tracking-wide">CivicPulse AI <span class="text-xs bg-orange-500/20 text-orange-300 border border-orange-500/40 px-2 py-0.5 rounded-full ml-2">Hinglish & English Enabled • Topic #8</span></h1>
+          <p class="text-xs text-slate-400">Autonomous Citizen Report Triage, Hinglish NLP Mapping & SLA Enforcement</p>
         </div>
       </div>
       <!-- Judge Demo Controls -->
@@ -64,8 +64,8 @@
     <div class="lg:col-span-4 space-y-4">
       <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
         <div class="flex justify-between items-center mb-3">
-          <h2 class="text-base font-bold text-orange-400">📣 New Citizen Complaint</h2>
-          <button onclick="fillSampleReport()" class="text-xs text-orange-300 hover:underline">Auto-Fill Sample</button>
+          <h2 class="text-base font-bold text-orange-400">📣 New Citizen Complaint (Hinglish OK)</h2>
+          <button onclick="fillHinglishSample()" class="text-xs text-orange-300 hover:underline">Try Hinglish Sample</button>
         </div>
 
         <label class="block text-xs text-slate-400 mb-1">Zone / Ward Location</label>
@@ -75,16 +75,17 @@
           <option value="Ward 7 - Industrial Belt">Ward 7 - Industrial Belt</option>
         </select>
 
-        <label class="block text-xs text-slate-400 mb-1">Issue Category</label>
+        <label class="block text-xs text-slate-400 mb-1">Issue Category (Optional Override)</label>
         <select id="categoryInput" class="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-700 text-sm mb-3">
+          <option value="Auto">🤖 Auto-Detect from Hinglish Text</option>
           <option value="Water Leak">💧 Water Pipeline Leak / Flooding</option>
           <option value="Pothole">🛣️ Road Pothole / Cave-in</option>
           <option value="Power Outage">⚡ Streetlight / Transformer Fault</option>
           <option value="Garbage Overflow">🗑️ Uncollected Garbage Overflow</option>
         </select>
 
-        <label class="block text-xs text-slate-400 mb-1">Citizen Description</label>
-        <textarea id="descInput" rows="2" placeholder="Describe what happened..." class="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-700 text-sm mb-3"></textarea>
+        <label class="block text-xs text-slate-400 mb-1">Citizen Description (English or Hinglish)</label>
+        <textarea id="descInput" rows="2" placeholder="e.g., gali mein paani bhar gaya hai ya pothole hai..." class="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-700 text-sm mb-3"></textarea>
 
         <button onclick="submitComplaint()" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-2.5 rounded-lg text-sm transition">
           Submit to Autonomous Agent
@@ -94,7 +95,7 @@
       <!-- Autonomous Agent Live Reasoning Terminal -->
       <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
         <div class="flex justify-between items-center mb-2">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">🤖 Agentic AI Decision Log</h3>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">🤖 Hinglish AI Decision Log</h3>
           <span class="text-[11px] text-slate-400">Live Loop</span>
         </div>
         <div id="agentLog" class="bg-slate-950 border border-slate-800 rounded-lg p-3 h-72 overflow-y-auto font-mono text-xs space-y-2 text-slate-300">
@@ -123,7 +124,7 @@
 
   <script>
     // ============================================================================
-    // C / C++ / PYTHON STYLE DATA & IF/ELSE LOGIC FOR TOPIC 8 (SMART CITIES)
+    // HINGLISH NLP MAPPER & C/C++/PYTHON STYLE LOGIC
     // ============================================================================
 
     let stats = {
@@ -133,7 +134,6 @@
       verifiedCount: 1
     };
 
-    // Initial Incidents (Like an array of structs in C/C++)
     let incidents = [
       {
         id: "INC-101",
@@ -144,7 +144,7 @@
         duplicates: 3,
         relatedNote: "Monitoring road surface erosion nearby",
         slaHoursLeft: 2,
-        status: "IN_PROGRESS", // IN_PROGRESS, ESCALATED_SLA, REOPENED_FAKE_CLOSURE, VERIFIED_CLOSED
+        status: "IN_PROGRESS",
         escalationLevel: "Tier 1 - Field Crew",
         evidenceNote: "Awaiting repair completion photo & pressure sensor check."
       },
@@ -176,7 +176,29 @@
       }
     ];
 
-    // Helper: Map Category to Department (Simple if/else just like C/Python)
+    // Smart Hinglish NLP Keyword Parser
+    function parseHinglishText(text) {
+      const lower = text.toLowerCase();
+
+      // Water / Flooding keywords in Hinglish & English
+      if (lower.includes("paani") || lower.includes("pani") || lower.includes("leak") || lower.includes("pipe") || lower.includes("flood") || lower.includes("bahar") || lower.includes("tanki")) {
+        return "Water Leak";
+      }
+      // Pothole / Road keywords
+      if (lower.includes("gaddha") || lower.includes("gadda") || lower.includes("pothole") || lower.includes("road") || lower.includes("rasta") || lower.includes("tut") || lower.includes("cave")) {
+        return "Pothole";
+      }
+      // Power / Light keywords
+      if (lower.includes("light") || lower.includes("batti") || lower.includes("bati") || lower.includes("bijli") || lower.includes("current") || lower.includes("transformer") || lower.includes("dark")) {
+        return "Power Outage";
+      }
+      // Garbage / Waste keywords
+      if (lower.includes("kachra") || lower.includes("kachahri") || lower.includes("garbage") || lower.includes("trash") || lower.includes("safai") || lower.includes("smell") || lower.includes("dustbin")) {
+        return "Garbage Overflow";
+      }
+      return "Water Leak"; // Default fallback
+    }
+
     function getDepartment(category) {
       if (category === "Water Leak") return "Municipal Water Board";
       if (category === "Pothole") return "Public Works Dept (PWD)";
@@ -184,7 +206,6 @@
       return "Sanitation & Waste Dept";
     }
 
-    // Helper: Add entry to the AI Agent Decision Log
     function logAgent(stepTag, message, colorClass = "text-slate-300") {
       const logBox = document.getElementById("agentLog");
       const time = new Date().toLocaleTimeString();
@@ -194,18 +215,24 @@
       logBox.prepend(entry);
     }
 
-    // 1. Submit a Citizen Complaint (Checks for Duplicates OR Related Incidents!)
     function submitComplaint() {
       const zone = document.getElementById("zoneInput").value;
-      const category = document.getElementById("categoryInput").value;
-      const desc = document.getElementById("descInput").value.trim() || `${category} reported by citizen in ${zone}`;
+      const selectedDropdown = document.getElementById("categoryInput").value;
+      const rawDesc = document.getElementById("descInput").value.trim() || "Citizen report submitted";
 
-      logAgent("INGEST", `New report received: "${desc}" at ${zone}.`);
+      // AI Hinglish Parsing
+      let detectedCategory = selectedDropdown;
+      if (selectedDropdown === "Auto") {
+        detectedCategory = parseHinglishText(rawDesc);
+        logAgent("NLP ENGINE", `Parsed Hinglish text: "${rawDesc}" ➔ Classified as [${detectedCategory}]`, "text-indigo-300");
+      }
 
-      // STEP A: Check for Exact Duplicate (Same Zone + Same Category)
+      logAgent("INGEST", `New report received from ${zone}.`);
+
+      // Check Exact Duplicate
       let duplicateFound = null;
       for (let i = 0; i < incidents.length; i++) {
-        if (incidents[i].zone === zone && incidents[i].category === category && incidents[i].status !== "VERIFIED_CLOSED") {
+        if (incidents[i].zone === zone && incidents[i].category === detectedCategory && incidents[i].status !== "VERIFIED_CLOSED") {
           duplicateFound = incidents[i];
           break;
         }
@@ -216,14 +243,14 @@
         stats.mergedCount += 1;
         logAgent(
           "DEDUPLICATE",
-          `Matched existing ticket ${duplicateFound.id} in ${zone}! Merged report (Total cluster: ${duplicateFound.duplicates} reports). Priority boosted.`,
+          `Matched existing ticket ${duplicateFound.id} in ${zone}! Merged Hinglish report (Total cluster: ${duplicateFound.duplicates}).`,
           "text-indigo-300"
         );
         renderBoard();
         return;
       }
 
-      // STEP B: Check for Related Root-Cause Incident (e.g., Water Leak causing a Pothole in the same Zone!)
+      // Check Related Root-Cause Incident
       let relatedFound = null;
       for (let i = 0; i < incidents.length; i++) {
         if (incidents[i].zone === zone && incidents[i].status !== "VERIFIED_CLOSED") {
@@ -232,7 +259,7 @@
         }
       }
 
-      const newDept = getDepartment(category);
+      const newDept = getDepartment(detectedCategory);
 
       if (relatedFound !== null) {
         if (!relatedFound.departments.includes(newDept)) {
@@ -240,100 +267,96 @@
         }
         relatedFound.duplicates += 1;
         stats.mergedCount += 1;
-        relatedFound.relatedNote = `🔗 Cross-Dept Link: "${desc}" linked to root cause in ${zone}. Joint dispatch activated.`;
+        relatedFound.relatedNote = `🔗 Cross-Dept Link: Hinglish report "${rawDesc}" linked to root cause in ${zone}.`;
         logAgent(
           "CROSS-DEPT LINK",
-          `Related incident detected in ${zone}! Linked "${category}" with ${relatedFound.id}. Added [${newDept}] for joint resolution.`,
+          `Related incident detected in ${zone}! Linked with ${relatedFound.id}. Added [${newDept}].`,
           "text-indigo-300"
         );
         renderBoard();
         return;
       }
 
-      // STEP C: Brand New Incident
+      // Brand New Incident
       const newId = "INC-" + (101 + incidents.length);
       incidents.unshift({
         id: newId,
         zone: zone,
-        category: category,
-        title: desc,
+        category: detectedCategory,
+        title: rawDesc,
         departments: [newDept],
         duplicates: 1,
-        relatedNote: "Standalone incident — monitoring adjacent sensors",
+        relatedNote: "Parsed via Hinglish NLP engine — monitoring zone sensors",
         slaHoursLeft: 4,
         status: "IN_PROGRESS",
         escalationLevel: "Tier 1 - Auto-Assigned",
-        evidenceNote: "SLA clock started. Awaiting field team telemetry."
+        evidenceNote: "SLA clock started. Awaiting field telemetry."
       });
 
-      logAgent("DISPATCH", `Created ${newId}. Routed to [${newDept}] with 4h SLA deadline.`, "text-emerald-300");
+      logAgent("DISPATCH", `Created ${newId}. Routed to [${newDept}] with 4h SLA.`, "text-emerald-300");
       document.getElementById("descInput").value = "";
       renderBoard();
     }
 
-    // 2. Demo Button 1: Simulate Duplicate + Related Cross-Department Incident
     function simulateDuplicateFlood() {
-      const target = incidents[0]; // INC-101 Sector 4 Water Leak
+      const target = incidents[0];
       target.duplicates += 2;
       stats.mergedCount += 2;
       if (!target.departments.includes("Public Works Dept (PWD)")) {
         target.departments.push("Public Works Dept (PWD)");
       }
-      target.relatedNote = "🔗 AI linked 2 duplicate leak reports + 1 road cave-in report caused by water seepage.";
+      target.relatedNote = "🔗 AI linked multiple Hinglish complaints ('paani bhar gaya' & 'gaddha ho gaya') into a joint Water + PWD repair ticket!";
       logAgent(
         "CLUSTER & LINK",
-        `3 incoming citizen reports in ${target.zone} analyzed: 2 duplicates merged into ${target.id} & 1 road damage report linked for joint Water + PWD repair!`,
+        `Analyzed 3 Hinglish citizen notes: 2 duplicates merged into ${target.id} & road damage linked!`,
         "text-indigo-300"
       );
       renderBoard();
     }
 
-    // 3. Demo Button 2: Simulate Missed SLA Deadline
     function simulateSLABreach() {
-      const target = incidents[1]; // INC-102 Hospital Road Pothole
+      const target = incidents[1];
       target.slaHoursLeft = 0;
       target.status = "ESCALATED_SLA";
       target.escalationLevel = "⚠️ Tier 2 - Zonal Commissioner + Emergency Contractor";
-      target.evidenceNote = "❌ SLA Deadline Missed by Primary Crew! Agent automatically reassigned work to Emergency Rapid Contractor.";
+      target.evidenceNote = "❌ SLA Deadline Missed! Agent automatically escalated to Zonal Commissioner.";
       stats.breachCount += 1;
 
       logAgent(
         "SLA BREACH",
-        `Deadline expired on ${target.id} (${target.zone})! Automatically escalated to Zonal Commissioner & reallocated backup contractor.`,
+        `Deadline expired on ${target.id}! Automatically escalated to Zonal Commissioner & reallocated backup contractor.`,
         "text-amber-300"
       );
       renderBoard();
     }
 
-    // 4. Demo Button 3: Simulate Contradicting Evidence on a Fake Closure Report
     function simulateFakeClosure() {
-      const target = incidents[0]; // INC-101 Sector 4 Water Leak
+      const target = incidents[0];
       target.status = "REOPENED_FAKE_CLOSURE";
       target.slaHoursLeft = 1;
       target.escalationLevel = "🚨 Tier 3 - Vigilance Audit + Senior Chief Engineer";
-      target.evidenceNote = "🛑 CLOSURE REJECTED BY AI: Dept marked 'Fixed', but IoT pressure sensor shows 42% drop & 2 citizens uploaded new flood photos!";
+      target.evidenceNote = "🛑 CLOSURE REJECTED BY AI: Dept marked 'Fixed', but IoT sensor & citizen photo show water logging persists!";
       stats.reopenedCount += 1;
 
       logAgent(
         "EVIDENCE CONTRADICTION",
-        `Dept attempted to close ${target.id}, but citizen photo + water pressure telemetry contradict the report! Case REOPENED & escalated to Vigilance Officer.`,
+        `Dept attempted fake closure on ${target.id}, but telemetry contradicts it! Case REOPENED & escalated to Vigilance.`,
         "text-rose-400"
       );
       renderBoard();
     }
 
-    // 5. Verify & Close a Ticket (When Evidence Matches!)
     function verifyAndClose(id) {
       for (let i = 0; i < incidents.length; i++) {
         if (incidents[i].id === id) {
           incidents[i].status = "VERIFIED_CLOSED";
           incidents[i].slaHoursLeft = 0;
           incidents[i].escalationLevel = "Verified & Closed";
-          incidents[i].evidenceNote = "✅ Geotagged repair photo + citizen thumbs-up + sensor check passed 100%.";
+          incidents[i].evidenceNote = "✅ Geotagged repair photo + citizen feedback verified 100%.";
           stats.verifiedCount += 1;
           logAgent(
             "VERIFIED RESOLUTION",
-            `${id} passed multi-modal evidence check (Citizen confirmation + sensor check). Case officially closed!`,
+            `${id} passed multi-modal evidence check. Case officially closed!`,
             "text-emerald-400"
           );
           break;
@@ -342,13 +365,12 @@
       renderBoard();
     }
 
-    function fillSampleReport() {
+    function fillHinglishSample() {
       document.getElementById("zoneInput").value = "Sector 4 - Main Market";
-      document.getElementById("categoryInput").value = "Pothole";
-      document.getElementById("descInput").value = "Road caving in right next to the burst water pipe in Sector 4!";
+      document.getElementById("categoryInput").value = "Auto";
+      document.getElementById("descInput").value = "bhai yahan sadak pe bada sa gaddha ho gaya hai aur paani bhi leak ho raha hai!";
     }
 
-    // Render UI Cards
     function renderBoard() {
       document.getElementById("statTotal").innerText = incidents.length;
       document.getElementById("statMerged").innerText = stats.mergedCount;
@@ -390,7 +412,7 @@
                 <span class="text-xs text-slate-400">• ${inc.zone}</span>
                 <span class="bg-indigo-500/20 text-indigo-300 text-[11px] px-2 py-0.5 rounded-full">🔗 ${inc.duplicates} Reports Clustered</span>
               </div>
-              <h3 class="text-base font-bold text-white mt-1">${inc.title}</h3>
+              <h3 class="text-base font-bold text-white mt-1">"${inc.title}"</h3>
             </div>
             ${badgeHTML}
           </div>
@@ -416,8 +438,7 @@
       });
     }
 
-    // Initialize Board & First Logs
-    logAgent("SYSTEM INIT", "CivicPulse Autonomous Agent online. Monitoring citizen channels, SLA timers & IoT verification sensors.", "text-emerald-300");
+    logAgent("SYSTEM INIT", "CivicPulse Autonomous Agent online. Hinglish NLP keyword mapping active.", "text-emerald-300");
     renderBoard();
   </script>
 </body>
