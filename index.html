@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CivicPulse AI | Secure Dual-Portal Smart City System</title>
+  <title>CivicPulse AI | Secure Tri-Portal Smart City System</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
@@ -15,18 +15,21 @@
         <span class="text-2xl">🏙️</span>
         <div>
           <h1 class="text-xl font-extrabold text-orange-400 tracking-wide">CivicPulse AI <span class="text-xs bg-orange-500/20 text-orange-300 border border-orange-500/40 px-2 py-0.5 rounded-full ml-2">Topic #8</span></h1>
-          <p class="text-xs text-slate-400">Secure Citizen & Multi-Department Municipal Portal</p>
+          <p class="text-xs text-slate-400">Secure Citizen, Protected Field Worker & Municipal Authority Tri-Portal</p>
         </div>
       </div>
 
       <!-- Portal Switcher -->
       <div class="flex items-center gap-2">
-        <div class="bg-slate-950 p-1 rounded-lg border border-slate-700 flex gap-1">
-          <button id="btnCitizenPortal" onclick="switchPortal('citizen')" class="px-3 py-1.5 rounded-md text-xs font-semibold bg-orange-600 text-white transition">
+        <div class="bg-slate-950 p-1 rounded-lg border border-slate-700 flex gap-1 flex-wrap">
+          <button id="btnCitizen" onclick="switchPortal('citizen')" class="px-3 py-1.5 rounded-md text-xs font-semibold bg-orange-600 text-white transition">
             👤 Public Portal
           </button>
-          <button id="btnGovPortal" onclick="tryOpenGovPortal()" class="px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">
-            🛡️ Government Authority Portal (Protected)
+          <button id="btnDept" onclick="tryOpenDeptPortal()" class="px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">
+            👷 Department Portal (Locked)
+          </button>
+          <button id="btnGov" onclick="tryOpenGovPortal()" class="px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">
+            🛡️ Govt Authority (Locked)
           </button>
         </div>
       </div>
@@ -36,9 +39,8 @@
   <!-- Main Workspace -->
   <main class="max-w-7xl mx-auto px-4 py-5">
 
-    <!-- ================= CITIZEN PORTAL VIEW ================= -->
+    <!-- ================= 1. PUBLIC PORTAL VIEW ================= -->
     <div id="citizenPortalView" class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-      <!-- Left: Complaint Form (5 cols) -->
       <div class="lg:col-span-5 space-y-4">
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
           <div class="flex justify-between items-center mb-3">
@@ -46,11 +48,14 @@
             <button onclick="fillHinglishSample()" class="text-xs text-orange-300 hover:underline">Sample Input</button>
           </div>
 
-          <label class="block text-xs text-slate-400 mb-1">Zone / Ward Location</label>
+          <label class="block text-xs text-slate-400 mb-1">Residential Zone / Ward Location</label>
           <select id="zoneInput" class="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-700 text-sm mb-3">
-            <option value="Sector 4 - Main Market">Sector 4 - Main Market</option>
-            <option value="Sector 12 - Hospital Road">Sector 12 - Hospital Road</option>
-            <option value="Ward 7 - Industrial Belt">Ward 7 - Industrial Belt</option>
+            <option value="Sector 4 - Main Market">🏡 Sector 4 - Main Market (Residential & Commercial)</option>
+            <option value="Sector 12 - Hospital Road">🏥 Sector 12 - Hospital Road (Residential & Medical)</option>
+            <option value="Greenwood Colony - Block A">🌳 Greenwood Colony - Block A (Pure Residential)</option>
+            <option value="Sunshine Heights - Phase 2">🏢 Sunshine Heights - Phase 2 (Apartment Society)</option>
+            <option value="Ward 7 - Industrial Belt">🏭 Ward 7 - Industrial Belt / Workers Zone</option>
+            <option value="Railway Station Colony">🚂 Railway Station Colony</option>
           </select>
 
           <label class="block text-xs text-slate-400 mb-1">Citizen Description (English or Hinglish)</label>
@@ -67,24 +72,54 @@
         </div>
       </div>
 
-      <!-- Right: Live Tracking Board for Public (7 cols) -->
       <div class="lg:col-span-7">
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
           <h2 class="text-base font-bold text-white mb-1">🔍 Public Complaint Tracking Status</h2>
-          <p class="text-xs text-slate-400 mb-4">Citizens can check real-time verification and task-specific department assignment.</p>
+          <p class="text-xs text-slate-400 mb-4">View residential complaints, department assignments, and field working reports sent to government authorities.</p>
           <div id="publicIncidentList" class="space-y-3"></div>
         </div>
       </div>
     </div>
 
 
-    <!-- ================= GOVERNMENT AUTHORITY PORTAL VIEW (LOCKED) ================= -->
+    <!-- ================= 2. DEPARTMENT FIELD PORTAL VIEW (LOCKED) ================= -->
+    <div id="deptPortalView" class="hidden space-y-5">
+      <div class="bg-slate-900 border border-sky-500/40 rounded-xl p-4 flex flex-wrap justify-between items-center gap-3">
+        <div>
+          <h2 class="text-base font-bold text-sky-400">👷 Department Field Worker Portal (Password Protected)</h2>
+          <p class="text-xs text-slate-400">Secure access verified. Select your working department, view assigned complaints, and send Working Reports & ETAs back to the government.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div>
+            <label class="text-xs text-slate-400 mr-2">Select Working Department:</label>
+            <select id="activeDeptFilter" onchange="renderAll()" class="bg-slate-950 border border-slate-700 p-2 rounded text-orange-300 text-xs font-semibold">
+              <option value="Municipal Water Board & Drainage">💧 Municipal Water Board & Drainage</option>
+              <option value="Public Works Dept (Roads & Potholes)">🛣️ Public Works Dept (Roads & Potholes)</option>
+              <option value="City Electrical Grid & Streetlights">⚡ City Electrical Grid & Streetlights</option>
+              <option value="Sanitation & Waste Management">🗑️ Sanitation & Waste Management</option>
+              <option value="Parks, Horticulture & Urban Forestry">🌳 Parks, Horticulture & Urban Forestry</option>
+              <option value="Animal Control & Stray Management">🐕 Animal Control & Stray Management</option>
+            </select>
+          </div>
+          <button onclick="logoutDeptPortal()" class="bg-rose-900 hover:bg-rose-800 text-xs font-semibold px-3 py-2 rounded-lg transition whitespace-nowrap">
+            🔒 Lock & Logout
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <h3 class="text-sm font-bold text-white mb-3">📋 Assigned Tasks & Working Report Submission</h3>
+        <div id="deptIncidentList" class="space-y-4"></div>
+      </div>
+    </div>
+
+
+    <!-- ================= 3. GOVERNMENT AUTHORITY PORTAL VIEW (LOCKED) ================= -->
     <div id="govPortalView" class="hidden space-y-5">
-      <!-- Admin Action Bar -->
       <div class="bg-slate-900 border border-amber-500/40 rounded-xl p-4 flex flex-wrap justify-between items-center gap-3">
         <div>
-          <h2 class="text-base font-bold text-amber-400">🛡️ Municipal Command Center & Specialized Department Dispatch</h2>
-          <p class="text-xs text-slate-400">Secure Access Granted (Password Verified). Route tasks to specific departments and audit resolutions.</p>
+          <h2 class="text-base font-bold text-amber-400">🛡️ Municipal Command Center & Authority Oversight</h2>
+          <p class="text-xs text-slate-400">Secure access verified. Review field working reports, monitor SLAs, and verify completion.</p>
         </div>
         <div class="flex gap-2">
           <button onclick="adminSimulateSLABreach()" class="bg-amber-600 hover:bg-amber-500 text-xs font-semibold px-3 py-2 rounded-lg transition">
@@ -93,15 +128,14 @@
           <button onclick="adminSimulateFakeClosure()" class="bg-rose-600 hover:bg-rose-500 text-xs font-semibold px-3 py-2 rounded-lg transition">
             🚨 Catch Fake Closure
           </button>
-          <button onclick="switchPortal('citizen')" class="bg-slate-800 hover:bg-slate-700 text-xs font-semibold px-3 py-2 rounded-lg transition">
+          <button onclick="logoutGovPortal()" class="bg-rose-900 hover:bg-rose-800 text-xs font-semibold px-3 py-2 rounded-lg transition">
             🔒 Lock & Logout
           </button>
         </div>
       </div>
 
-      <!-- Government Master Incident Management Board -->
       <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
-        <h3 class="text-sm font-bold text-white mb-3">📋 Active Master Cases & Specialized Department Routing</h3>
+        <h3 class="text-sm font-bold text-white mb-3">📋 Master Incident Dashboard & Field Working Reports</h3>
         <div id="govIncidentList" class="space-y-4"></div>
       </div>
     </div>
@@ -109,9 +143,9 @@
   </main>
 
   <script>
+    let isDeptAuthenticated = false;
     let isGovAuthenticated = false;
 
-    // Master Database of Incidents
     let incidents = [
       {
         id: "INC-101",
@@ -122,18 +156,20 @@
         duplicates: 3,
         slaHoursLeft: 2,
         status: "IN_PROGRESS",
+        workingReport: "Field team dispatched with excavation truck. ETA: 3 hours.",
         evidenceNote: "Awaiting field crew repair photo & sensor check."
       },
       {
         id: "INC-102",
-        zone: "Sector 12 - Hospital Road",
+        zone: "Greenwood Colony - Block A",
         category: "Pothole",
-        title: "Deep Crater Blocking Ambulance Lane",
+        title: "Deep Crater Blocking Residential Lane",
         department: "Public Works Dept (Roads & Potholes)",
         duplicates: 2,
         slaHoursLeft: 1,
         status: "IN_PROGRESS",
-        evidenceNote: "SLA deadline approaching. Rapid patch unit notified."
+        workingReport: "Rapid patch unit deployed. Asphalt mixer on route. ETA: 45 mins.",
+        evidenceNote: "SLA deadline approaching."
       },
       {
         id: "INC-103",
@@ -144,14 +180,37 @@
         duplicates: 1,
         slaHoursLeft: 6,
         status: "VERIFIED_CLOSED",
+        workingReport: "Transformer fuse replaced successfully.",
         evidenceNote: "✅ Verified by smart grid sensor & citizen feedback."
       }
     ];
 
+    // Password Protection for Department Portal
+    function tryOpenDeptPortal() {
+      if (!isDeptAuthenticated) {
+        const pwd = prompt("Enter Department Worker Password (Password is: 12345678):");
+        if (pwd === "12345678") {
+          isDeptAuthenticated = true;
+          alert("🔒 Access Granted! Welcome, Field Worker.");
+          switchPortal('dept');
+        } else if (pwd !== null) {
+          alert("❌ Incorrect Password! Access Denied.");
+        }
+      } else {
+        switchPortal('dept');
+      }
+    }
+
+    function logoutDeptPortal() {
+      isDeptAuthenticated = false;
+      alert("🔒 Successfully logged out of Department Portal.");
+      switchPortal('citizen');
+    }
+
     // Password Protection for Government Portal
     function tryOpenGovPortal() {
       if (!isGovAuthenticated) {
-        const pwd = prompt("Enter Government Authority Password (Hint: 12345678):");
+        const pwd = prompt("Enter Government Authority Password (Password is: 12345678):");
         if (pwd === "12345678") {
           isGovAuthenticated = true;
           alert("🔒 Access Granted! Welcome, Municipal Administrator.");
@@ -164,31 +223,52 @@
       }
     }
 
+    function logoutGovPortal() {
+      isGovAuthenticated = false;
+      alert("🔒 Successfully logged out of Government Authority Portal.");
+      switchPortal('citizen');
+    }
+
     function switchPortal(portal) {
       const citizenView = document.getElementById("citizenPortalView");
+      const deptView = document.getElementById("deptPortalView");
       const govView = document.getElementById("govPortalView");
-      const btnCitizen = document.getElementById("btnCitizenPortal");
-      const btnGov = document.getElementById("btnGovPortal");
+      const btnCitizen = document.getElementById("btnCitizen");
+      const btnDept = document.getElementById("btnDept");
+      const btnGov = document.getElementById("btnGov");
+
+      // Hide all first
+      citizenView.classList.add("hidden");
+      deptView.classList.add("hidden");
+      govView.classList.add("hidden");
+
+      // Reset button styles
+      btnCitizen.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
+      btnDept.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
+      btnGov.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
 
       if (portal === 'citizen') {
         citizenView.classList.remove("hidden");
-        govView.classList.add("hidden");
         btnCitizen.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-orange-600 text-white transition";
-        btnGov.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
-      } else {
+      } else if (portal === 'dept') {
+        if (!isDeptAuthenticated) {
+          tryOpenDeptPortal();
+          return;
+        }
+        deptView.classList.remove("hidden");
+        btnDept.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-sky-600 text-white transition";
+      } else if (portal === 'gov') {
         if (!isGovAuthenticated) {
           tryOpenGovPortal();
           return;
         }
-        citizenView.classList.add("hidden");
         govView.classList.remove("hidden");
         btnGov.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-amber-600 text-white transition";
-        btnCitizen.className = "px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition";
       }
       renderAll();
     }
 
-    // Hinglish & Task-Specific NLP Keyword Parser
+    // NLP Parser
     function parseHinglish(text) {
       const lower = text.toLowerCase();
       if (lower.includes("paani") || lower.includes("pani") || lower.includes("leak") || lower.includes("pipe") || lower.includes("flood") || lower.includes("drain")) {
@@ -200,10 +280,10 @@
       if (lower.includes("light") || lower.includes("batti") || lower.includes("bijli") || lower.includes("transformer") || lower.includes("spark")) {
         return { cat: "Power Outage", dept: "City Electrical Grid & Streetlights" };
       }
-      if (lower.includes("ped") || lower.includes("tree") || lower.includes("branch") || lower.includes("park") || lower.includes("poudha")) {
+      if (lower.includes("ped") || lower.includes("tree") || lower.includes("branch") || lower.includes("park")) {
         return { cat: "Parks & Forestry", dept: "Parks, Horticulture & Urban Forestry" };
       }
-      if (lower.includes("kutte") || lower.includes("dog") || lower.includes("animal") || lower.includes("stray") || lower.includes("cattle")) {
+      if (lower.includes("kutte") || lower.includes("dog") || lower.includes("animal") || lower.includes("stray")) {
         return { cat: "Animal Control", dept: "Animal Control & Stray Management" };
       }
       return { cat: "Garbage Overflow", dept: "Sanitation & Waste Management" };
@@ -235,6 +315,7 @@
           duplicates: 1,
           slaHoursLeft: 4,
           status: "IN_PROGRESS",
+          workingReport: "Awaiting field unit dispatch and inspection.",
           evidenceNote: "AI routed to specialized department. Awaiting resolution."
         });
         logPublic(`Created ${newId} and routed to [${parsed.dept}].`);
@@ -242,6 +323,20 @@
 
       document.getElementById("descInput").value = "";
       renderAll();
+    }
+
+    function submitWorkingReport(id) {
+      const reportText = document.getElementById("report_" + id).value.trim();
+      if (!reportText) {
+        alert("Please enter a valid working report or ETA!");
+        return;
+      }
+      let inc = incidents.find(i => i.id === id);
+      if (inc) {
+        inc.workingReport = reportText;
+        alert(`Working Report successfully sent to Government Authority for ${id}!`);
+        renderAll();
+      }
     }
 
     function assignDepartment(id, newDept) {
@@ -282,8 +377,8 @@
     }
 
     function fillHinglishSample() {
-      document.getElementById("zoneInput").value = "Sector 4 - Main Market";
-      document.getElementById("descInput").value = "sadak pe road light kharab hai aur paani bhi leak ho raha hai!";
+      document.getElementById("zoneInput").value = "Greenwood Colony - Block A";
+      document.getElementById("descInput").value = "colony ki sadak pe light kharab hai aur paani bhi leak ho raha hai!";
     }
 
     function renderAll() {
@@ -298,16 +393,48 @@
         pubList.innerHTML += `
           <div class="bg-slate-950 border border-slate-800 p-3 rounded-lg text-xs space-y-2">
             <div class="flex justify-between items-center">
-              <span class="font-mono text-orange-400 font-bold">${inc.id} • ${inc.zone}</span>
+              <span class="font-mono text-orange-400 font-bold">${inc.id} • 📍 ${inc.zone}</span>
               ${badge}
             </div>
             <p class="text-white font-medium">"${inc.title}"</p>
-            <p class="text-slate-400">${inc.evidenceNote}</p>
+            <p class="text-sky-300 bg-sky-950/30 border border-sky-500/20 p-2 rounded"><strong>Field Working Report:</strong> ${inc.workingReport}</p>
           </div>
         `;
       });
 
-      // 2. Render Gov Portal
+      // 2. Render Department Field Portal
+      const deptFilter = document.getElementById("activeDeptFilter").value;
+      const deptList = document.getElementById("deptIncidentList");
+      deptList.innerHTML = "";
+      const filteredIncidents = incidents.filter(i => i.department === deptFilter);
+
+      if (filteredIncidents.length === 0) {
+        deptList.innerHTML = `<p class="text-slate-400 text-xs italic">No active complaints currently assigned to ${deptFilter}.</p>`;
+      } else {
+        filteredIncidents.forEach(inc => {
+          deptList.innerHTML += `
+            <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-3 text-xs">
+              <div class="flex justify-between items-center">
+                <span class="font-mono text-orange-400 font-bold">${inc.id} • Zone: ${inc.zone}</span>
+                <span class="text-amber-300 bg-amber-950/40 border border-amber-500/30 px-2 py-0.5 rounded">SLA Deadline: ${inc.slaHoursLeft}h left</span>
+              </div>
+              <p class="text-sm font-bold text-white">"${inc.title}"</p>
+              
+              <div class="space-y-1 pt-2 border-t border-slate-800">
+                <label class="text-slate-400 font-semibold block">Submit Working Report & ETA to Govt Authority:</label>
+                <div class="flex gap-2">
+                  <input id="report_${inc.id}" type="text" value="${inc.workingReport}" class="w-full bg-slate-900 border border-slate-700 p-2 rounded text-white" />
+                  <button onclick="submitWorkingReport('${inc.id}')" class="bg-sky-600 hover:bg-sky-500 text-white font-semibold px-4 py-2 rounded transition whitespace-nowrap">
+                    Send Report 📤
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // 3. Render Govt Authority Portal
       const govList = document.getElementById("govIncidentList");
       govList.innerHTML = "";
       incidents.forEach(inc => {
@@ -317,15 +444,19 @@
             <div class="flex flex-wrap justify-between items-center gap-2">
               <div>
                 <span class="font-mono text-orange-400 font-bold">${inc.id}</span>
-                <span class="text-slate-400 ml-2">(${inc.zone}) • Clustered Reports: ${inc.duplicates}</span>
+                <span class="text-slate-400 ml-2">(📍 ${inc.zone}) • Clustered Reports: ${inc.duplicates}</span>
               </div>
               <span class="text-amber-300 bg-amber-950/40 border border-amber-500/30 px-2 py-0.5 rounded">SLA Left: ${inc.slaHoursLeft}h</span>
             </div>
 
             <p class="text-sm font-bold text-white">"${inc.title}"</p>
 
+            <div class="bg-sky-950/20 border border-sky-500/30 p-2.5 rounded text-sky-200">
+              <strong>Latest Department Working Report:</strong> ${inc.workingReport}
+            </div>
+
             <div class="flex flex-wrap items-center gap-3 pt-2 border-t border-slate-800">
-              <label class="text-slate-400 font-semibold">Assign Specialized Dept:</label>
+              <label class="text-slate-400 font-semibold">Reassign Dept:</label>
               <select onchange="assignDepartment('${inc.id}', this.value)" class="bg-slate-900 border border-slate-700 p-1.5 rounded text-orange-300">
                 <option value="Municipal Water Board & Drainage" ${inc.department === "Municipal Water Board & Drainage" ? "selected" : ""}>💧 Municipal Water Board & Drainage</option>
                 <option value="Public Works Dept (Roads & Potholes)" ${inc.department === "Public Works Dept (Roads & Potholes)" ? "selected" : ""}>🛣️ Public Works Dept (Roads & Potholes)</option>
@@ -343,13 +474,12 @@
                 ` : '<span class="text-emerald-400 font-semibold">Fulfilled ✓</span>'}
               </div>
             </div>
-            <p class="text-slate-400 italic">Audit Note: ${inc.evidenceNote}</p>
           </div>
         `;
       });
     }
 
-    logPublic("System online. Public and Protected Gov portals ready.");
+    logPublic("System online. Tri-portal password protection active.");
     renderAll();
   </script>
 </body>
