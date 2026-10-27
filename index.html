@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CivicPulse AI | Apple Liquid Glass Smart City Tri-Portal</title>
+  <title>CivicPulse OS | Apple Liquid Glass Smart City Command</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace']
           }
         }
@@ -21,48 +21,57 @@
     }
   </script>
   <style>
-    /* Apple Liquid Glass Light Theme Aesthetics */
+    /* Apple VisionOS / macOS Sequoia Liquid Glass Light Theme */
     body {
-      background-color: #f2f5f9;
+      background-color: #edf2f9;
       background-image: 
-        radial-gradient(at 12% 15%, rgba(56, 189, 248, 0.22) 0px, transparent 50%),
-        radial-gradient(at 88% 12%, rgba(251, 146, 60, 0.18) 0px, transparent 50%),
-        radial-gradient(at 50% 85%, rgba(167, 139, 250, 0.18) 0px, transparent 55%),
-        radial-gradient(at 15% 88%, rgba(52, 211, 153, 0.15) 0px, transparent 45%);
+        radial-gradient(at 5% 8%, rgba(59, 130, 246, 0.20) 0px, transparent 45%),
+        radial-gradient(at 92% 12%, rgba(16, 185, 129, 0.16) 0px, transparent 45%),
+        radial-gradient(at 88% 90%, rgba(249, 115, 22, 0.15) 0px, transparent 48%),
+        radial-gradient(at 15% 88%, rgba(139, 92, 246, 0.16) 0px, transparent 50%);
       background-attachment: fixed;
       color: #0f172a;
     }
 
     .liquid-glass {
-      background: rgba(255, 255, 255, 0.68);
-      backdrop-filter: blur(28px) saturate(190%);
-      -webkit-backdrop-filter: blur(28px) saturate(190%);
-      border: 1px solid rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.74);
+      backdrop-filter: blur(32px) saturate(200%);
+      -webkit-backdrop-filter: blur(32px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.95);
       box-shadow: 
-        0 12px 32px -8px rgba(15, 23, 42, 0.07),
-        0 2px 6px -1px rgba(15, 23, 42, 0.03),
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+        0 20px 45px -15px rgba(15, 23, 42, 0.07),
+        0 4px 12px -2px rgba(15, 23, 42, 0.03),
+        inset 0 1px 2px rgba(255, 255, 255, 0.98);
     }
 
-    .liquid-glass-Header {
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(30px) saturate(200%);
-      -webkit-backdrop-filter: blur(30px) saturate(200%);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-      box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.04);
+    .card-active {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 10px 28px -8px rgba(15, 23, 42, 0.05);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-active:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px -8px rgba(0, 122, 255, 0.10);
+      border-color: rgba(147, 197, 253, 0.8);
     }
 
-    .liquid-pill {
-      background: rgba(255, 255, 255, 0.55);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    .card-completed {
+      background: linear-gradient(135deg, rgba(236, 253, 245, 0.92) 0%, rgba(255, 255, 255, 0.90) 100%);
+      border: 1.5px solid rgba(16, 185, 129, 0.5);
+      box-shadow: 0 12px 28px -8px rgba(16, 185, 129, 0.14);
+    }
+
+    .card-reopened {
+      background: linear-gradient(135deg, rgba(255, 241, 242, 0.94) 0%, rgba(255, 255, 255, 0.90) 100%);
+      border: 1.5px solid rgba(244, 63, 94, 0.55);
+      box-shadow: 0 12px 30px -8px rgba(244, 63, 94, 0.16);
     }
 
     .apple-input {
-      background: rgba(255, 255, 255, 0.82);
-      border: 1px solid rgba(203, 213, 225, 0.85);
-      box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.03);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(203, 213, 225, 0.9);
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .apple-input:focus {
@@ -72,36 +81,47 @@
       outline: none;
     }
 
-    .apple-btn-primary {
-      background: linear-gradient(180deg, #007AFF 0%, #0062CC 100%);
-      box-shadow: 0 6px 16px -3px rgba(0, 122, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    .apple-btn {
+      background: linear-gradient(180deg, #007AFF 0%, #0056B3 100%);
+      box-shadow: 0 8px 20px -4px rgba(0, 122, 255, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3);
       transition: all 0.2s ease;
     }
-    .apple-btn-primary:hover {
-      background: linear-gradient(180deg, #1485FF 0%, #006EE6 100%);
+    .apple-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 8px 20px -3px rgba(0, 122, 255, 0.5);
+      box-shadow: 0 12px 24px -4px rgba(0, 122, 255, 0.55);
+    }
+
+    .dept-pill {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+      transition: all 0.2s ease;
+    }
+    .dept-pill:hover {
+      transform: translateY(-2px);
+      background: #ffffff;
+      border-color: rgba(59, 130, 246, 0.45);
+      box-shadow: 0 10px 20px -5px rgba(0, 122, 255, 0.14);
     }
 
     .custom-scroll::-webkit-scrollbar { width: 6px; }
     .custom-scroll::-webkit-scrollbar-track { background: transparent; }
     .custom-scroll::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.45); border-radius: 9999px; }
 
-    @keyframes modalPop {
-      0% { opacity: 0; transform: scale(0.94) translateY(10px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
+    @keyframes pulseUrgent {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
     }
-    .animate-modal { animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .timer-urgent { animation: pulseUrgent 1s infinite ease-in-out; }
   </style>
 </head>
-<body class="min-h-screen font-sans antialiased selection:bg-blue-500 selection:text-white">
+<body class="min-h-screen font-sans antialiased pb-12">
 
-  <!-- ================= GOOGLE SIGN-IN POPUP MODAL (AUTO-OPENS ON START) ================= -->
-  <div id="googleAuthModal" class="fixed inset-0 z-[100] bg-slate-900/35 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="liquid-glass rounded-3xl max-w-md w-full p-7 shadow-2xl animate-modal border border-white">
+  <!-- ================= 1. GOOGLE SIGN-IN POPUP MODAL ================= -->
+  <div id="googleAuthModal" class="fixed inset-0 z-[100] bg-slate-900/40 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="liquid-glass rounded-[32px] max-w-md w-full p-7 shadow-2xl border border-white">
       <div class="flex flex-col items-center text-center">
-        <!-- Google G Logo -->
-        <div class="w-14 h-14 rounded-2xl bg-white shadow-md border border-slate-100 flex items-center justify-center mb-4">
+        <div class="w-14 h-14 rounded-2xl bg-white shadow-md border border-slate-100 flex items-center justify-center mb-3">
           <svg class="w-7 h-7" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -110,406 +130,461 @@
           </svg>
         </div>
 
-        <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Sign in with Google</h2>
-        <p class="text-xs text-slate-500 mt-1 mb-5">Continue to <span class="font-semibold text-blue-600">CivicPulse AI</span> Smart City Portal</p>
+        <h2 class="text-xl font-extrabold text-slate-900">Sign in with Google</h2>
+        <p class="text-xs text-slate-500 mt-1 mb-5">Choose your account or enter your Gmail to access <span class="font-bold text-blue-600">CivicPulse OS</span></p>
 
-        <!-- Quick Choose Existing Profiles -->
         <div class="w-full space-y-2 mb-4 text-left">
-          <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-1">Quick Select Account</p>
-          
-          <button onclick="selectPresetGoogleAccount('Vinayak Mehta', 'vinayak.mehta@gmail.com')" class="w-full flex items-center gap-3 p-2.5 rounded-2xl bg-white/80 hover:bg-blue-50/90 border border-slate-200/80 hover:border-blue-300 transition group">
-            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-sky-400 text-white font-bold text-sm flex items-center justify-center shadow-sm">V</div>
+          <button onclick="completeGoogleSignIn('Vinayak Mehta', 'vinayak.mehta@gmail.com')" class="w-full flex items-center gap-3 p-2.5 rounded-2xl bg-white/90 hover:bg-blue-50 border border-slate-200/90 hover:border-blue-300 transition group">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-sky-400 text-white font-bold text-sm flex items-center justify-center">V</div>
             <div class="flex-1 overflow-hidden">
-              <p class="text-xs font-bold text-slate-800 group-hover:text-blue-600 truncate">Vinayak Mehta</p>
-              <p class="text-[11px] text-slate-500 truncate">vinayak.mehta@gmail.com</p>
+              <p class="text-xs font-bold text-slate-800 group-hover:text-blue-600">Vinayak Mehta</p>
+              <p class="text-[11px] text-slate-500">vinayak.mehta@gmail.com</p>
             </div>
-            <span class="text-xs text-slate-400 group-hover:text-blue-600">→</span>
+            <span class="text-xs text-slate-400 group-hover:text-blue-600 font-bold">→</span>
           </button>
 
-          <button onclick="selectPresetGoogleAccount('Bhumanyu Airon', 'bhumanyu.airon@gmail.com')" class="w-full flex items-center gap-3 p-2.5 rounded-2xl bg-white/80 hover:bg-blue-50/90 border border-slate-200/80 hover:border-blue-300 transition group">
-            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 text-white font-bold text-sm flex items-center justify-center shadow-sm">B</div>
+          <button onclick="completeGoogleSignIn('Bhumanyu Airon', 'bhumanyu.airon@gmail.com')" class="w-full flex items-center gap-3 p-2.5 rounded-2xl bg-white/90 hover:bg-blue-50 border border-slate-200/90 hover:border-blue-300 transition group">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 text-white font-bold text-sm flex items-center justify-center">B</div>
             <div class="flex-1 overflow-hidden">
-              <p class="text-xs font-bold text-slate-800 group-hover:text-blue-600 truncate">Bhumanyu Airon</p>
-              <p class="text-[11px] text-slate-500 truncate">bhumanyu.airon@gmail.com</p>
+              <p class="text-xs font-bold text-slate-800 group-hover:text-blue-600">Bhumanyu Airon</p>
+              <p class="text-[11px] text-slate-500">bhumanyu.airon@gmail.com</p>
             </div>
-            <span class="text-xs text-slate-400 group-hover:text-blue-600">→</span>
+            <span class="text-xs text-slate-400 group-hover:text-blue-600 font-bold">→</span>
           </button>
         </div>
 
-        <div class="relative w-full my-3 flex items-center justify-center">
+        <div class="relative w-full my-2.5 flex items-center justify-center">
           <div class="border-t border-slate-200 w-full"></div>
-          <span class="bg-white/90 px-3 text-[10px] font-semibold uppercase text-slate-400">Or Use Your Own Account</span>
+          <span class="bg-white/90 px-3 text-[10px] font-bold uppercase text-slate-400 whitespace-nowrap">Or Sign In With Your Gmail</span>
           <div class="border-t border-slate-200 w-full"></div>
         </div>
 
-        <!-- Custom Google Account Input for Any User -->
-        <div class="w-full space-y-2.5 text-left">
-          <div>
-            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Your Full Name</label>
-            <input id="customGoogleName" type="text" placeholder="e.g., Rahul Sharma" class="w-full apple-input px-3.5 py-2.5 rounded-xl text-xs text-slate-800" />
-          </div>
-          <div>
-            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Your Google Email</label>
-            <input id="customGoogleEmail" type="email" placeholder="e.g., rahul.sharma@gmail.com" class="w-full apple-input px-3.5 py-2.5 rounded-xl text-xs text-slate-800" />
-          </div>
-          <button onclick="submitCustomGoogleLogin()" class="w-full apple-btn-primary text-white font-semibold py-2.5 rounded-xl text-xs mt-1">
+        <div class="w-full space-y-2.5 text-left mt-1">
+          <input id="customGoogleName" type="text" placeholder="Full Name (e.g., Rohan Verma)" class="w-full apple-input px-3.5 py-2.5 rounded-xl text-xs text-slate-800" />
+          <input id="customGoogleEmail" type="email" placeholder="Google Email (e.g., rohan@gmail.com)" class="w-full apple-input px-3.5 py-2.5 rounded-xl text-xs text-slate-800" />
+          <button onclick="submitCustomGoogleLogin()" class="w-full apple-btn text-white font-bold py-2.5 rounded-xl text-xs">
             Continue with Google Account
           </button>
         </div>
-
-        <p class="text-[10px] text-slate-400 mt-4">
-          🔒 Verified by Google OAuth 2.0 Identity • Real-time Cloud Sync Enabled
-        </p>
       </div>
     </div>
   </div>
 
-  <!-- ================= PASSWORD AUTH MODAL (LIQUID GLASS) ================= -->
+  <!-- ================= 2. OFFICER PASSWORD MODAL ================= -->
   <div id="passwordModal" class="hidden fixed inset-0 z-[95] bg-slate-900/30 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="liquid-glass rounded-3xl max-w-sm w-full p-6 shadow-2xl animate-modal border border-white text-center">
-      <div class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-600 flex items-center justify-center text-2xl mx-auto mb-3">
-        🔐
-      </div>
-      <h3 id="pwdModalTitle" class="text-base font-extrabold text-slate-900">Protected Portal Access</h3>
-      <p class="text-xs text-slate-500 mt-1 mb-4">Enter official passkey to unlock portal (<span class="font-mono font-bold text-slate-700">12345678</span>)</p>
-      
-      <input id="portalPwdInput" type="password" placeholder="Enter Passkey..." class="w-full apple-input px-4 py-2.5 rounded-xl text-center text-sm font-mono tracking-widest mb-3" onkeypress="if(event.key==='Enter') confirmPortalPassword()" />
-      
+    <div class="liquid-glass rounded-[28px] max-w-sm w-full p-6 shadow-2xl text-center">
+      <div class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-600 flex items-center justify-center text-2xl mx-auto mb-3">🔐</div>
+      <h3 id="pwdModalTitle" class="text-base font-extrabold text-slate-900">Officer Security Gate</h3>
+      <p class="text-xs text-slate-500 mt-1 mb-4">Passkey: <span class="font-mono font-bold text-slate-800 bg-slate-200/70 px-2 py-0.5 rounded">12345678</span></p>
+      <input id="portalPwdInput" type="password" placeholder="••••••••" class="w-full apple-input px-4 py-2.5 rounded-xl text-center text-sm font-mono tracking-widest mb-3" onkeypress="if(event.key==='Enter') confirmPortalPassword()" />
       <div class="flex gap-2">
-        <button onclick="closePasswordModal()" class="flex-1 py-2.5 rounded-xl text-xs font-semibold bg-slate-200/70 hover:bg-slate-200 text-slate-700 transition">
-          Cancel
-        </button>
-        <button onclick="confirmPortalPassword()" class="flex-1 py-2.5 rounded-xl text-xs font-semibold apple-btn-primary text-white">
-          Unlock Portal
-        </button>
+        <button onclick="closePasswordModal()" class="flex-1 py-2.5 rounded-xl text-xs font-bold bg-slate-200/70 hover:bg-slate-200 text-slate-700">Cancel</button>
+        <button onclick="confirmPortalPassword()" class="flex-1 py-2.5 rounded-xl text-xs font-bold apple-btn text-white">Unlock</button>
       </div>
     </div>
   </div>
 
-  <!-- ================= TOP NAVIGATION BAR (LIQUID GLASS) ================= -->
-  <header class="liquid-glass-Header sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+  <!-- ================= 3. TOP APPLE VISION-OS COMMAND BAR ================= -->
+  <div class="sticky top-3 z-40 px-4 max-w-[1440px] mx-auto">
+    <header class="liquid-glass rounded-[26px] px-5 py-3 flex flex-wrap justify-between items-center gap-3">
       
-      <!-- Brand Identity -->
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-sky-400 flex items-center justify-center text-white text-xl shadow-md shadow-blue-500/20">
+      <!-- Brand + Live System Clock -->
+      <div class="flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-cyan-400 flex items-center justify-center text-white text-xl shadow-md shadow-blue-500/25">
           🏛️
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-lg font-extrabold tracking-tight text-slate-900">CivicPulse <span class="text-blue-600">AI</span></h1>
-            <span class="text-[10px] font-semibold bg-blue-50 text-blue-600 border border-blue-200 px-2 py-0.5 rounded-full">Topic #8</span>
-            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> Cloud Synced
+            <h1 class="text-base font-extrabold tracking-tight text-slate-900">CivicPulse <span class="text-blue-600">OS</span></h1>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100/90 text-emerald-700 border border-emerald-300/70">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> Live Countdown Engine
             </span>
           </div>
-          <p class="text-[11px] text-slate-500">Apple Liquid Glass UI • Automated Department Triage & Oversight</p>
+          <p id="liveSystemClock" class="text-[11px] font-mono text-slate-500">Loading real-time municipal clock...</p>
         </div>
       </div>
 
-      <!-- Segmented Portal Switcher & Google Profile -->
-      <div class="flex items-center gap-3 flex-wrap">
-        <div class="bg-slate-200/75 p-1 rounded-2xl border border-white flex gap-1 shadow-inner">
-          <button id="btnCitizen" onclick="switchPortal('citizen')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-900 shadow-sm transition-all">
-            👤 Public Portal
-          </button>
-          <button id="btnDept" onclick="tryOpenDeptPortal()" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all">
-            👷 Dept Portal 🔒
-          </button>
-          <button id="btnGov" onclick="tryOpenGovPortal()" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all">
-            🛡️ Govt Authority 🔒
-          </button>
-        </div>
-
-        <!-- Active Google User Pill (Click to Switch Account) -->
-        <button onclick="openGoogleAuthModal()" class="liquid-pill px-3 py-1.5 rounded-2xl flex items-center gap-2.5 hover:bg-white/90 transition group" title="Click to switch Google Account">
-          <div id="navUserAvatar" class="w-7 h-7 rounded-full bg-gradient-to-tr from-blue-600 to-sky-400 text-white font-bold text-xs flex items-center justify-center shadow-sm">
-            G
-          </div>
-          <div class="text-left leading-tight">
-            <span id="navUserName" class="text-xs font-bold text-slate-800 block">Sign In</span>
-            <span id="navUserEmail" class="text-[10px] text-slate-500 block">Click to switch account</span>
-          </div>
-          <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
+      <!-- Segmented Portal Switcher -->
+      <div class="bg-slate-200/80 p-1 rounded-2xl border border-white flex gap-1 shadow-inner">
+        <button id="btnCitizen" onclick="switchPortal('citizen')" class="px-4 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-900 shadow-sm transition-all">
+          👤 Citizen Portal
+        </button>
+        <button id="btnDept" onclick="tryOpenDeptPortal()" class="px-4 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 transition-all">
+          👷 Dept Worker 🔒
+        </button>
+        <button id="btnGov" onclick="tryOpenGovPortal()" class="px-4 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 transition-all">
+          🛡️ Govt Authority 🔒
         </button>
       </div>
 
-    </div>
-  </header>
+      <!-- Active Google User Profile -->
+      <button onclick="openGoogleAuthModal()" class="bg-white/85 hover:bg-white border border-slate-200/90 px-3 py-1.5 rounded-2xl flex items-center gap-2.5 shadow-sm transition" title="Click to switch Google account">
+        <div id="navUserAvatar" class="w-7 h-7 rounded-full bg-gradient-to-tr from-blue-600 to-sky-400 text-white font-bold text-xs flex items-center justify-center">G</div>
+        <div class="text-left leading-tight">
+          <span id="navUserName" class="text-xs font-bold text-slate-800 block">Sign In</span>
+          <span id="navUserEmail" class="text-[10px] text-slate-500 block">Switch Account</span>
+        </div>
+      </button>
 
-  <!-- ================= LIVE TELEMETRY RIBBON ================= -->
-  <section class="max-w-7xl mx-auto px-4 pt-5 pb-1">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
-      <div class="liquid-glass rounded-2xl p-3.5 flex items-center justify-between">
-        <div>
-          <p class="text-[11px] font-semibold text-slate-500">Total Active Tickets</p>
-          <h4 id="statTotal" class="text-xl font-extrabold text-slate-900 mt-0.5">3</h4>
+    </header>
+  </div>
+
+  <!-- ================= 4. BENTO ANALYTICS & SLA TELEMETRY STRIP ================= -->
+  <section class="max-w-[1440px] mx-auto px-4 pt-5">
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-3.5">
+      
+      <div class="col-span-2 lg:col-span-2 liquid-glass rounded-[26px] p-4 flex items-center justify-between">
+        <div class="space-y-0.5 pr-2">
+          <span class="text-[10px] font-extrabold uppercase tracking-wider text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">Automated SLA Governance</span>
+          <h3 class="text-base font-extrabold text-slate-900 pt-1">Live Countdown & Auto-Reopen</h3>
+          <p class="text-[11px] text-slate-500">Every complaint logs exact upload Date & Time. If countdown hits <span class="font-mono font-bold text-rose-600">00:00:00</span>, the case auto-reopens!</p>
         </div>
-        <div class="w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-600 flex items-center justify-center text-lg">📊</div>
-      </div>
-      <div class="liquid-glass rounded-2xl p-3.5 flex items-center justify-between">
-        <div>
-          <p class="text-[11px] font-semibold text-slate-500">Pending Dept Action</p>
-          <h4 id="statInProgress" class="text-xl font-extrabold text-amber-600 mt-0.5">2</h4>
+        <div class="bg-white/90 border border-slate-200/80 rounded-2xl px-4 py-2.5 text-center min-w-[95px] shadow-sm">
+          <span id="statRatePercent" class="text-2xl font-black text-emerald-600">33%</span>
+          <span class="text-[10px] font-bold text-slate-500 uppercase block">Fulfilled</span>
         </div>
-        <div class="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center text-lg">⏳</div>
       </div>
-      <div class="liquid-glass rounded-2xl p-3.5 flex items-center justify-between">
-        <div>
-          <p class="text-[11px] font-semibold text-slate-500">Dept Routing Accuracy</p>
-          <h4 class="text-xl font-extrabold text-indigo-600 mt-0.5">100%</h4>
+
+      <div class="liquid-glass rounded-[26px] p-4 flex flex-col justify-between">
+        <div class="flex justify-between items-center">
+          <span class="text-xs font-bold text-slate-500">Total Uploaded</span>
+          <span class="w-7 h-7 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center text-xs">📂</span>
         </div>
-        <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center text-lg">🎯</div>
+        <h4 id="statTotal" class="text-2xl font-black text-slate-900 mt-1">3</h4>
+        <span class="text-[10px] text-slate-400 font-medium">Timestamped in Cloud</span>
       </div>
-      <div class="liquid-glass rounded-2xl p-3.5 flex items-center justify-between">
-        <div>
-          <p class="text-[11px] font-semibold text-slate-500">Fulfilled & Closed</p>
-          <h4 id="statCompleted" class="text-xl font-extrabold text-emerald-600 mt-0.5">1</h4>
+
+      <div class="liquid-glass rounded-[26px] p-4 flex flex-col justify-between">
+        <div class="flex justify-between items-center">
+          <span class="text-xs font-bold text-amber-700">Countdown Active</span>
+          <span class="w-7 h-7 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center text-xs">⏱️</span>
         </div>
-        <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center text-lg">✅</div>
+        <h4 id="statInProgress" class="text-2xl font-black text-amber-600 mt-1">2</h4>
+        <span class="text-[10px] text-amber-700/80 font-medium">Ticking SLA Timers</span>
       </div>
+
+      <div class="liquid-glass rounded-[26px] p-4 flex flex-col justify-between border-emerald-300/60">
+        <div class="flex justify-between items-center">
+          <span class="text-xs font-bold text-emerald-700">Work Completed</span>
+          <span class="w-7 h-7 rounded-xl bg-emerald-500/15 text-emerald-600 flex items-center justify-center text-xs">✅</span>
+        </div>
+        <h4 id="statCompleted" class="text-2xl font-black text-emerald-600 mt-1">1</h4>
+        <span id="statReopenedBadge" class="text-[10px] text-emerald-700 font-semibold">0 Auto-Reopened</span>
+      </div>
+
     </div>
   </section>
 
-  <!-- ================= MAIN WORKSPACE ================= -->
-  <main class="max-w-7xl mx-auto px-4 py-5">
+  <!-- ================= 5. MAIN WORKSPACE ================= -->
+  <main class="max-w-[1440px] mx-auto px-4 pt-5">
 
-    <!-- ================= 1. PUBLIC CITIZEN PORTAL VIEW ================= -->
-    <div id="citizenPortalView" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-      
-      <!-- Left Column: Complaint Submission Card -->
-      <div class="lg:col-span-5 space-y-5">
-        <div class="liquid-glass rounded-3xl p-6">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h2 class="text-base font-extrabold text-slate-900">📣 Raise a Public Complaint</h2>
-              <p class="text-xs text-slate-500">Automatically routes to the exact Municipal Department</p>
+    <!-- ================= PORTAL 1: PUBLIC CITIZEN STUDIO ================= -->
+    <div id="citizenPortalView" class="space-y-5">
+
+      <!-- 6-Department Quick Routing Bar -->
+      <div class="liquid-glass rounded-[26px] p-4">
+        <div class="flex flex-wrap justify-between items-center gap-2 mb-2.5 px-1">
+          <span class="text-xs font-extrabold text-slate-800">⚡ Tap Any Respective Department Preset to Auto-Fill & Test Routing:</span>
+          <span class="text-[11px] font-semibold text-blue-600">Road → PWD • Water → Water Board • Light → Electrical • Waste → Sanitation</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+          <button onclick="fillSample('road')" class="dept-pill p-3 rounded-2xl text-left flex items-center gap-2.5">
+            <span class="text-2xl">🛣️</span>
+            <div class="overflow-hidden">
+              <p class="text-xs font-extrabold text-slate-800 truncate">Roads & PWD</p>
+              <p class="text-[10px] text-slate-500 truncate">Sadak / Pothole</p>
             </div>
-            <span class="text-[10px] font-semibold bg-blue-50 text-blue-600 border border-blue-200 px-2.5 py-1 rounded-full">
-              Voice + Hinglish AI
-            </span>
-          </div>
+          </button>
+          <button onclick="fillSample('water')" class="dept-pill p-3 rounded-2xl text-left flex items-center gap-2.5">
+            <span class="text-2xl">💧</span>
+            <div class="overflow-hidden">
+              <p class="text-xs font-extrabold text-slate-800 truncate">Water Works</p>
+              <p class="text-[10px] text-slate-500 truncate">Paani Leak / Pipe</p>
+            </div>
+          </button>
+          <button onclick="fillSample('electric')" class="dept-pill p-3 rounded-2xl text-left flex items-center gap-2.5">
+            <span class="text-2xl">⚡</span>
+            <div class="overflow-hidden">
+              <p class="text-xs font-extrabold text-slate-800 truncate">Electrical Grid</p>
+              <p class="text-[10px] text-slate-500 truncate">Bijli / Streetlight</p>
+            </div>
+          </button>
+          <button onclick="fillSample('garbage')" class="dept-pill p-3 rounded-2xl text-left flex items-center gap-2.5">
+            <span class="text-2xl">🗑️</span>
+            <div class="overflow-hidden">
+              <p class="text-xs font-extrabold text-slate-800 truncate">Sanitation</p>
+              <p class="text-[10px] text-slate-500 truncate">Kachra / Safai</p>
+            </div>
+          </button>
+          <button onclick="fillSample('tree')" class="dept-pill p-3 rounded-2xl text-left flex items-center gap-2.5">
+            <span class="text-2xl">🌳</span>
+            <div class="overflow-hidden">
+              <p class="text-xs font-extrabold text-slate-800 truncate">Parks & Trees</p>
+              <p class="text-[10px] text-slate-500 truncate">Fallen Ped / Park</p>
+            </div>
+          </button>
+          <button onclick="fillSample('dog')" class="dept-pill p-3 rounded-2xl text-left flex items-center gap-2.5">
+            <span class="text-2xl">🐕</span>
+            <div class="overflow-hidden">
+              <p class="text-xs font-extrabold text-slate-800 truncate">Animal Control</p>
+              <p class="text-[10px] text-slate-500 truncate">Stray Dogs / Cattle</p>
+            </div>
+          </button>
+        </div>
+      </div>
 
-          <!-- Instant Category Presets to Test Department Routing -->
-          <div class="mb-4">
-            <label class="block text-[11px] font-semibold text-slate-500 mb-1.5">⚡ Quick Test Respective Departments:</label>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
-              <button onclick="fillSample('road')" class="text-[11px] font-medium px-2.5 py-1.5 rounded-xl bg-white/80 hover:bg-blue-50 border border-slate-200/90 text-slate-700 hover:border-blue-300 transition text-left truncate">
-                🛣️ Road / Pothole
-              </button>
-              <button onclick="fillSample('water')" class="text-[11px] font-medium px-2.5 py-1.5 rounded-xl bg-white/80 hover:bg-blue-50 border border-slate-200/90 text-slate-700 hover:border-blue-300 transition text-left truncate">
-                💧 Water Works
-              </button>
-              <button onclick="fillSample('electric')" class="text-[11px] font-medium px-2.5 py-1.5 rounded-xl bg-white/80 hover:bg-blue-50 border border-slate-200/90 text-slate-700 hover:border-blue-300 transition text-left truncate">
-                ⚡ Electricity
-              </button>
-              <button onclick="fillSample('garbage')" class="text-[11px] font-medium px-2.5 py-1.5 rounded-xl bg-white/80 hover:bg-blue-50 border border-slate-200/90 text-slate-700 hover:border-blue-300 transition text-left truncate">
-                🗑️ Sanitation
-              </button>
-              <button onclick="fillSample('tree')" class="text-[11px] font-medium px-2.5 py-1.5 rounded-xl bg-white/80 hover:bg-blue-50 border border-slate-200/90 text-slate-700 hover:border-blue-300 transition text-left truncate">
-                🌳 Parks & Trees
-              </button>
-              <button onclick="fillSample('dog')" class="text-[11px] font-medium px-2.5 py-1.5 rounded-xl bg-white/80 hover:bg-blue-50 border border-slate-200/90 text-slate-700 hover:border-blue-300 transition text-left truncate">
-                🐕 Stray Animals
+      <!-- Main Split Grid: Left Submission Dock (4 Cols) + Right 2-Column Bento Feed (8 Cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Left Sticky Submission Studio -->
+        <div class="lg:col-span-4 lg:sticky lg:top-20 space-y-5">
+          <div class="liquid-glass rounded-[30px] p-6">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <h2 class="text-base font-extrabold text-slate-900">📣 Upload Public Grievance</h2>
+                <p class="text-[11px] text-slate-500">Logs upload Date, Time & starts SLA Countdown</p>
+              </div>
+              <button id="complaintMicBtn" onclick="toggleComplaintVoice()" class="bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-xs font-bold px-3 py-1.5 rounded-xl flex items-center gap-1 transition">
+                🎙️ Speak
               </button>
             </div>
-          </div>
 
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Residential Zone / Ward Location</label>
-          <select id="zoneInput" class="w-full apple-input p-2.5 rounded-xl text-xs font-medium text-slate-800 mb-3.5">
-            <option value="Sector 4 - Main Market">🏡 Sector 4 - Main Market</option>
-            <option value="Sector 12 - Hospital Road">🏥 Sector 12 - Hospital Road</option>
-            <option value="Greenwood Colony - Block A">🌳 Greenwood Colony - Block A</option>
-            <option value="Sunshine Heights - Phase 2">🏢 Sunshine Heights - Phase 2</option>
-            <option value="Ward 7 - Industrial Belt">🏭 Ward 7 - Industrial Belt</option>
-          </select>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">Ward / Zone Location</label>
+                <select id="zoneInput" class="w-full apple-input p-2.5 rounded-xl text-xs font-semibold text-slate-800">
+                  <option value="Sector 4 - Main Market">🏡 Sector 4 - Market</option>
+                  <option value="Sector 12 - Hospital Road">🏥 Sector 12 - Hospital</option>
+                  <option value="Greenwood Colony - Block A">🌳 Greenwood Colony</option>
+                  <option value="Sunshine Heights - Phase 2">🏢 Sunshine Heights</option>
+                  <option value="Ward 7 - Industrial Belt">🏭 Ward 7 - Industrial</option>
+                </select>
+              </div>
 
-          <div class="flex justify-between items-center mb-1.5">
-            <label class="block text-xs font-semibold text-slate-700">Describe the Problem (English or Hinglish)</label>
-            <button id="complaintMicBtn" onclick="toggleComplaintVoice()" class="bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-[11px] font-semibold px-2.5 py-1 rounded-xl flex items-center gap-1 transition">
-              🎙️ Speak Complaint
+              <!-- SLA Countdown Duration Selector (For Live Judge Demo) -->
+              <div>
+                <label class="block text-[11px] font-bold text-blue-700 mb-1">⏱️ SLA Countdown Timer</label>
+                <select id="slaDurationInput" class="w-full apple-input p-2.5 rounded-xl text-xs font-bold text-blue-700 bg-blue-50/60 border-blue-200">
+                  <option value="45">⚡ 45 Sec (Live Demo Auto-Reopen)</option>
+                  <option value="120">⏱️ 2 Mins (Quick Test)</option>
+                  <option value="14400" selected>🏛️ 4 Hours (Standard Municipal SLA)</option>
+                </select>
+              </div>
+            </div>
+
+            <label class="block text-xs font-bold text-slate-700 mb-1">Complaint Description (English or Hinglish)</label>
+            <textarea id="descInput" oninput="updateLiveRoutingBadge()" rows="3" placeholder="e.g., Mere ghar ke aage ki sadak kharab hai / Paani ki pipe phat gayi..." class="w-full apple-input p-3.5 rounded-2xl text-xs text-slate-800 mb-3"></textarea>
+
+            <!-- Live Respective Department Preview -->
+            <div class="p-3 rounded-2xl bg-gradient-to-r from-blue-50/90 to-indigo-50/90 border border-blue-200/80 mb-4 flex items-center justify-between gap-2">
+              <div class="overflow-hidden">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 block">Auto-Routed Section</span>
+                <span id="livePreviewDept" class="text-xs font-extrabold text-slate-900 truncate block">🛣️ Public Works Dept (Roads & Potholes)</span>
+              </div>
+              <span id="livePreviewCat" class="text-[10px] font-bold bg-white text-blue-700 px-2.5 py-1 rounded-full border border-blue-200 shadow-sm whitespace-nowrap">
+                Pothole / Road
+              </span>
+            </div>
+
+            <button id="submitBtn" onclick="submitCitizenComplaint()" class="w-full apple-btn text-white font-bold py-3.5 rounded-2xl text-xs shadow-lg">
+              🚀 Upload Complaint & Start Countdown
             </button>
           </div>
 
-          <textarea id="descInput" oninput="updateLiveRoutingBadge()" rows="3" placeholder="e.g., Mere ghar ke aage ki sadak kharab hai / paani ki pipeline leak hai..." class="w-full apple-input p-3 rounded-2xl text-xs text-slate-800 mb-3"></textarea>
-
-          <!-- Live Respective Department Preview Box -->
-          <div class="p-3 rounded-2xl bg-blue-50/70 border border-blue-200/80 mb-4 flex items-center justify-between gap-2">
-            <div class="text-xs">
-              <span class="text-slate-500 font-medium block text-[10px] uppercase tracking-wider">Auto-Assigned Respective Section:</span>
-              <span id="livePreviewDept" class="font-bold text-blue-700">🛣️ Public Works Dept (Roads & Potholes)</span>
+          <!-- Live Triage & Countdown Audit Log -->
+          <div class="liquid-glass rounded-[28px] p-5">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-700">📡 Live SLA & Cloud Event Stream</h3>
+              <span class="text-[10px] font-mono text-emerald-600 font-bold">● Sync Active</span>
             </div>
-            <span id="livePreviewCat" class="text-[10px] font-bold bg-white text-slate-700 px-2.5 py-1 rounded-full border border-slate-200 shadow-sm whitespace-nowrap">
-              Pothole / Road
-            </span>
+            <div id="publicLog" class="bg-white/80 border border-slate-200/80 rounded-2xl p-3 h-40 overflow-y-auto font-mono text-[11px] space-y-1.5 text-slate-600 custom-scroll"></div>
           </div>
-
-          <button id="submitBtn" onclick="submitCitizenComplaint()" class="w-full apple-btn-primary text-white font-semibold py-3 rounded-2xl text-xs shadow-lg transition">
-            Submit Complaint to Respective Department
-          </button>
         </div>
 
-        <!-- Live Activity Stream -->
-        <div class="liquid-glass rounded-3xl p-5">
-          <div class="flex justify-between items-center mb-2.5">
-            <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> AI Triage & Routing Log
-            </h3>
-            <span class="text-[10px] font-mono text-slate-400">Real-Time Sync</span>
-          </div>
-          <div id="publicLog" class="bg-white/70 border border-slate-200/80 rounded-2xl p-3 h-36 overflow-y-auto font-mono text-[11px] space-y-1.5 text-slate-600 custom-scroll"></div>
-        </div>
-      </div>
+        <!-- Right Column: Bento Grid Complaint Cards with Live Timers -->
+        <div class="lg:col-span-8">
+          <div class="liquid-glass rounded-[30px] p-6">
+            
+            <!-- Filter Bar -->
+            <div class="flex flex-wrap justify-between items-center gap-3 mb-4 pb-3 border-b border-slate-200/80">
+              <div>
+                <h2 class="text-base font-extrabold text-slate-900">🔍 Public Grievance & Live Countdown Board</h2>
+                <p class="text-xs text-slate-500">Displays exact Upload Date, Time, Live Countdown, and Auto-Reopen status</p>
+              </div>
 
-      <!-- Right Column: Public Tracking Feed -->
-      <div class="lg:col-span-7">
-        <div class="liquid-glass rounded-3xl p-6">
-          <div class="flex flex-wrap justify-between items-center gap-2 mb-4">
-            <div>
-              <h2 class="text-base font-extrabold text-slate-900">🔍 Public Complaint Tracking Board</h2>
-              <p class="text-xs text-slate-500">Live status of complaints routed to their respective municipal sections.</p>
+              <!-- Status Filter Pills -->
+              <div class="flex items-center gap-1 bg-slate-200/80 p-1 rounded-xl">
+                <button id="filterStatusAll" onclick="setPublicStatusFilter('ALL')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white text-slate-900 shadow-sm transition">
+                  All
+                </button>
+                <button id="filterStatusPending" onclick="setPublicStatusFilter('PENDING')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold text-slate-600 hover:text-slate-900 transition">
+                  ⏳ Active Timer
+                </button>
+                <button id="filterStatusReopened" onclick="setPublicStatusFilter('REOPENED')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold text-rose-600 hover:text-rose-800 transition">
+                  🚨 Auto-Reopened
+                </button>
+                <button id="filterStatusDone" onclick="setPublicStatusFilter('COMPLETED')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold text-emerald-700 hover:text-emerald-900 transition">
+                  ✅ Completed
+                </button>
+              </div>
             </div>
-            <div class="flex items-center gap-1.5">
-              <span class="text-[11px] text-slate-500 font-medium">Filter:</span>
-              <select id="publicDeptFilter" onchange="renderAll()" class="apple-input px-2.5 py-1.5 rounded-xl text-xs font-semibold text-slate-700">
-                <option value="ALL">All Departments</option>
-                <option value="Public Works Dept (Roads & Potholes)">🛣️ Roads & Potholes (PWD)</option>
-                <option value="Municipal Water Board & Drainage">💧 Water Works & Drainage</option>
-                <option value="City Electrical Grid & Streetlights">⚡ Electricity & Lights</option>
-                <option value="Sanitation & Waste Management">🗑️ Sanitation & Waste</option>
-                <option value="Parks, Horticulture & Urban Forestry">🌳 Parks & Forestry</option>
-                <option value="Animal Control & Stray Management">🐕 Animal Control</option>
+
+            <!-- Respective Department Filter -->
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <span class="text-xs font-bold text-slate-600">Filter by Respective Department Section:</span>
+              <select id="publicDeptFilter" onchange="renderAll()" class="apple-input px-3 py-1.5 rounded-xl text-xs font-bold text-slate-800">
+                <option value="ALL">📂 Show All 6 Respective Departments</option>
+                <option value="Public Works Dept (Roads & Potholes)">🛣️ Public Works Dept (Roads & Potholes)</option>
+                <option value="Municipal Water Board & Drainage">💧 Municipal Water Board & Drainage</option>
+                <option value="City Electrical Grid & Streetlights">⚡ City Electrical Grid & Streetlights</option>
+                <option value="Sanitation & Waste Management">🗑️ Sanitation & Waste Management</option>
+                <option value="Parks, Horticulture & Urban Forestry">🌳 Parks, Horticulture & Urban Forestry</option>
+                <option value="Animal Control & Stray Management">🐕 Animal Control & Stray Management</option>
               </select>
             </div>
-          </div>
 
-          <div id="publicIncidentList" class="space-y-3.5 max-h-[640px] overflow-y-auto pr-1 custom-scroll"></div>
+            <!-- 2-Column Bento Grid for Public Cards -->
+            <div id="publicIncidentList" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[760px] overflow-y-auto pr-1 custom-scroll"></div>
+          </div>
         </div>
+
       </div>
     </div>
 
-    <!-- ================= 2. DEPARTMENT FIELD WORKER PORTAL VIEW ================= -->
+    <!-- ================= PORTAL 2: DEPARTMENT WORKER VIEW ================= -->
     <div id="deptPortalView" class="hidden space-y-5">
-      <div class="liquid-glass rounded-3xl p-6 border-blue-200">
+      <div class="liquid-glass rounded-[30px] p-6 border-blue-200">
         <div class="flex flex-wrap justify-between items-center gap-4 mb-4">
           <div>
-            <span class="text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 px-2.5 py-0.5 rounded-full">Field Worker Mode</span>
-            <h2 class="text-lg font-extrabold text-slate-900 mt-1">👷 Respective Department Sections & Queue</h2>
-            <p class="text-xs text-slate-500">Click any department tab below to view and resolve issues routed specifically to that section.</p>
+            <span class="text-[10px] font-extrabold uppercase tracking-wider bg-blue-100 text-blue-700 px-2.5 py-0.5 rounded-full">Department Field Worker Console</span>
+            <h2 class="text-lg font-extrabold text-slate-900 mt-1">👷 Respective Department Queues & Countdown SLA</h2>
+            <p class="text-xs text-slate-500">Complete tasks before the live countdown reaches <span class="font-mono font-bold text-rose-600">00:00:00</span> to prevent automatic case reopening!</p>
           </div>
-          <button onclick="logoutDeptPortal()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 text-xs font-semibold px-4 py-2 rounded-2xl transition">
+          <button onclick="logoutDeptPortal()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 text-xs font-bold px-4 py-2 rounded-2xl transition">
             🔒 Lock & Logout
           </button>
         </div>
 
-        <!-- Interactive Department Section Pills with Live Counts -->
-        <div id="deptSectionTabs" class="flex flex-wrap gap-2 pt-2 border-t border-slate-200/80"></div>
+        <div id="deptSectionTabs" class="flex flex-wrap gap-2 pt-3 border-t border-slate-200/80"></div>
       </div>
 
-      <div class="liquid-glass rounded-3xl p-6">
-        <div class="flex justify-between items-center mb-4">
-          <h3 id="currentDeptHeading" class="text-sm font-extrabold text-slate-800">📋 Assigned Section Tasks</h3>
-          <span class="text-xs text-slate-500">Updates reflect across all portals immediately</span>
-        </div>
-        <div id="deptIncidentList" class="space-y-4"></div>
+      <div class="liquid-glass rounded-[30px] p-6">
+        <h3 id="currentDeptHeading" class="text-sm font-extrabold text-slate-900 mb-4">📋 Assigned Section Tasks</h3>
+        <div id="deptIncidentList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
       </div>
     </div>
 
-    <!-- ================= 3. GOVERNMENT AUTHORITY PORTAL VIEW ================= -->
+    <!-- ================= PORTAL 3: GOVERNMENT AUTHORITY VIEW ================= -->
     <div id="govPortalView" class="hidden space-y-5">
-      <div class="liquid-glass rounded-3xl p-6 border-amber-200">
+      <div class="liquid-glass rounded-[30px] p-6 border-amber-200">
         <div class="flex flex-wrap justify-between items-center gap-4">
           <div>
-            <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full">Municipal Commissioner Oversight</span>
-            <h2 class="text-lg font-extrabold text-slate-900 mt-1">🛡️ Master Command Center & SLA Audit</h2>
-            <p class="text-xs text-slate-500">Monitor all departments, verify work completion, or penalize fake closures.</p>
+            <span class="text-[10px] font-extrabold uppercase tracking-wider bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full">Municipal Authority Command</span>
+            <h2 class="text-lg font-extrabold text-slate-900 mt-1">🛡️ Master SLA Countdown & Reopen Audit Center</h2>
+            <p class="text-xs text-slate-500">Verify work completion (stops countdown & marks 100% Completed on Public Portal) or force SLA expiry.</p>
           </div>
           <div class="flex flex-wrap gap-2">
-            <button onclick="adminSimulateSLABreach()" class="bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold px-3.5 py-2 rounded-2xl shadow-sm transition">
-              ⏰ Simulate SLA Breach
+            <button onclick="adminSimulateSLABreach()" class="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-3.5 py-2 rounded-2xl shadow-sm transition">
+              ⏰ Force Countdown Expiry (Auto-Reopen)
             </button>
-            <button onclick="adminSimulateFakeClosure()" class="bg-rose-500 hover:bg-rose-600 text-white text-xs font-semibold px-3.5 py-2 rounded-2xl shadow-sm transition">
+            <button onclick="adminSimulateFakeClosure()" class="bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold px-3.5 py-2 rounded-2xl shadow-sm transition">
               🚨 Catch Fake Closure
             </button>
-            <button onclick="logoutGovPortal()" class="bg-slate-200/80 hover:bg-slate-300 text-slate-700 text-xs font-semibold px-3.5 py-2 rounded-2xl transition">
+            <button onclick="logoutGovPortal()" class="bg-slate-200/80 hover:bg-slate-300 text-slate-700 text-xs font-bold px-3.5 py-2 rounded-2xl transition">
               🔒 Lock & Logout
             </button>
           </div>
         </div>
       </div>
 
-      <div class="liquid-glass rounded-3xl p-6">
-        <h3 class="text-sm font-extrabold text-slate-900 mb-4">📋 All Department Incidents & Reassignment Controls</h3>
-        <div id="govIncidentList" class="space-y-4"></div>
+      <div class="liquid-glass rounded-[30px] p-6">
+        <h3 class="text-sm font-extrabold text-slate-900 mb-4">📋 All Department Incidents & Live Timers</h3>
+        <div id="govIncidentList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
       </div>
     </div>
 
   </main>
 
-  <!-- ================= FLOATING AI CHATBOT WIDGET (LIQUID GLASS) ================= -->
+  <!-- ================= FLOATING AI CHATBOT ================= -->
   <div class="fixed bottom-5 right-5 z-50">
-    <button onclick="toggleChat()" id="chatToggleBtn" class="apple-btn-primary text-white px-4 py-3 rounded-full shadow-xl flex items-center gap-2 transition transform hover:scale-105">
-      <span class="text-base">💬</span>
-      <span class="text-xs font-bold">Ask CivicAI</span>
+    <button onclick="toggleChat()" class="apple-btn text-white px-4 py-3 rounded-full shadow-xl flex items-center gap-2">
+      <span>💬</span>
+      <span class="text-xs font-bold">CivicAI Help</span>
     </button>
 
-    <div id="chatWindow" class="hidden w-80 sm:w-96 liquid-glass rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[430px] mt-3 border border-white">
-      <div class="bg-white/80 p-3.5 border-b border-slate-200/80 flex justify-between items-center">
+    <div id="chatWindow" class="hidden w-80 sm:w-96 liquid-glass rounded-[28px] shadow-2xl overflow-hidden flex flex-col h-[420px] mt-3 border border-white">
+      <div class="bg-white/85 p-3.5 border-b border-slate-200/80 flex justify-between items-center">
         <div class="flex items-center space-x-2">
           <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
-          <span class="text-xs font-extrabold text-slate-800">CivicPulse AI Assistant</span>
+          <span class="text-xs font-extrabold text-slate-800">CivicPulse AI Concierge</span>
         </div>
         <button onclick="toggleChat()" class="text-slate-400 hover:text-slate-700 text-xs font-bold px-1.5">✕</button>
       </div>
-
       <div id="chatMessages" class="flex-1 p-3.5 overflow-y-auto space-y-2.5 text-xs custom-scroll">
         <div class="bg-white/90 p-3 rounded-2xl border border-slate-200/80 text-slate-700 shadow-sm">
-          👋 <strong>Namaste!</strong> Ask me how complaints are routed to their respective departments, or ask for the portal password!
+          👋 <strong>Namaste!</strong> Every complaint now records exact <strong>Upload Date & Time</strong> and starts a live <strong>SLA Countdown</strong>. If not fulfilled in time, it automatically reopens!
         </div>
       </div>
-
-      <div class="p-3 bg-white/80 border-t border-slate-200/80 flex gap-2">
-        <input id="chatInput" type="text" placeholder="Ask about road, water, password..." 
-          class="flex-1 apple-input rounded-xl px-3 py-2 text-xs text-slate-800" 
-          onkeypress="if(event.key==='Enter') sendChatMessage()" />
-        <button onclick="sendChatMessage()" class="apple-btn-primary text-white px-3.5 py-2 rounded-xl text-xs font-semibold">
-          Send
-        </button>
+      <div class="p-3 bg-white/85 border-t border-slate-200/80 flex gap-2">
+        <input id="chatInput" type="text" placeholder="Ask about SLA timer, road, water..." class="flex-1 apple-input rounded-xl px-3 py-2 text-xs text-slate-800" onkeypress="if(event.key==='Enter') sendChatMessage()" />
+        <button onclick="sendChatMessage()" class="apple-btn text-white px-3.5 py-2 rounded-xl text-xs font-bold">Send</button>
       </div>
     </div>
   </div>
 
-  <!-- ================= APPLICATION JAVASCRIPT ================= -->
+  <!-- ================= JAVASCRIPT ENGINE ================= -->
   <script>
-    // Official Respective Departments List
     const DEPARTMENTS = [
-      { id: "Public Works Dept (Roads & Potholes)", icon: "🛣️", short: "Roads & Potholes (PWD)" },
-      { id: "Municipal Water Board & Drainage", icon: "💧", short: "Water Works & Drainage" },
-      { id: "City Electrical Grid & Streetlights", icon: "⚡", short: "Electrical & Streetlights" },
-      { id: "Sanitation & Waste Management", icon: "🗑️", short: "Sanitation & Waste" },
-      { id: "Parks, Horticulture & Urban Forestry", icon: "🌳", short: "Parks & Horticulture" },
+      { id: "Public Works Dept (Roads & Potholes)", icon: "🛣️", short: "Roads & PWD" },
+      { id: "Municipal Water Board & Drainage", icon: "💧", short: "Water Works" },
+      { id: "City Electrical Grid & Streetlights", icon: "⚡", short: "Electrical Grid" },
+      { id: "Sanitation & Waste Management", icon: "🗑️", short: "Sanitation" },
+      { id: "Parks, Horticulture & Urban Forestry", icon: "🌳", short: "Parks & Trees" },
       { id: "Animal Control & Stray Management", icon: "🐕", short: "Animal Control" }
     ];
 
     let activeDeptTab = "ALL";
+    let publicStatusFilter = "ALL";
     let isDeptAuthenticated = false;
     let isGovAuthenticated = false;
     let pendingPortalTarget = null;
-
-    // Current Google Logged-in User
     let currentUser = null;
+    let lastProcessedUpdateCloudId = 0;
 
-    // 1. GOOGLE SIGN-IN POPUP LOGIC
+    // Helper: Format Current Date & Time cleanly
+    function formatDateTime(ms) {
+      const d = new Date(ms);
+      const dateStr = d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+      const timeStr = d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+      return { dateStr, timeStr };
+    }
+
+    // Helper: Format Remaining Milliseconds into HH:MM:SS
+    function formatCountdown(msLeft) {
+      if (msLeft <= 0) return "00:00:00";
+      const totalSeconds = Math.floor(msLeft / 1000);
+      const hrs = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+      const secs = String(totalSeconds % 60).padStart(2, '0');
+      return `${hrs}:${mins}:${secs}`;
+    }
+
+    // Update top header live clock every second
+    function updateHeaderClock() {
+      const now = formatDateTime(Date.now());
+      const el = document.getElementById("liveSystemClock");
+      if (el) el.innerText = `📅 ${now.dateStr} • 🕒 ${now.timeStr} IST`;
+    }
+    setInterval(updateHeaderClock, 1000);
+    updateHeaderClock();
+
+    // 1. GOOGLE SIGN-IN POPUP
     function initGoogleAuth() {
-      const saved = localStorage.getItem("civic_google_user_v2");
+      const saved = localStorage.getItem("civic_google_user_v4");
       if (saved) {
         currentUser = JSON.parse(saved);
         updateNavbarProfile();
-        // Still show popup if they haven't logged in during this session?
-        // User requested popup when opening the site so everyone can sign in with their own account:
-        if (!sessionStorage.getItem("civic_session_active")) {
+        if (!sessionStorage.getItem("civic_session_v4")) {
           openGoogleAuthModal();
         } else {
           closeGoogleAuthModal();
@@ -527,31 +602,23 @@
       document.getElementById("googleAuthModal").classList.add("hidden");
     }
 
-    function selectPresetGoogleAccount(name, email) {
-      completeGoogleSignIn(name, email);
-    }
-
     function submitCustomGoogleLogin() {
       const name = document.getElementById("customGoogleName").value.trim();
       const email = document.getElementById("customGoogleEmail").value.trim();
       if (!name || !email || !email.includes("@")) {
-        alert("Please enter both your Name and a valid Google Email ID (e.g., name@gmail.com).");
+        alert("Please enter your Full Name and a valid Google Email ID.");
         return;
       }
       completeGoogleSignIn(name, email);
     }
 
     function completeGoogleSignIn(name, email) {
-      currentUser = {
-        name: name,
-        email: email,
-        initial: name.charAt(0).toUpperCase()
-      };
-      localStorage.setItem("civic_google_user_v2", JSON.stringify(currentUser));
-      sessionStorage.setItem("civic_session_active", "true");
+      currentUser = { name, email, initial: name.charAt(0).toUpperCase() };
+      localStorage.setItem("civic_google_user_v4", JSON.stringify(currentUser));
+      sessionStorage.setItem("civic_session_v4", "true");
       updateNavbarProfile();
       closeGoogleAuthModal();
-      logPublic(`✅ Signed in with Google as ${currentUser.name} (${currentUser.email})`);
+      logPublic(`✅ Signed in with Google as ${currentUser.name}`);
     }
 
     function updateNavbarProfile() {
@@ -561,92 +628,51 @@
       document.getElementById("navUserAvatar").innerText = currentUser.initial;
     }
 
-    // 2. STRICT RESPECTIVE DEPARTMENT ROUTING ENGINE
+    // 2. STRICT RESPECTIVE DEPARTMENT CLASSIFIER
     function parseHinglish(text) {
       const lower = (text || "").toLowerCase();
-
-      // 1. ROAD & POTHOLES -> Public Works Dept (Roads & Potholes)
       if (
         lower.includes("road") || lower.includes("sadak") || lower.includes("sarak") ||
         lower.includes("gaddha") || lower.includes("gadda") || lower.includes("pothole") ||
         lower.includes("rasta") || lower.includes("lane") || lower.includes("highway") ||
-        lower.includes("footpath") || lower.includes("pavement") || lower.includes("crater") ||
-        lower.includes("bridge") || lower.includes("asphalt") || lower.includes("tut") ||
-        lower.includes("सड़क") || lower.includes("गड्ढा") || lower.includes("रास्ता")
+        lower.includes("footpath") || lower.includes("crater") || lower.includes("tut") ||
+        lower.includes("सड़क") || lower.includes("गड्ढा")
       ) {
-        return {
-          cat: "Pothole / Road",
-          dept: "Public Works Dept (Roads & Potholes)",
-          icon: "🛣️"
-        };
+        return { cat: "Pothole / Road", dept: "Public Works Dept (Roads & Potholes)", icon: "🛣️" };
       }
-
-      // 2. WATER & DRAINAGE -> Municipal Water Board & Drainage
       if (
         lower.includes("water") || lower.includes("paani") || lower.includes("pani") ||
         lower.includes("leak") || lower.includes("pipe") || lower.includes("flood") ||
         lower.includes("drain") || lower.includes("nala") || lower.includes("naali") ||
         lower.includes("sewage") || lower.includes("sewer") || lower.includes("gutter") ||
-        lower.includes("tanker") || lower.includes("supply") || lower.includes("jal") ||
-        lower.includes("पानी") || lower.includes("नाली") || lower.includes("पाइप")
+        lower.includes("पानी") || lower.includes("नाली")
       ) {
-        return {
-          cat: "Water & Drainage",
-          dept: "Municipal Water Board & Drainage",
-          icon: "💧"
-        };
+        return { cat: "Water & Drainage", dept: "Municipal Water Board & Drainage", icon: "💧" };
       }
-
-      // 3. ELECTRICITY & STREETLIGHTS -> City Electrical Grid & Streetlights
       if (
         lower.includes("light") || lower.includes("batti") || lower.includes("bijli") ||
         lower.includes("electric") || lower.includes("power") || lower.includes("outage") ||
         lower.includes("transformer") || lower.includes("spark") || lower.includes("wire") ||
         lower.includes("pole") || lower.includes("khamba") || lower.includes("current") ||
-        lower.includes("dark") || lower.includes("andhera") ||
-        lower.includes("बिजली") || lower.includes("लाइट") || lower.includes("खंभा")
+        lower.includes("बिजली") || lower.includes("लाइट")
       ) {
-        return {
-          cat: "Power & Streetlight",
-          dept: "City Electrical Grid & Streetlights",
-          icon: "⚡"
-        };
+        return { cat: "Power & Streetlight", dept: "City Electrical Grid & Streetlights", icon: "⚡" };
       }
-
-      // 4. PARKS & TREES -> Parks, Horticulture & Urban Forestry
       if (
         lower.includes("tree") || lower.includes("ped") || lower.includes("park") ||
         lower.includes("branch") || lower.includes("garden") || lower.includes("deforestation") ||
-        lower.includes("horticulture") || lower.includes("forest") || lower.includes("grass") ||
         lower.includes("पेड़") || lower.includes("पार्क")
       ) {
-        return {
-          cat: "Parks & Forestry",
-          dept: "Parks, Horticulture & Urban Forestry",
-          icon: "🌳"
-        };
+        return { cat: "Parks & Forestry", dept: "Parks, Horticulture & Urban Forestry", icon: "🌳" };
       }
-
-      // 5. STRAY ANIMALS -> Animal Control & Stray Management
       if (
         lower.includes("dog") || lower.includes("kutta") || lower.includes("kutte") ||
         lower.includes("stray") || lower.includes("animal") || lower.includes("monkey") ||
-        lower.includes("bandar") || lower.includes("cattle") || lower.includes("cow") ||
-        lower.includes("bite") || lower.includes("कुत्ता") || lower.includes("बंदर") || lower.includes("जानवर")
+        lower.includes("cattle") || lower.includes("cow") || lower.includes("कुत्ता")
       ) {
-        return {
-          cat: "Animal Control",
-          dept: "Animal Control & Stray Management",
-          icon: "🐕"
-        };
+        return { cat: "Animal Control", dept: "Animal Control & Stray Management", icon: "🐕" };
       }
-
-      // 6. SANITATION & GARBAGE -> Sanitation & Waste Management
-      return {
-        cat: "Sanitation & Garbage",
-        dept: "Sanitation & Waste Management",
-        icon: "🗑️"
-      };
+      return { cat: "Sanitation & Garbage", dept: "Sanitation & Waste Management", icon: "🗑️" };
     }
 
     function updateLiveRoutingBadge() {
@@ -659,29 +685,23 @@
     function fillSample(type) {
       const zone = document.getElementById("zoneInput");
       const desc = document.getElementById("descInput");
-      if (type === "road") {
-        zone.value = "Greenwood Colony - Block A";
-        desc.value = "Main road par bohot bada gaddha ho gaya hai aur sadak tut gayi hai.";
-      } else if (type === "water") {
-        zone.value = "Sector 4 - Main Market";
-        desc.value = "Peene ke paani ki pipeline leak kar rahi hai aur road par paani bhar gaya hai.";
-      } else if (type === "electric") {
-        zone.value = "Sunshine Heights - Phase 2";
-        desc.value = "Gali ki streetlight kharab hai aur bijli ke pole par spark ho raha hai.";
-      } else if (type === "garbage") {
-        zone.value = "Sector 12 - Hospital Road";
-        desc.value = "Colony ke gate par kachra aur kooda jama hai, safai nahi hui.";
-      } else if (type === "tree") {
-        zone.value = "Greenwood Colony - Block A";
-        desc.value = "Park mein bada ped gir gaya hai aur rasta block hai.";
-      } else if (type === "dog") {
-        zone.value = "Ward 7 - Industrial Belt";
-        desc.value = "Gali mein stray dogs aur awara kutte logon ko pareshan kar rahe hain.";
+      const samples = {
+        road: ["Greenwood Colony - Block A", "Main road par bohot bada gaddha ho gaya hai aur sadak tut gayi hai."],
+        water: ["Sector 4 - Main Market", "Peene ke paani ki pipeline leak kar rahi hai aur road par paani bhar gaya hai."],
+        electric: ["Sunshine Heights - Phase 2", "Gali ki streetlight kharab hai aur bijli ke pole par spark ho raha hai."],
+        garbage: ["Sector 12 - Hospital Road", "Colony ke gate par kachra aur kooda jama hai, safai nahi hui."],
+        tree: ["Greenwood Colony - Block A", "Park mein bada ped gir gaya hai aur rasta block hai."],
+        dog: ["Ward 7 - Industrial Belt", "Gali mein stray dogs aur awara kutte logon ko pareshan kar rahe hain."]
+      };
+      if (samples[type]) {
+        zone.value = samples[type][0];
+        desc.value = samples[type][1];
+        updateLiveRoutingBadge();
       }
-      updateLiveRoutingBadge();
     }
 
-    // Initial Incidents
+    // Baseline Incidents with Upload Date, Time & Live Deadline Timestamps
+    const nowInit = Date.now();
     let incidents = [
       {
         id: "INC-101",
@@ -690,10 +710,13 @@
         title: "Major Underground Water Main Burst & Flooding",
         department: "Municipal Water Board & Drainage",
         reporter: "Anita Verma (anita@gmail.com)",
-        duplicates: 3,
-        slaHoursLeft: 2,
+        uploadedAtDate: formatDateTime(nowInit - 1800000).dateStr,
+        uploadedAtTime: formatDateTime(nowInit - 1800000).timeStr,
+        deadlineMs: nowInit + 7200 * 1000, // 2 hours left
+        totalSlaSec: 7200,
+        reopenCount: 0,
         status: "IN_PROGRESS",
-        workingReport: "Field team dispatched with excavation truck. ETA: 3 hours.",
+        workingReport: "Field team dispatched with excavation truck.",
         evidenceNote: "Awaiting field crew repair photo & sensor check."
       },
       {
@@ -703,11 +726,14 @@
         title: "Deep Crater & Broken Road Blocking Residential Lane",
         department: "Public Works Dept (Roads & Potholes)",
         reporter: "Rajesh Kumar (rajesh@gmail.com)",
-        duplicates: 2,
-        slaHoursLeft: 1,
+        uploadedAtDate: formatDateTime(nowInit - 3200000).dateStr,
+        uploadedAtTime: formatDateTime(nowInit - 3200000).timeStr,
+        deadlineMs: nowInit + 95 * 1000, // 1 min 35 secs left for quick demo view
+        totalSlaSec: 3600,
+        reopenCount: 0,
         status: "IN_PROGRESS",
-        workingReport: "Rapid patch unit deployed. Asphalt mixer on route. ETA: 45 mins.",
-        evidenceNote: "SLA deadline approaching."
+        workingReport: "Rapid patch unit deployed. Asphalt mixer on route.",
+        evidenceNote: "SLA countdown approaching zero."
       },
       {
         id: "INC-103",
@@ -716,32 +742,133 @@
         title: "High-Mast Streetlight Grid Failure",
         department: "City Electrical Grid & Streetlights",
         reporter: "Suresh Nair (suresh@gmail.com)",
-        duplicates: 1,
-        slaHoursLeft: 6,
+        uploadedAtDate: formatDateTime(nowInit - 7200000).dateStr,
+        uploadedAtTime: formatDateTime(nowInit - 7200000).timeStr,
+        deadlineMs: 0,
+        totalSlaSec: 14400,
+        reopenCount: 0,
         status: "VERIFIED_CLOSED",
-        workingReport: "✅ Work Done: Transformer fuse replaced successfully.",
+        workingReport: "✅ Work Completed: Transformer fuse replaced & verified.",
         evidenceNote: "✅ Verified by smart grid sensor & citizen feedback."
       }
     ];
 
-    // 3. SUBMIT COMPLAINT & ROUTE TO RESPECTIVE DEPARTMENT (LOCAL + CLOUD)
+    // 3. LIVE 1-SECOND COUNTDOWN & AUTO-REOPEN ENGINE
+    function tickAllCountdowns() {
+      const now = Date.now();
+      let requiresFullReRender = false;
+
+      incidents.forEach(inc => {
+        if (inc.status === "VERIFIED_CLOSED") return;
+
+        const msLeft = (inc.deadlineMs || 0) - now;
+
+        // If Countdown reaches 00:00:00 and complaint is NOT fulfilled -> AUTO-REOPEN!
+        if (msLeft <= 0) {
+          inc.reopenCount = (inc.reopenCount || 0) + 1;
+          inc.status = "REOPENED_SLA_EXPIRED";
+          // Restart escalated countdown (e.g., 60 seconds for demo or 1 hour)
+          const nextCycleSec = inc.totalSlaSec <= 300 ? inc.totalSlaSec : 3600;
+          inc.deadlineMs = now + nextCycleSec * 1000;
+          inc.workingReport = `🚨 AUTO-REOPENED (Cycle #${inc.reopenCount}): SLA Countdown expired without fulfillment! Escalated to Municipal Commissioner.`;
+          inc.evidenceNote = `❌ Countdown hit 00:00:00 at ${formatDateTime(now).timeStr}. Case automatically reopened.`;
+          
+          saveStateOverrideLocally(inc);
+          logPublic(`🚨 SLA EXPIRED on ${inc.id}! Case automatically REOPENED (Cycle #${inc.reopenCount}).`);
+          requiresFullReRender = true;
+        } else {
+          // Update the live DOM timer text without losing input focus
+          const timerText = formatCountdown(msLeft);
+          document.querySelectorAll(`[data-timer-id="${inc.id}"]`).forEach(el => {
+            el.innerText = timerText;
+            if (msLeft < 30000) {
+              el.classList.add("text-rose-600", "timer-urgent");
+            }
+          });
+        }
+      });
+
+      if (requiresFullReRender) {
+        renderAll();
+      }
+    }
+    setInterval(tickAllCountdowns, 1000);
+
+    // LocalStorage State Persistence
+    function applyLocalStateOverrides() {
+      try {
+        const savedMap = JSON.parse(localStorage.getItem("civic_state_overrides_v4") || "{}");
+        incidents.forEach(inc => {
+          if (savedMap[inc.id]) {
+            inc.status = savedMap[inc.id].status;
+            inc.department = savedMap[inc.id].department;
+            inc.workingReport = savedMap[inc.id].workingReport;
+            inc.evidenceNote = savedMap[inc.id].evidenceNote;
+            if (savedMap[inc.id].deadlineMs !== undefined) inc.deadlineMs = savedMap[inc.id].deadlineMs;
+            if (savedMap[inc.id].reopenCount !== undefined) inc.reopenCount = savedMap[inc.id].reopenCount;
+          }
+        });
+      } catch (e) {}
+    }
+
+    function saveStateOverrideLocally(inc) {
+      try {
+        const savedMap = JSON.parse(localStorage.getItem("civic_state_overrides_v4") || "{}");
+        savedMap[inc.id] = {
+          status: inc.status,
+          department: inc.department,
+          workingReport: inc.workingReport,
+          evidenceNote: inc.evidenceNote,
+          deadlineMs: inc.deadlineMs,
+          reopenCount: inc.reopenCount || 0
+        };
+        localStorage.setItem("civic_state_overrides_v4", JSON.stringify(savedMap));
+      } catch (e) {}
+    }
+
+    async function broadcastIncidentUpdateToCloud(inc) {
+      saveStateOverrideLocally(inc);
+      renderAll();
+
+      const updatePacket = `__SYS_UPDATE_V4__|${inc.id}|${inc.status}|${inc.department}|${inc.workingReport}|${inc.evidenceNote}|${inc.deadlineMs}|${inc.reopenCount || 0}`;
+      try {
+        await fetch('/api/complaints', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            citizen_name: "Authority_Sync_Engine",
+            phone: "0000000000",
+            description: updatePacket,
+            category: "SYS_SYNC",
+            assigned_dept: inc.department,
+            latitude: 28.6139,
+            longitude: 77.2090
+          })
+        });
+      } catch (err) {}
+    }
+
+    // 4. CITIZEN SUBMIT COMPLAINT (LOGS EXACT UPLOAD DATE, TIME & DEADLINE)
     async function submitCitizenComplaint() {
       const zone = document.getElementById("zoneInput").value;
       const text = document.getElementById("descInput").value.trim();
-      if (!text) {
-        alert("Please enter or speak a complaint description first!");
-        return;
-      }
+      const slaSeconds = parseInt(document.getElementById("slaDurationInput").value, 10) || 14400;
+
+      if (!text) return alert("Please enter or speak your complaint description first!");
+
+      const nowMs = Date.now();
+      const dt = formatDateTime(nowMs);
+      const deadlineMs = nowMs + (slaSeconds * 1000);
 
       const parsed = parseHinglish(text);
       const reporterStr = currentUser ? `${currentUser.name} (${currentUser.email})` : "Verified Citizen";
       const btn = document.getElementById("submitBtn");
 
       btn.disabled = true;
-      btn.innerText = "⏳ Routing to " + parsed.dept + "...";
+      btn.innerText = "⏳ Uploading & Starting Countdown...";
 
-      // Encode metadata inside description so Cloud SQLite DB preserves exact Zone, Dept, and Google User
-      const packedDescription = `[${zone}|${parsed.cat}|${parsed.dept}|${reporterStr}] ${text}`;
+      // Pack 7 metadata fields into description so Cloud SQLite syncs Upload Date, Upload Time & Countdown Deadline across all devices
+      const packedDescription = `[${zone}|${parsed.cat}|${parsed.dept}|${reporterStr}|${dt.dateStr}|${dt.timeStr}|${deadlineMs}|${slaSeconds}] ${text}`;
 
       try {
         await fetch('/api/complaints', {
@@ -757,16 +884,12 @@
             longitude: 77.2090
           })
         });
-      } catch (err) {
-        console.warn("Cloud sync offline fallback:", err);
-      }
+      } catch (err) {}
 
-      // Immediately sync with cloud or insert locally if offline
       await syncCloudComplaints();
 
-      // Fallback local check if cloud didn't add it yet
-      const alreadyExists = incidents.some(i => i.title === text && i.zone === zone);
-      if (!alreadyExists) {
+      const exists = incidents.some(i => i.title === text && i.uploadedAtTime === dt.timeStr);
+      if (!exists) {
         const newId = "INC-" + (200 + incidents.length + 1);
         incidents.unshift({
           id: newId,
@@ -775,67 +898,85 @@
           title: text,
           department: parsed.dept,
           reporter: reporterStr,
-          duplicates: 1,
-          slaHoursLeft: 4,
+          uploadedAtDate: dt.dateStr,
+          uploadedAtTime: dt.timeStr,
+          deadlineMs: deadlineMs,
+          totalSlaSec: slaSeconds,
+          reopenCount: 0,
           status: "IN_PROGRESS",
-          workingReport: `Assigned to ${parsed.dept}. Awaiting field inspection.`,
-          evidenceNote: "Auto-routed by CivicPulse NLP Engine."
+          workingReport: `Uploaded on ${dt.dateStr} at ${dt.timeStr}. Routed to ${parsed.dept}.`,
+          evidenceNote: "Live SLA countdown initiated."
         });
       }
 
-      logPublic(`🚀 Routed "${text.slice(0, 28)}..." → [${parsed.dept}]`);
+      logPublic(`📅 Uploaded [${dt.dateStr} ${dt.timeStr}] → Routed to ${parsed.dept}. Countdown started!`);
       document.getElementById("descInput").value = "";
       btn.disabled = false;
-      btn.innerText = "Submit Complaint to Respective Department";
+      btn.innerText = "🚀 Upload Complaint & Start Countdown";
       renderAll();
     }
 
-    // 4. REAL-TIME CLOUD SYNC (PRESERVES EXACT RESPECTIVE DEPARTMENT)
+    // 5. CLOUD SYNC (RETRIEVES UPLOAD DATE, TIME, DEADLINE & STATUS UPDATES)
     async function syncCloudComplaints() {
       try {
         const res = await fetch('/api/complaints');
         const list = await res.json();
         if (!Array.isArray(list)) return;
 
-        let hasNew = false;
-        list.forEach(c => {
-          const ticketId = "INC-" + (200 + c.id);
+        const sorted = [...list].sort((a, b) => (a.id || 0) - (b.id || 0));
+        let changed = false;
 
+        // Pass 1: Citizen Complaints
+        sorted.forEach(c => {
+          const rawDesc = c.description || "";
+          if (rawDesc.startsWith("__SYS_UPDATE")) return;
+
+          const ticketId = "INC-" + (200 + c.id);
           if (!incidents.some(i => i.id === ticketId || i.cloud_id === c.id)) {
+            const fallbackDt = formatDateTime(Date.now());
             let zoneName = "Sector 4 - Main Market";
-            let cleanText = c.description || "Public grievance reported";
-            let reporterName = c.citizen_name || "Google Verified Citizen";
+            let cleanText = rawDesc || "Public grievance reported";
+            let reporterName = c.citizen_name || "Verified Citizen";
             let exactCat = null;
             let exactDept = null;
+            let upDate = fallbackDt.dateStr;
+            let upTime = fallbackDt.timeStr;
+            let dlMs = Date.now() + 14400 * 1000;
+            let slaSec = 14400;
 
-            // Check if packed with 4-part metadata: [Zone|Cat|Dept|Reporter] Text
-            const packedMatch = cleanText.match(/^\[(.*?)\|(.*?)\|(.*?)\|(.*?)\]\s*(.*)$/);
-            if (packedMatch) {
-              zoneName = packedMatch[1];
-              exactCat = packedMatch[2];
-              exactDept = packedMatch[3];
-              reporterName = packedMatch[4];
-              cleanText = packedMatch[5];
+            // Match 8-part packed header: [Zone|Cat|Dept|Reporter|Date|Time|DeadlineMs|SlaSec] Text
+            const fullMatch = cleanText.match(/^\[(.*?)\|(.*?)\|(.*?)\|(.*?)\|(.*?)\|(.*?)\|(.*?)\|(.*?)\]\s*(.*)$/);
+            if (fullMatch) {
+              zoneName = fullMatch[1];
+              exactCat = fullMatch[2];
+              exactDept = fullMatch[3];
+              reporterName = fullMatch[4];
+              upDate = fullMatch[5];
+              upTime = fullMatch[6];
+              dlMs = parseInt(fullMatch[7], 10) || dlMs;
+              slaSec = parseInt(fullMatch[8], 10) || 14400;
+              cleanText = fullMatch[9];
             } else {
-              // Check older 1-part format: [Zone] Text
-              const simpleMatch = cleanText.match(/^\[(.*?)\]\s*(.*)$/);
-              if (simpleMatch) {
-                zoneName = simpleMatch[1];
-                cleanText = simpleMatch[2];
+              // Older 4-part format fallback
+              const packed4 = cleanText.match(/^\[(.*?)\|(.*?)\|(.*?)\|(.*?)\]\s*(.*)$/);
+              if (packed4) {
+                zoneName = packed4[1];
+                exactCat = packed4[2];
+                exactDept = packed4[3];
+                reporterName = packed4[4];
+                cleanText = packed4[5];
               }
             }
 
-            // Always run parseHinglish on cleanText so Road goes to Road, Water goes to Water, etc.
-            const nlpResult = parseHinglish(cleanText);
-            const finalDept = exactDept || nlpResult.dept;
-            const finalCat = exactCat || nlpResult.cat;
+            const nlp = parseHinglish(cleanText);
+            const finalDept = exactDept || nlp.dept;
+            const finalCat = exactCat || nlp.cat;
 
-            // Avoid duplicate local entry if same title was just added
-            const localDupIndex = incidents.findIndex(i => !i.cloud_id && i.title === cleanText && i.zone === zoneName);
-            if (localDupIndex !== -1) {
-              incidents[localDupIndex].id = ticketId;
-              incidents[localDupIndex].cloud_id = c.id;
-              hasNew = true;
+            const localDupIdx = incidents.findIndex(i => !i.cloud_id && i.title === cleanText && i.zone === zoneName);
+            if (localDupIdx !== -1) {
+              incidents[localDupIdx].id = ticketId;
+              incidents[localDupIdx].cloud_id = c.id;
+              changed = true;
             } else {
               incidents.unshift({
                 id: ticketId,
@@ -845,84 +986,199 @@
                 title: cleanText,
                 department: finalDept,
                 reporter: reporterName,
-                duplicates: 1,
-                slaHoursLeft: 4,
-                status: c.status || "IN_PROGRESS",
-                workingReport: `Routed to ${finalDept}. Field team notified.`,
-                evidenceNote: "Synced live from Citizen Cloud Portal."
+                uploadedAtDate: upDate,
+                uploadedAtTime: upTime,
+                deadlineMs: dlMs,
+                totalSlaSec: slaSec,
+                reopenCount: 0,
+                status: "IN_PROGRESS",
+                workingReport: `Uploaded ${upDate} at ${upTime}. Routed to ${finalDept}.`,
+                evidenceNote: "Synced live with active SLA countdown."
               });
-              hasNew = true;
+              changed = true;
             }
           }
         });
 
-        if (hasNew) {
-          renderAll();
-        }
+        // Pass 2: Status & Completion Updates
+        sorted.forEach(c => {
+          const rawDesc = c.description || "";
+          if (!rawDesc.startsWith("__SYS_UPDATE")) return;
+
+          const parts = rawDesc.split("|");
+          if (parts.length >= 6) {
+            const targetId = parts[1];
+            const newStatus = parts[2];
+            const newDept = parts[3];
+            const newReport = parts[4];
+            const newEvidence = parts[5];
+            const newDeadline = parts[6] ? parseInt(parts[6], 10) : undefined;
+            const newReopenCnt = parts[7] ? parseInt(parts[7], 10) : undefined;
+
+            const targetInc = incidents.find(i => i.id === targetId);
+            if (targetInc) {
+              if (
+                targetInc.status !== newStatus ||
+                targetInc.workingReport !== newReport ||
+                targetInc.department !== newDept
+              ) {
+                targetInc.status = newStatus;
+                targetInc.department = newDept;
+                targetInc.workingReport = newReport;
+                targetInc.evidenceNote = newEvidence;
+                if (newDeadline !== undefined && !isNaN(newDeadline)) targetInc.deadlineMs = newDeadline;
+                if (newReopenCnt !== undefined && !isNaN(newReopenCnt)) targetInc.reopenCount = newReopenCnt;
+                saveStateOverrideLocally(targetInc);
+                changed = true;
+
+                if (c.id > lastProcessedUpdateCloudId) {
+                  lastProcessedUpdateCloudId = c.id;
+                  logPublic(`🔔 Status Sync: ${targetId} → [${newStatus}]`);
+                }
+              }
+            }
+          }
+        });
+
+        applyLocalStateOverrides();
+        if (changed) renderAll();
       } catch (err) {}
     }
 
-    // 5. RENDER ALL PORTALS & RESPECTIVE DEPARTMENT TABS
-    function renderAll() {
-      // Update top counters
-      document.getElementById("statTotal").innerText = incidents.length;
-      document.getElementById("statInProgress").innerText = incidents.filter(i => i.status !== "VERIFIED_CLOSED").length;
-      document.getElementById("statCompleted").innerText = incidents.filter(i => i.status === "VERIFIED_CLOSED").length;
+    window.addEventListener("storage", (e) => {
+      if (e.key === "civic_state_overrides_v4") {
+        applyLocalStateOverrides();
+        renderAll();
+      }
+    });
 
-      // A. PUBLIC PORTAL LIST
-      const pubFilter = document.getElementById("publicDeptFilter").value;
+    function setPublicStatusFilter(filter) {
+      publicStatusFilter = filter;
+      const activeBtn = "px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white text-slate-900 shadow-sm transition";
+      const inactiveBtn = "px-2.5 py-1 rounded-lg text-[11px] font-bold text-slate-600 hover:text-slate-900 transition";
+
+      document.getElementById("filterStatusAll").className = filter === "ALL" ? activeBtn : inactiveBtn;
+      document.getElementById("filterStatusPending").className = filter === "PENDING" ? activeBtn : inactiveBtn;
+      document.getElementById("filterStatusReopened").className = filter === "REOPENED" ? activeBtn : inactiveBtn;
+      document.getElementById("filterStatusDone").className = filter === "COMPLETED" ? activeBtn : inactiveBtn;
+      renderAll();
+    }
+
+    // 6. RENDER ALL CARDS (WITH UPLOAD DATE, UPLOAD TIME & LIVE COUNTDOWN)
+    function renderAll() {
+      const now = Date.now();
+      const total = incidents.length;
+      const completedCount = incidents.filter(i => i.status === "VERIFIED_CLOSED").length;
+      const reopenedCount = incidents.filter(i => i.status.includes("REOPENED") || (i.reopenCount || 0) > 0).length;
+      const pendingCount = total - completedCount;
+      const rate = total > 0 ? Math.round((completedCount / total) * 100) : 0;
+
+      document.getElementById("statTotal").innerText = total;
+      document.getElementById("statInProgress").innerText = pendingCount;
+      document.getElementById("statCompleted").innerText = completedCount;
+      document.getElementById("statRatePercent").innerText = `${rate}%`;
+      document.getElementById("statReopenedBadge").innerText = `${reopenedCount} Auto-Reopened`;
+
+      // A. PUBLIC PORTAL RENDER
+      const pubDept = document.getElementById("publicDeptFilter").value;
       const pubList = document.getElementById("publicIncidentList");
       pubList.innerHTML = "";
 
-      const visiblePublic = pubFilter === "ALL" ? incidents : incidents.filter(i => i.department === pubFilter);
+      let visiblePublic = pubDept === "ALL" ? incidents : incidents.filter(i => i.department === pubDept);
+      if (publicStatusFilter === "PENDING") {
+        visiblePublic = visiblePublic.filter(i => i.status !== "VERIFIED_CLOSED");
+      } else if (publicStatusFilter === "REOPENED") {
+        visiblePublic = visiblePublic.filter(i => i.status.includes("REOPENED") || (i.reopenCount || 0) > 0);
+      } else if (publicStatusFilter === "COMPLETED") {
+        visiblePublic = visiblePublic.filter(i => i.status === "VERIFIED_CLOSED");
+      }
 
-      visiblePublic.forEach(inc => {
-        const isDone = inc.status === "VERIFIED_CLOSED";
-        const isFake = inc.status === "REOPENED_FAKE_CLOSURE";
-        const isBreach = inc.status === "ESCALATED_SLA";
+      if (visiblePublic.length === 0) {
+        pubList.innerHTML = `<div class="col-span-2 p-8 text-center text-slate-400 text-xs bg-white/60 rounded-2xl border border-slate-200">No complaints match this filter.</div>`;
+      } else {
+        visiblePublic.forEach(inc => {
+          const isDone = inc.status === "VERIFIED_CLOSED";
+          const isReopened = inc.status.includes("REOPENED") || (inc.reopenCount || 0) > 0;
+          const msLeft = Math.max(0, (inc.deadlineMs || 0) - now);
+          const countdownStr = formatCountdown(msLeft);
 
-        let statusBadge = isDone
-          ? `<span class="bg-emerald-100 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 rounded-full text-[11px] font-bold">✅ Work Completed</span>`
-          : isFake
-          ? `<span class="bg-rose-100 text-rose-700 border border-rose-200 px-2.5 py-0.5 rounded-full text-[11px] font-bold">🚨 Fake Closure Reopened</span>`
-          : isBreach
-          ? `<span class="bg-amber-100 text-amber-800 border border-amber-300 px-2.5 py-0.5 rounded-full text-[11px] font-bold">⏰ SLA Escalated</span>`
-          : `<span class="bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-0.5 rounded-full text-[11px] font-semibold">⏳ In Progress (${inc.slaHoursLeft}h SLA)</span>`;
+          const cardClass = isDone ? "card-completed" : isReopened ? "card-reopened" : "card-active";
 
-        pubList.innerHTML += `
-          <div class="bg-white/80 hover:bg-white border border-slate-200/90 p-4 rounded-2xl shadow-sm transition space-y-2.5">
-            <div class="flex flex-wrap justify-between items-center gap-2">
-              <div class="flex items-center gap-2">
-                <span class="font-mono text-xs font-extrabold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-lg border border-blue-200">${inc.id}</span>
-                <span class="text-xs font-semibold text-slate-600">📍 ${inc.zone}</span>
+          let statusBadge = isDone
+            ? `<span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-[10px] font-extrabold shadow-sm">✅ WORK COMPLETED ✓</span>`
+            : isReopened
+            ? `<span class="bg-rose-600 text-white px-3 py-1 rounded-full text-[10px] font-extrabold animate-pulse">🚨 SLA EXPIRED • REOPENED (${inc.reopenCount || 1}x)</span>`
+            : `<span class="bg-blue-600 text-white px-3 py-1 rounded-full text-[10px] font-extrabold">⏱️ ACTIVE SLA COUNTDOWN</span>`;
+
+          pubList.innerHTML += `
+            <div class="${cardClass} p-5 rounded-[26px] flex flex-col justify-between space-y-3">
+              
+              <div class="space-y-2.5">
+                <!-- ID + Status Pill -->
+                <div class="flex flex-wrap justify-between items-center gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-xs font-extrabold bg-slate-900 text-white px-2.5 py-0.5 rounded-lg">${inc.id}</span>
+                    <span class="text-xs font-bold text-slate-700">📍 ${inc.zone}</span>
+                  </div>
+                  ${statusBadge}
+                </div>
+
+                <!-- Upload Date & Time Stamp Ribbon -->
+                <div class="flex flex-wrap items-center justify-between gap-2 bg-slate-100/90 border border-slate-200/80 px-3 py-1.5 rounded-xl text-[11px]">
+                  <span class="text-slate-600 font-medium">📅 Uploaded: <strong class="text-slate-900">${inc.uploadedAtDate || '28 Oct 2026'}</strong></span>
+                  <span class="text-slate-600 font-mono font-semibold">🕒 ${inc.uploadedAtTime || 'Live'}</span>
+                </div>
+
+                <!-- Complaint Title -->
+                <p class="text-sm font-extrabold text-slate-900 leading-snug">"${inc.title}"</p>
+
+                <!-- LIVE COUNTDOWN BOX OR COMPLETED BANNER -->
+                ${!isDone ? `
+                  <div class="${isReopened ? 'bg-rose-50 border-rose-300' : 'bg-amber-50/90 border-amber-200'} border p-3 rounded-2xl flex items-center justify-between">
+                    <div>
+                      <span class="text-[10px] font-extrabold uppercase tracking-wider ${isReopened ? 'text-rose-700' : 'text-amber-800'} block">
+                        ${isReopened ? '🚨 Reopened Escalation Timer' : '⏳ Time Left Before Auto-Reopen'}
+                      </span>
+                      <span class="text-[11px] text-slate-600">Case reopens automatically at 00:00:00</span>
+                    </div>
+                    <div class="bg-white px-3 py-1.5 rounded-xl border ${isReopened ? 'border-rose-300 text-rose-600' : 'border-amber-300 text-slate-900'} font-mono text-base font-black shadow-sm" data-timer-id="${inc.id}">
+                      ${countdownStr}
+                    </div>
+                  </div>
+                ` : `
+                  <div class="bg-emerald-600 text-white p-3 rounded-2xl flex items-center justify-between shadow-sm">
+                    <div>
+                      <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-100 block">🎉 SLA Fulfilled on Time</span>
+                      <span class="text-xs font-bold">Verified & Closed — Countdown Stopped</span>
+                    </div>
+                    <span class="font-mono text-xs bg-white/20 px-2.5 py-1 rounded-lg font-extrabold">100% DONE ✓</span>
+                  </div>
+                `}
               </div>
-              ${statusBadge}
+
+              <div class="space-y-2 pt-1 border-t border-slate-200/70">
+                <div class="flex flex-wrap items-center justify-between gap-1 text-[11px]">
+                  <span class="font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-lg border border-blue-200">🏛️ ${inc.department}</span>
+                  <span class="text-slate-500 truncate">👤 ${inc.reporter || "Citizen"}</span>
+                </div>
+
+                <div class="bg-white/80 border border-slate-200/80 p-2.5 rounded-xl text-[11px] text-slate-700">
+                  <strong>Status Log:</strong> ${inc.workingReport}
+                </div>
+              </div>
+
             </div>
+          `;
+        });
+      }
 
-            <p class="text-sm font-bold text-slate-900">"${inc.title}"</p>
-
-            <div class="flex flex-wrap items-center justify-between gap-2 pt-1 text-[11px]">
-              <span class="bg-slate-100 text-slate-800 font-semibold px-2.5 py-1 rounded-xl border border-slate-200">
-                🏛️ Section: <strong class="text-blue-700">${inc.department}</strong>
-              </span>
-              <span class="text-slate-500">👤 Reported by: <strong>${inc.reporter || "Citizen"}</strong></span>
-            </div>
-
-            <div class="bg-slate-50 border border-slate-200/80 p-2.5 rounded-xl text-xs text-slate-700">
-              <strong class="text-slate-900">Department Status:</strong> ${inc.workingReport}
-            </div>
-          </div>
-        `;
-      });
-
-      // B. DEPARTMENT PORTAL TABS & RESPECTIVE QUEUE
+      // B. DEPARTMENT PORTAL TABS & QUEUE
       const tabContainer = document.getElementById("deptSectionTabs");
       tabContainer.innerHTML = "";
 
-      // "All Sections" Tab
       const allActive = activeDeptTab === "ALL";
       tabContainer.innerHTML += `
-        <button onclick="selectDeptTab('ALL')" class="px-3 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-1.5 ${allActive ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'bg-white/80 text-slate-700 hover:bg-white border border-slate-200'}">
+        <button onclick="selectDeptTab('ALL')" class="px-3.5 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-1.5 ${allActive ? 'bg-blue-600 text-white shadow-md' : 'bg-white/80 text-slate-700 hover:bg-white border border-slate-200'}">
           <span>📂 All Sections</span>
           <span class="px-1.5 py-0.2 rounded-full text-[10px] ${allActive ? 'bg-white text-blue-600' : 'bg-slate-200 text-slate-700'}">${incidents.length}</span>
         </button>
@@ -932,7 +1188,7 @@
         const count = incidents.filter(i => i.department === d.id).length;
         const isSelected = activeDeptTab === d.id;
         tabContainer.innerHTML += `
-          <button onclick="selectDeptTab('${d.id}')" class="px-3 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-1.5 ${isSelected ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'bg-white/80 text-slate-700 hover:bg-white border border-slate-200'}">
+          <button onclick="selectDeptTab('${d.id}')" class="px-3.5 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-1.5 ${isSelected ? 'bg-blue-600 text-white shadow-md' : 'bg-white/80 text-slate-700 hover:bg-white border border-slate-200'}">
             <span>${d.icon} ${d.short}</span>
             <span class="px-1.5 py-0.2 rounded-full text-[10px] ${isSelected ? 'bg-white text-blue-600' : count > 0 ? 'bg-blue-100 text-blue-700 font-extrabold' : 'bg-slate-100 text-slate-400'}">${count}</span>
           </button>
@@ -940,46 +1196,57 @@
       });
 
       document.getElementById("currentDeptHeading").innerText =
-        activeDeptTab === "ALL" ? "📋 All Respective Department Queues" : `📋 Section Queue: ${activeDeptTab}`;
+        activeDeptTab === "ALL" ? "📋 All Respective Department Queues" : `📋 Respective Section Queue: ${activeDeptTab}`;
 
       const deptList = document.getElementById("deptIncidentList");
       deptList.innerHTML = "";
       const filteredDept = activeDeptTab === "ALL" ? incidents : incidents.filter(i => i.department === activeDeptTab);
 
       if (filteredDept.length === 0) {
-        deptList.innerHTML = `<div class="p-8 text-center text-slate-400 text-xs bg-white/50 rounded-2xl border border-slate-200">No complaints currently in ${activeDeptTab}.</div>`;
+        deptList.innerHTML = `<div class="col-span-2 p-8 text-center text-slate-400 text-xs bg-white/50 rounded-2xl border border-slate-200">No complaints in ${activeDeptTab}.</div>`;
       } else {
         filteredDept.forEach(inc => {
           const isDone = inc.status === "VERIFIED_CLOSED";
+          const isReopened = inc.status.includes("REOPENED") || (inc.reopenCount || 0) > 0;
+          const msLeft = Math.max(0, (inc.deadlineMs || 0) - now);
+
           deptList.innerHTML += `
-            <div class="bg-white/85 border ${isDone ? 'border-emerald-300' : 'border-slate-200'} p-4 rounded-2xl shadow-sm space-y-3 text-xs">
-              <div class="flex flex-wrap justify-between items-center gap-2">
-                <div class="flex items-center gap-2">
-                  <span class="font-mono font-extrabold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-lg border border-blue-200">${inc.id}</span>
-                  <span class="font-bold text-slate-700">📍 ${inc.zone}</span>
-                  <span class="bg-indigo-50 text-indigo-700 border border-indigo-200 px-2 py-0.5 rounded-lg font-semibold">${inc.department}</span>
+            <div class="${isDone ? 'card-completed' : isReopened ? 'card-reopened' : 'card-active'} p-5 rounded-[26px] space-y-3 text-xs flex flex-col justify-between">
+              <div class="space-y-2.5">
+                <div class="flex flex-wrap justify-between items-center gap-2">
+                  <span class="font-mono font-extrabold bg-slate-900 text-white px-2.5 py-0.5 rounded-lg">${inc.id} • ${inc.zone}</span>
+                  ${!isDone ? `
+                    <span class="font-mono font-black text-sm bg-amber-100 text-amber-900 border border-amber-300 px-3 py-0.5 rounded-xl" data-timer-id="${inc.id}">
+                      ${formatCountdown(msLeft)}
+                    </span>
+                  ` : `<span class="bg-emerald-600 text-white px-3 py-0.5 rounded-full font-extrabold">✅ Completed</span>`}
                 </div>
-                <span class="${isDone ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'} px-2.5 py-0.5 rounded-full font-bold">
-                  ${isDone ? '✅ Completed' : '⏳ SLA: ' + inc.slaHoursLeft + 'h left'}
-                </span>
+
+                <div class="text-[11px] text-slate-500 flex justify-between bg-slate-100 px-3 py-1 rounded-lg">
+                  <span>📅 Uploaded: <strong>${inc.uploadedAtDate || 'Today'}</strong></span>
+                  <span>🕒 <strong>${inc.uploadedAtTime || 'Live'}</strong></span>
+                </div>
+
+                <p class="text-sm font-extrabold text-slate-900">"${inc.title}"</p>
               </div>
 
-              <p class="text-sm font-bold text-slate-900">"${inc.title}"</p>
-              <p class="text-[11px] text-slate-500">Reported by: <strong>${inc.reporter || "Citizen"}</strong></p>
-
               <div class="pt-2 border-t border-slate-200/80 space-y-2">
-                <label class="text-slate-600 font-semibold block">Update Field Working Report / ETA:</label>
                 <div class="flex gap-2">
                   <input id="report_${inc.id}" type="text" value="${inc.workingReport}" class="w-full apple-input px-3 py-2 rounded-xl text-slate-800" />
-                  <button onclick="submitWorkingReport('${inc.id}')" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-xl transition whitespace-nowrap">
-                    Update Report
+                  <button onclick="submitWorkingReport('${inc.id}')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3.5 py-2 rounded-xl transition whitespace-nowrap">
+                    Update
                   </button>
                 </div>
                 ${!isDone ? `
-                  <button onclick="markTaskComplete('${inc.id}')" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl transition shadow-sm">
-                    ✔ Mark Work Done & Fulfill Complaint
+                  <button onclick="markTaskComplete('${inc.id}')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-2.5 rounded-xl transition shadow-md">
+                    ✔ Mark Work Done (Stop Timer & Update Public)
                   </button>
-                ` : `<p class="text-emerald-700 font-bold text-center pt-1">✅ Work verified & marked complete across all portals!</p>`}
+                ` : `
+                  <div class="flex items-center justify-between bg-emerald-100 border border-emerald-300 text-emerald-800 px-3 py-2 rounded-xl font-bold">
+                    <span>✅ Showing Completed on Public Portal</span>
+                    <button onclick="reopenTask('${inc.id}')" class="text-rose-600 underline ml-2">Reopen</button>
+                  </div>
+                `}
               </div>
             </div>
           `;
@@ -991,36 +1258,51 @@
       govList.innerHTML = "";
       incidents.forEach(inc => {
         const isDone = inc.status === "VERIFIED_CLOSED";
+        const isReopened = inc.status.includes("REOPENED") || (inc.reopenCount || 0) > 0;
+        const msLeft = Math.max(0, (inc.deadlineMs || 0) - now);
+
         govList.innerHTML += `
-          <div class="bg-white/85 border border-slate-200 p-4 rounded-2xl shadow-sm space-y-3 text-xs">
-            <div class="flex flex-wrap justify-between items-center gap-2">
-              <div>
-                <span class="font-mono font-extrabold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-lg border border-blue-200">${inc.id}</span>
-                <span class="text-slate-600 font-semibold ml-2">📍 ${inc.zone} • Citizen: ${inc.reporter || "Resident"}</span>
-              </div>
-              <span class="${isDone ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'} px-2.5 py-0.5 rounded-full font-bold">
-                ${isDone ? '🎉 Fulfilled ✓' : 'SLA Left: ' + inc.slaHoursLeft + 'h'}
-              </span>
-            </div>
-
-            <p class="text-sm font-bold text-slate-900">"${inc.title}"</p>
-
-            <div class="bg-slate-50 border border-slate-200 p-2.5 rounded-xl text-slate-700">
-              <strong>Department Field Log:</strong> ${inc.workingReport}
-            </div>
-
-            <div class="flex flex-wrap items-center gap-3 pt-2 border-t border-slate-200/80">
-              <label class="text-slate-600 font-semibold">Respective Dept:</label>
-              <select onchange="assignDepartment('${inc.id}', this.value)" class="apple-input p-2 rounded-xl text-slate-800 font-semibold">
-                ${DEPARTMENTS.map(d => `<option value="${d.id}" ${inc.department === d.id ? 'selected' : ''}>${d.icon} ${d.id}</option>`).join('')}
-              </select>
-
-              <div class="ml-auto">
+          <div class="${isDone ? 'card-completed' : isReopened ? 'card-reopened' : 'card-active'} p-5 rounded-[26px] space-y-3 text-xs flex flex-col justify-between">
+            <div class="space-y-2.5">
+              <div class="flex flex-wrap justify-between items-center gap-2">
+                <span class="font-mono font-extrabold bg-slate-900 text-white px-2.5 py-0.5 rounded-lg">${inc.id} • ${inc.zone}</span>
                 ${!isDone ? `
-                  <button onclick="adminVerifyAndClose('${inc.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl font-bold transition shadow-sm">
-                    ✔ Verify & Close Ticket
+                  <span class="font-mono font-black text-sm ${isReopened ? 'bg-rose-600 text-white' : 'bg-amber-100 text-amber-900 border border-amber-300'} px-3 py-0.5 rounded-xl" data-timer-id="${inc.id}">
+                    ${formatCountdown(msLeft)}
+                  </span>
+                ` : `<span class="bg-emerald-600 text-white px-3 py-0.5 rounded-full font-extrabold">✅ Verified Completed</span>`}
+              </div>
+
+              <div class="text-[11px] text-slate-600 flex justify-between bg-slate-100 px-3 py-1 rounded-lg">
+                <span>📅 Uploaded: <strong>${inc.uploadedAtDate || 'Today'}</strong> at <strong>${inc.uploadedAtTime || 'Live'}</strong></span>
+                <span>Reopens: <strong>${inc.reopenCount || 0}</strong></span>
+              </div>
+
+              <p class="text-sm font-extrabold text-slate-900">"${inc.title}"</p>
+
+              <div class="bg-white/90 border border-slate-200 p-2.5 rounded-xl text-slate-700">
+                <strong>Live Status:</strong> ${inc.workingReport}
+              </div>
+            </div>
+
+            <div class="space-y-2 pt-2 border-t border-slate-200/80">
+              <div class="flex items-center gap-2">
+                <label class="text-slate-600 font-bold whitespace-nowrap">Dept:</label>
+                <select onchange="assignDepartment('${inc.id}', this.value)" class="w-full apple-input p-2 rounded-xl text-slate-800 font-bold">
+                  ${DEPARTMENTS.map(d => `<option value="${d.id}" ${inc.department === d.id ? 'selected' : ''}>${d.icon} ${d.id}</option>`).join('')}
+                </select>
+              </div>
+
+              <div class="flex justify-end gap-2">
+                ${!isDone ? `
+                  <button onclick="adminVerifyAndClose('${inc.id}')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-extrabold transition shadow-md">
+                    ✔ Verify & Mark Completed (Sync to Public)
                   </button>
-                ` : `<span class="text-emerald-700 font-bold">Verified Closed ✓</span>`}
+                ` : `
+                  <button onclick="reopenTask('${inc.id}')" class="w-full bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 py-2 rounded-xl font-bold">
+                    🔄 Reopen Case & Restart Countdown
+                  </button>
+                `}
               </div>
             </div>
           </div>
@@ -1033,29 +1315,96 @@
       renderAll();
     }
 
-    // 6. PORTAL PASSWORD MODAL & SWITCHING
-    function tryOpenDeptPortal() {
-      if (isDeptAuthenticated) {
-        switchPortal('dept');
-      } else {
-        pendingPortalTarget = 'dept';
-        document.getElementById("pwdModalTitle").innerText = "👷 Department Worker Access";
-        document.getElementById("portalPwdInput").value = "";
-        document.getElementById("passwordModal").classList.remove("hidden");
-        document.getElementById("portalPwdInput").focus();
+    // 7. WORKER & AUTHORITY ACTIONS
+    function submitWorkingReport(id) {
+      const text = document.getElementById("report_" + id).value.trim();
+      if (!text) return alert("Please enter a valid report update.");
+      const inc = incidents.find(i => i.id === id);
+      if (inc) {
+        inc.workingReport = text;
+        broadcastIncidentUpdateToCloud(inc);
       }
     }
 
-    function tryOpenGovPortal() {
-      if (isGovAuthenticated) {
-        switchPortal('gov');
-      } else {
-        pendingPortalTarget = 'gov';
-        document.getElementById("pwdModalTitle").innerText = "🛡️ Government Authority Access";
-        document.getElementById("portalPwdInput").value = "";
-        document.getElementById("passwordModal").classList.remove("hidden");
-        document.getElementById("portalPwdInput").focus();
+    function markTaskComplete(id) {
+      const inc = incidents.find(i => i.id === id);
+      if (inc) {
+        inc.status = "VERIFIED_CLOSED";
+        inc.workingReport = `✅ Work Completed & Verified on ${formatDateTime(Date.now()).timeStr}!`;
+        inc.evidenceNote = "✅ Fulfilled before SLA expiry.";
+        broadcastIncidentUpdateToCloud(inc);
+        logPublic(`🎉 ${id} marked COMPLETED! Countdown stopped & Public Portal updated.`);
       }
+    }
+
+    function adminVerifyAndClose(id) {
+      const inc = incidents.find(i => i.id === id);
+      if (inc) {
+        inc.status = "VERIFIED_CLOSED";
+        inc.workingReport = `✅ Officially Verified & Closed by Municipal Authority at ${formatDateTime(Date.now()).timeStr}.`;
+        inc.evidenceNote = "✅ Authority verification complete.";
+        broadcastIncidentUpdateToCloud(inc);
+        logPublic(`🛡️ Authority verified ${id} COMPLETED!`);
+      }
+    }
+
+    function reopenTask(id) {
+      const inc = incidents.find(i => i.id === id);
+      if (inc) {
+        inc.reopenCount = (inc.reopenCount || 0) + 1;
+        inc.status = "REOPENED_SLA_EXPIRED";
+        inc.deadlineMs = Date.now() + 60 * 1000; // 60 sec new countdown
+        inc.workingReport = `🚨 Case Reopened (Cycle #${inc.reopenCount}) — New 60s priority SLA countdown started!`;
+        broadcastIncidentUpdateToCloud(inc);
+      }
+    }
+
+    function assignDepartment(id, newDept) {
+      const inc = incidents.find(i => i.id === id);
+      if (inc) {
+        inc.department = newDept;
+        inc.workingReport = `Reassigned to ${newDept} by Authority.`;
+        broadcastIncidentUpdateToCloud(inc);
+      }
+    }
+
+    function adminSimulateSLABreach() {
+      const target = incidents.find(i => i.status !== "VERIFIED_CLOSED") || incidents[0];
+      if (target) {
+        target.deadlineMs = Date.now() - 1000; // Force timer to hit 00:00:00 immediately
+        tickAllCountdowns();
+        broadcastIncidentUpdateToCloud(target);
+      }
+    }
+
+    function adminSimulateFakeClosure() {
+      const target = incidents[0];
+      if (target) {
+        target.reopenCount = (target.reopenCount || 0) + 1;
+        target.status = "REOPENED_FAKE_CLOSURE";
+        target.deadlineMs = Date.now() + 90 * 1000;
+        target.workingReport = "🚨 FAKE CLOSURE REJECTED: Telemetry audit failed. Case Reopened with new countdown!";
+        broadcastIncidentUpdateToCloud(target);
+      }
+    }
+
+    // 8. PORTAL AUTHENTICATION
+    function tryOpenDeptPortal() {
+      if (isDeptAuthenticated) return switchPortal('dept');
+      pendingPortalTarget = 'dept';
+      document.getElementById("pwdModalTitle").innerText = "👷 Department Worker Login";
+      document.getElementById("portalPwdInput").value = "";
+      document.getElementById("passwordModal").classList.remove("hidden");
+      document.getElementById("portalPwdInput").focus();
+    }
+
+    function tryOpenGovPortal() {
+      if (isGovAuthenticated) return switchPortal('gov');
+      pendingPortalTarget = 'gov';
+      document.getElementById("pwdModalTitle").innerText = "🛡️ Government Authority Login";
+      document.getElementById("portalPwdInput").value = "";
+      document.getElementById("passwordModal").classList.remove("hidden");
+      document.getElementById("portalPwdInput").focus();
     }
 
     function closePasswordModal() {
@@ -1076,97 +1425,28 @@
       }
     }
 
-    function logoutDeptPortal() {
-      isDeptAuthenticated = false;
-      switchPortal('citizen');
-    }
-
-    function logoutGovPortal() {
-      isGovAuthenticated = false;
-      switchPortal('citizen');
-    }
+    function logoutDeptPortal() { isDeptAuthenticated = false; switchPortal('citizen'); }
+    function logoutGovPortal() { isGovAuthenticated = false; switchPortal('citizen'); }
 
     function switchPortal(portal) {
       document.getElementById("citizenPortalView").classList.add("hidden");
       document.getElementById("deptPortalView").classList.add("hidden");
       document.getElementById("govPortalView").classList.add("hidden");
 
-      const inactiveClass = "px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all";
-      const activeClass = "px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-900 shadow-sm transition-all";
+      const inactive = "px-4 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 transition-all";
+      const active = "px-4 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-900 shadow-sm transition-all";
 
-      document.getElementById("btnCitizen").className = inactiveClass;
-      document.getElementById("btnDept").className = inactiveClass;
-      document.getElementById("btnGov").className = inactiveClass;
+      document.getElementById("btnCitizen").className = portal === 'citizen' ? active : inactive;
+      document.getElementById("btnDept").className = portal === 'dept' ? active : inactive;
+      document.getElementById("btnGov").className = portal === 'gov' ? active : inactive;
 
-      if (portal === 'citizen') {
-        document.getElementById("citizenPortalView").classList.remove("hidden");
-        document.getElementById("btnCitizen").className = activeClass;
-      } else if (portal === 'dept') {
-        document.getElementById("deptPortalView").classList.remove("hidden");
-        document.getElementById("btnDept").className = activeClass;
-      } else if (portal === 'gov') {
-        document.getElementById("govPortalView").classList.remove("hidden");
-        document.getElementById("btnGov").className = activeClass;
-      }
+      if (portal === 'citizen') document.getElementById("citizenPortalView").classList.remove("hidden");
+      if (portal === 'dept') document.getElementById("deptPortalView").classList.remove("hidden");
+      if (portal === 'gov') document.getElementById("govPortalView").classList.remove("hidden");
       renderAll();
     }
 
-    // 7. WORKER & AUTHORITY ACTIONS
-    function submitWorkingReport(id) {
-      const text = document.getElementById("report_" + id).value.trim();
-      if (!text) return alert("Please enter a valid report update.");
-      const inc = incidents.find(i => i.id === id);
-      if (inc) {
-        inc.workingReport = text;
-        renderAll();
-      }
-    }
-
-    function markTaskComplete(id) {
-      const inc = incidents.find(i => i.id === id);
-      if (inc) {
-        inc.status = "VERIFIED_CLOSED";
-        inc.workingReport = "✅ Work Done & Verified by Field Crew!";
-        renderAll();
-      }
-    }
-
-    function assignDepartment(id, newDept) {
-      const inc = incidents.find(i => i.id === id);
-      if (inc) {
-        inc.department = newDept;
-        inc.workingReport = `Reassigned to ${newDept} by Municipal Authority.`;
-        renderAll();
-      }
-    }
-
-    function adminVerifyAndClose(id) {
-      const inc = incidents.find(i => i.id === id);
-      if (inc) {
-        inc.status = "VERIFIED_CLOSED";
-        inc.workingReport = "✅ Officially Verified & Closed by Municipal Authority.";
-        renderAll();
-      }
-    }
-
-    function adminSimulateSLABreach() {
-      if (incidents.length > 0) {
-        incidents[0].status = "ESCALATED_SLA";
-        incidents[0].slaHoursLeft = 0;
-        incidents[0].workingReport = "⏰ SLA BREACHED: Auto-escalated to Zonal Commissioner!";
-        renderAll();
-      }
-    }
-
-    function adminSimulateFakeClosure() {
-      if (incidents.length > 0) {
-        incidents[0].status = "REOPENED_FAKE_CLOSURE";
-        incidents[0].workingReport = "🚨 FAKE CLOSURE REJECTED: Sensor audit failed. Case Reopened!";
-        renderAll();
-      }
-    }
-
-    // 8. SPEECH RECOGNITION & CHATBOT
+    // 9. VOICE & CHATBOT
     let complaintRecognition = null;
     let isComplaintListening = false;
 
@@ -1192,7 +1472,7 @@
         complaintRecognition.start();
         isComplaintListening = true;
         const btn = document.getElementById('complaintMicBtn');
-        btn.className = "bg-rose-500 text-white text-[11px] font-semibold px-2.5 py-1 rounded-xl flex items-center gap-1 animate-pulse";
+        btn.className = "bg-rose-500 text-white text-xs font-bold px-3 py-1.5 rounded-xl flex items-center gap-1 animate-pulse";
         btn.innerText = "🎙️ Listening...";
       }
     }
@@ -1200,8 +1480,8 @@
     function stopListeningUI() {
       isComplaintListening = false;
       const btn = document.getElementById('complaintMicBtn');
-      btn.className = "bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-[11px] font-semibold px-2.5 py-1 rounded-xl flex items-center gap-1 transition";
-      btn.innerText = "🎙️ Speak Complaint";
+      btn.className = "bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-xs font-bold px-3 py-1.5 rounded-xl flex items-center gap-1 transition";
+      btn.innerText = "🎙️ Speak";
     }
 
     function toggleChat() {
@@ -1219,9 +1499,9 @@
 
       setTimeout(() => {
         const parsed = parseHinglish(msg);
-        let reply = `Based on your message, our AI routes this directly to **${parsed.icon} ${parsed.dept}**.`;
+        let reply = `Routed to **${parsed.icon} ${parsed.dept}**. Upload date & time are stamped, and if the countdown hits 00:00:00 before completion, the case automatically reopens!`;
         if (msg.toLowerCase().includes("password")) {
-          reply = "🔐 The passkey for both Department & Govt Authority portals is: 12345678";
+          reply = "🔐 Passkey for Department & Authority portals is: 12345678";
         }
         box.innerHTML += `<div class="text-left"><span class="inline-block bg-white border border-slate-200 text-slate-700 px-3 py-2 rounded-2xl max-w-[85%] shadow-sm">${reply}</span></div>`;
         box.scrollTop = box.scrollHeight;
@@ -1234,14 +1514,14 @@
       log.innerHTML = `<div class="border-l-2 border-blue-500 pl-2"><span class="text-slate-400">[${time}]</span> ${msg}</div>` + log.innerHTML;
     }
 
-    // Initialize Application
+    // Startup
+    applyLocalStateOverrides();
     initGoogleAuth();
     updateLiveRoutingBadge();
     renderAll();
-    logPublic("Apple Liquid Glass UI initialized. Respective Department Routing active.");
+    logPublic("CivicPulse OS initialized. Upload Date/Time & Live SLA Countdown active.");
 
-    // Poll Render Cloud DB every 3 seconds
-    setInterval(syncCloudComplaints, 3000);
+    setInterval(syncCloudComplaints, 2000);
     syncCloudComplaints();
   </script>
 </body>
